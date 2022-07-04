@@ -24,17 +24,12 @@ const ArticlesPage: NextPage<{
     maxButtons: 5,
     isHidden(item: ArticleItem) {
       if (search.trim() == "") {
-        return (
-          item.categories.includes(2) ||
-          item.categories.includes(3)
-        );
+        return true;
       }
       return (
         item.title.rendered
           .toLowerCase()
-          .includes(search.trim().toLowerCase()) &&
-        (item.categories.includes(2) ||
-          item.categories.includes(3))
+          .search(search.trim().toLowerCase()) > -1
       );
     },
     searchDeps: [search],
@@ -60,44 +55,52 @@ const ArticlesPage: NextPage<{
       key="articles-page"
     >
       <h1>/articles</h1>
+      <ul>
+        {paginatedList.length > 0 ? (
+          paginatedList.map((post: ArticleItem) => (
+            <li>
+              <Link
+                href={`/article/${post.slug}`}
+                passHref
+                scroll={false}
+              >
+                <a>
+                  <strong
+                    dangerouslySetInnerHTML={{
+                      __html: post.title.rendered,
+                    }}
+                  />
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: post.excerpt.rendered,
+                    }}
+                  />
+                </a>
+              </Link>
+            </li>
+          ))
+        ) : (
+          <Error>
+            No articles found for "<span>{search}</span>"
+          </Error>
+        )}
+      </ul>
       <SearchInput
         label="Search"
-        placeholder="#tips"
-        style={{ width: "100%" }}
+        placeholder="Type something to filter articles..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        inverted
       />
-      <ul>
-        {paginatedList.map((post: ArticleItem) => (
-          <li>
-            <Link
-              href={`/article/${post.slug}`}
-              passHref
-              scroll={false}
-            >
-              <a>
-                <strong
-                  dangerouslySetInnerHTML={{
-                    __html: post.title.rendered,
-                  }}
-                />
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: post.excerpt.rendered,
-                  }}
-                />
-              </a>
-            </Link>
-          </li>
-        ))}
-      </ul>
       <PaginationContainer>
-        <Button
-          size="sm"
-          kind="ghost"
-          icon={<ArrowLeft />}
-          onClick={() => pagination.previousPage()}
-        />
+        {pagination.buttons.length > 1 && (
+          <Button
+            size="sm"
+            kind="ghost"
+            icon={<ArrowLeft />}
+            onClick={() => pagination.previousPage()}
+          />
+        )}
         {pagination.buttons.map((button) =>
           typeof button === "string" ? (
             "..."
@@ -115,16 +118,27 @@ const ArticlesPage: NextPage<{
             </Button>
           )
         )}
-        <Button
-          size="sm"
-          kind="ghost"
-          icon={<ArrowRight />}
-          onClick={() => pagination.nextPage()}
-        />
+        {pagination.buttons.length > 1 && (
+          <Button
+            size="sm"
+            kind="ghost"
+            icon={<ArrowRight />}
+            onClick={() => pagination.nextPage()}
+          />
+        )}
       </PaginationContainer>
     </Container>
   );
 };
+
+const Error = styled.li`
+  ${applyFontKind("code")}
+  color:var(--c-focus-01);
+  padding-bottom: var(--s-05);
+  span {
+    color: var(--c-text-01);
+  }
+`;
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -189,7 +203,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts: PostsResponse = await res.json();
   return {
     props: {
-      posts: posts,
+      posts: posts.filter(
+        (item) =>
+          item.categories.includes(2) ||
+          item.categories.includes(3)
+      ),
     },
   };
 };

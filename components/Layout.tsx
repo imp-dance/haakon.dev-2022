@@ -11,7 +11,6 @@ export const Layout: React.FC<{
   return (
     <MainContainer>
       <GlobalStyles />
-      {children}
       <DMSwitch
         checked={isDM}
         onChange={setDM}
@@ -21,6 +20,7 @@ export const Layout: React.FC<{
           className: "topSwitch",
         }}
       />
+      {children}
     </MainContainer>
   );
 };
