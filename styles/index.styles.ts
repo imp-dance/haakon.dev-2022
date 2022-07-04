@@ -15,7 +15,7 @@ export const HeaderContainer = styled.div`
     margin: 0;
   }
   h1 {
-    font-size: clamp(22px, 4vw, 90px);
+    font-size: clamp(26px, 4vw, 90px);
   }
   h3 {
     font-size: clamp(16px, 2vw, 22px);
