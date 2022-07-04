@@ -16,6 +16,8 @@ import {
   ArrowRight,
   Search,
 } from "@styled-icons/material";
+import Head from "next/head";
+import { formatDistance } from "date-fns";
 
 type PostsResponse = Array<ArticleItem>;
 
@@ -66,10 +68,13 @@ const ArticlesPage: NextPage<{
       }}
       transition={{
         ease: "anticipate",
-        duration: 0.8,
+        duration: 0.6,
       }}
       key="articles-page"
     >
+      <Head>
+        <title>Articles | haakon.dev</title>
+      </Head>
       <h1>
         <Link href="/" passHref>
           <a>haakon.dev</a>
@@ -117,8 +122,26 @@ const ArticlesPage: NextPage<{
       )}
       <ul>
         {paginatedList.length > 0 ? (
-          paginatedList.map((post: ArticleItem) => (
-            <li>
+          paginatedList.map((post: ArticleItem, i) => (
+            <motion.li
+              key={post.id}
+              initial={{
+                translateY: -10,
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+                translateY: 0,
+              }}
+              transition={{
+                duration: 0.1,
+                delay: 0.4 + i * 0.075,
+              }}
+              exit={{
+                opacity: 0,
+                translateY: 10,
+              }}
+            >
               <Link
                 href={`/article/${post.slug}`}
                 passHref
@@ -139,9 +162,18 @@ const ArticlesPage: NextPage<{
                             .substring(0, 250) + "...",
                     }}
                   />
+                  <footer>
+                    {formatDistance(
+                      new Date(post.date),
+                      new Date(),
+                      {
+                        addSuffix: true,
+                      }
+                    )}
+                  </footer>
                 </a>
               </Link>
-            </li>
+            </motion.li>
           ))
         ) : (
           <Error>
@@ -247,7 +279,7 @@ const Container = styled(motion.div)`
     flex-direction: column;
     margin: 0;
     padding: 0;
-    gap: var(--s-03);
+    gap: var(--s-05);
     a {
       display: block;
       ${applyFontKind("h3")}
@@ -269,6 +301,10 @@ const Container = styled(motion.div)`
         ${applyFontKind("small")}
         font-family: "Ubuntu";
         opacity: 0.45;
+      }
+      footer {
+        ${applyFontKind("label")}
+        color:var(--c-text-03);
       }
     }
   }
