@@ -38,5 +38,6 @@ const MainContainer = styled.div`
     position: fixed !important;
     top: var(--s-05);
     right: Var(--s-05);
+    z-index: 999;
   }
 `;
