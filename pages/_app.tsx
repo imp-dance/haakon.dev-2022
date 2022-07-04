@@ -5,9 +5,27 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useMountedEffect } from "../hooks/useMountedEffect";
 import { DarkmodeProvider } from "@ryfylke-react/ui";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  const setAppHeight = () => {
+    if (typeof window !== undefined) {
+      const doc = document.documentElement;
+      doc.style.setProperty(
+        "--app-height",
+        `${window.innerHeight}px`
+      );
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", setAppHeight);
+    setAppHeight();
+    return () =>
+      window.removeEventListener("resize", setAppHeight);
+  }, []);
 
   useMountedEffect(() => {
     /** Helps with migration from old react hashrouter */
