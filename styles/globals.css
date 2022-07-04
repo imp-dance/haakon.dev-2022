@@ -2,8 +2,21 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+
+body,
+input,
+select,
+option,
+textarea {
+  font-family: "Ubuntu", sans-serif;
+}
+
+code {
+  font-family: "Ubuntu Mono", monospace;
 }
 
 a {
@@ -13,4 +26,9 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
 }
