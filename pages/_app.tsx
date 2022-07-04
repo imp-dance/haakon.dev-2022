@@ -21,7 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout>
         <AnimatePresence
           exitBeforeEnter
-          initial={false}
           onExitComplete={() => window.scrollTo(0, 0)}
         >
           <Component {...pageProps} key={router.asPath} />

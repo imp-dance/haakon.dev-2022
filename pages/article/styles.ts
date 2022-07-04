@@ -2,7 +2,13 @@ import { Button, applyFontKind } from "@ryfylke-react/ui";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const Container = styled(motion.div)``;
+export const Container = styled(motion.div)`
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: var(--s-05);
+  padding-bottom: 5rem;
+`;
 
 export const Header = styled.header`
   padding: var(--s-05) 0;

@@ -29,14 +29,10 @@ const DMSwitch = styled(Switch)``;
 
 const MainContainer = styled.div`
   color: var(--c-text-02);
-  width: 800px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: var(--s-05);
-  padding-bottom: 5rem;
+  border-top: 10px solid var(--c-focus-01);
   .topSwitch {
     position: fixed !important;
-    top: var(--s-05);
+    top: calc(var(--s-05) + 10px);
     right: Var(--s-05);
     z-index: 999;
   }
