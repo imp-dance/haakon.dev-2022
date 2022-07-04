@@ -21,7 +21,6 @@ export const Layout: React.FC<{
           className: "topSwitch",
         }}
       />
-      ,
     </MainContainer>
   );
 };
