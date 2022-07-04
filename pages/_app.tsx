@@ -4,6 +4,7 @@ import { Layout } from "../components/Layout";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useMountedEffect } from "../hooks/useMountedEffect";
+import { DarkmodeProvider } from "@ryfylke-react/ui";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -16,15 +17,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.asPath]);
 
   return (
-    <Layout>
-      <AnimatePresence
-        exitBeforeEnter
-        initial={false}
-        onExitComplete={() => window.scrollTo(0, 0)}
-      >
-        <Component {...pageProps} key={router.asPath} />
-      </AnimatePresence>
-    </Layout>
+    <DarkmodeProvider>
+      <Layout>
+        <AnimatePresence
+          exitBeforeEnter
+          initial={false}
+          onExitComplete={() => window.scrollTo(0, 0)}
+        >
+          <Component {...pageProps} key={router.asPath} />
+        </AnimatePresence>
+      </Layout>
+    </DarkmodeProvider>
   );
 }
 

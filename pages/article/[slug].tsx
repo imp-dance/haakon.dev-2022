@@ -4,7 +4,7 @@ import { ArticleItem } from "../../types/wordpress";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
-import { applyFontKind, Button } from "@ryfylke-react/ui";
+import { applyFontKind, Button, useDM } from "@ryfylke-react/ui";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "@styled-icons/material";
@@ -16,6 +16,7 @@ type ArticlePageProps = {
 const ArticlePage: NextPage<ArticlePageProps> = function ({
   post,
 }) {
+  const { isDM, setDM } = useDM();
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -52,12 +53,20 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
         />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" />
       </Head>
-      <Title
-        dangerouslySetInnerHTML={{
-          __html: post.title.rendered,
-        }}
-      />
+      <Header>
+        <Title
+          dangerouslySetInnerHTML={{
+            __html: post.title.rendered,
+          }}
+        />
+        <Link href="/" passHref>
+          <BackLink>
+            <ArrowLeft /> Håkon Underbakke
+          </BackLink>
+        </Link>
+      </Header>
       <Main
+        dm={isDM}
         className="language-js"
         dangerouslySetInnerHTML={{
           __html: post.content.rendered,
@@ -79,6 +88,33 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
 
 const Container = styled(motion.div)``;
 
+const Header = styled.header`
+  padding: var(--s-05) 0;
+  margin-bottom: var(--s-05);
+`;
+
+const BackLink = styled.a`
+  ${applyFontKind("small")}
+  font-family: "Ubuntu Mono";
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s var(--ease-01);
+  svg {
+    transition: all 0.2s var(--ease-01);
+    width: 1em;
+    height: 1em;
+    transform: translateX(0%);
+  }
+  &:hover {
+    opacity: 1;
+    color: var(--c-focus-01);
+    svg {
+      transform: translateX(-20%);
+    }
+  }
+`;
+
 const BackButton = styled(Button)`
   width: 100%;
   > span > svg {
@@ -89,11 +125,13 @@ const BackButton = styled(Button)`
 const Title = styled.h1`
   ${applyFontKind("h1")}
   color: var(--c-text-01);
-  margin: 0 0 var(--s-05);
-  padding: var(--s-07) 0;
+  margin: 0 0 var(--s-03);
+  padding: 0;
 `;
 
-const Main = styled.main`
+const Main = styled.main<{
+  dm?: boolean;
+}>`
   ${applyFontKind("body")}
   color: var(--c-text-02);
   display: flex;
@@ -102,7 +140,7 @@ const Main = styled.main`
   margin-bottom: var(--s-09);
   code {
     ${applyFontKind("code")}
-    color: var(--c-text-04);
+    color:var(--c-text-04);
     display: inline-block;
     padding: var(--s-01) var(--s-03) !important;
   }
@@ -111,7 +149,8 @@ const Main = styled.main`
   }
   blockquote,
   code {
-    background: var(--c-ui-01) !important;
+    background: ${(props) =>
+      props.dm ? "var(--c-ui-01) !important" : "transparent"};
   }
   pre,
   p,

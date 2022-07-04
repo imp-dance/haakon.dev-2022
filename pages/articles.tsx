@@ -12,17 +12,15 @@ import { ArticleItem } from "../types/wordpress";
 import usePagination from "../hooks/usePagination";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "@styled-icons/material";
-import { useRouter } from "next/router";
 
 type PostsResponse = Array<ArticleItem>;
 
 const ArticlesPage: NextPage<{
   posts: PostsResponse;
 }> = ({ posts }) => {
-  const router = useRouter();
   const [search, setSearch] = useState("");
   const [paginatedList, pagination] = usePagination(posts, {
-    perPage: 10,
+    perPage: 6,
     maxButtons: 5,
     isHidden(item: ArticleItem) {
       if (search.trim() == "") {
@@ -178,7 +176,7 @@ const Container = styled(motion.div)`
         color: var(--c-text-02);
         ${applyFontKind("small")}
         font-family: "Ubuntu";
-        opacity: 0.3;
+        opacity: 0.45;
       }
     }
   }
