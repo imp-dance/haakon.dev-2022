@@ -18,6 +18,7 @@ import {
 } from "@styled-icons/material";
 import Head from "next/head";
 import { formatDistance } from "date-fns";
+import { Container as ArticlePageContainer } from "./article/styles";
 
 type PostsResponse = Array<ArticleItem>;
 
@@ -53,7 +54,7 @@ const ArticlesPage: NextPage<{
   }, [searchShown]);
 
   return (
-    <Container
+    <ArticlePageContainer
       initial={{
         transform: "translateY(-20px)",
         opacity: 0,
@@ -72,151 +73,153 @@ const ArticlesPage: NextPage<{
       }}
       key="articles-page"
     >
-      <Head>
-        <title>Articles | haakon.dev</title>
-      </Head>
-      <h1>
-        <Link href="/" passHref>
-          <a>haakon.dev</a>
-        </Link>
-        <span>/</span>
-        <span>articles</span>
-      </h1>
-      {searchShown && (
-        <SearchContainer
-          initial={{ transform: "scaleY(0)" }}
-          animate={{ transform: "scaleY(1)" }}
-          exit={{ transform: "translateY(-5px)", opacity: 0 }}
-          ref={searchRef}
-        >
-          <SearchInput
-            placeholder="Type something to filter articles..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onBlur={() => {
-              if (search.trim() === "") {
-                setSearchShown(false);
-              }
-            }}
-          />
-        </SearchContainer>
-      )}
-
-      {!searchShown && (
-        <motion.div
-          initial={{ transform: "scaleY(0)" }}
-          animate={{ transform: "scaleY(1)" }}
-          exit={{ transform: "translateY(-5px)", opacity: 0 }}
-          ref={searchRef}
-        >
-          <Button
-            kind="ghost"
-            size="field"
-            icon={<Search />}
-            onClick={() => setSearchShown(true)}
-            style={{ width: "100%" }}
+      <Container>
+        <Head>
+          <title>Articles | haakon.dev</title>
+        </Head>
+        <h1>
+          <Link href="/" passHref>
+            <a>haakon.dev</a>
+          </Link>
+          <span>/</span>
+          <span>articles</span>
+        </h1>
+        {searchShown && (
+          <SearchContainer
+            initial={{ transform: "scaleY(0)" }}
+            animate={{ transform: "scaleY(1)" }}
+            exit={{ transform: "translateY(-5px)", opacity: 0 }}
+            ref={searchRef}
           >
-            Search
-          </Button>
-        </motion.div>
-      )}
-      <ul>
-        {paginatedList.length > 0 ? (
-          paginatedList.map((post: ArticleItem, i) => (
-            <motion.li
-              key={post.id}
-              initial={{
-                translateY: -10,
-                opacity: 0,
+            <SearchInput
+              placeholder="Type something to filter articles..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onBlur={() => {
+                if (search.trim() === "") {
+                  setSearchShown(false);
+                }
               }}
-              animate={{
-                opacity: 1,
-                translateY: 0,
-              }}
-              transition={{
-                duration: 0.1,
-                delay: 0.4 + i * 0.075,
-              }}
-              exit={{
-                opacity: 0,
-                translateY: 10,
-              }}
+            />
+          </SearchContainer>
+        )}
+
+        {!searchShown && (
+          <motion.div
+            initial={{ transform: "scaleY(0)" }}
+            animate={{ transform: "scaleY(1)" }}
+            exit={{ transform: "translateY(-5px)", opacity: 0 }}
+            ref={searchRef}
+          >
+            <Button
+              kind="ghost"
+              size="field"
+              icon={<Search />}
+              onClick={() => setSearchShown(true)}
+              style={{ width: "100%" }}
             >
-              <Link
-                href={`/article/${post.slug}`}
-                passHref
-                scroll={false}
+              Search
+            </Button>
+          </motion.div>
+        )}
+        <ul>
+          {paginatedList.length > 0 ? (
+            paginatedList.map((post: ArticleItem, i) => (
+              <motion.li
+                key={post.id}
+                initial={{
+                  translateY: -10,
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  translateY: 0,
+                }}
+                transition={{
+                  duration: 0.1,
+                  delay: 0.4 + i * 0.075,
+                }}
+                exit={{
+                  opacity: 0,
+                  translateY: 10,
+                }}
               >
-                <a>
-                  <strong
-                    dangerouslySetInnerHTML={{
-                      __html: post.title.rendered,
-                    }}
-                  />
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: firstRender
-                        ? post.excerpt.rendered
-                        : post.excerpt.rendered
-                            .replaceAll("[...]", "")
-                            .substring(0, 250) + "...",
-                    }}
-                  />
-                  <footer>
-                    {formatDistance(
-                      new Date(post.date),
-                      new Date(),
-                      {
-                        addSuffix: true,
-                      }
-                    )}
-                  </footer>
-                </a>
-              </Link>
-            </motion.li>
-          ))
-        ) : (
-          <Error>
-            No articles found for "<span>{search}</span>"
-          </Error>
-        )}
-      </ul>
-      <PaginationContainer>
-        {pagination.buttons.length > 1 && (
-          <Button
-            size="sm"
-            kind="ghost"
-            icon={<ArrowLeft />}
-            onClick={() => pagination.previousPage()}
-          />
-        )}
-        {pagination.buttons.map((button) =>
-          typeof button === "string" ? (
-            "..."
+                <Link
+                  href={`/article/${post.slug}`}
+                  passHref
+                  scroll={false}
+                >
+                  <a>
+                    <strong
+                      dangerouslySetInnerHTML={{
+                        __html: post.title.rendered,
+                      }}
+                    />
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: firstRender
+                          ? post.excerpt.rendered
+                          : post.excerpt.rendered
+                              .replaceAll("[...]", "")
+                              .substring(0, 250) + "...",
+                      }}
+                    />
+                    <footer>
+                      {formatDistance(
+                        new Date(post.date),
+                        new Date(),
+                        {
+                          addSuffix: true,
+                        }
+                      )}
+                    </footer>
+                  </a>
+                </Link>
+              </motion.li>
+            ))
           ) : (
+            <Error>
+              No articles found for "<span>{search}</span>"
+            </Error>
+          )}
+        </ul>
+        <PaginationContainer>
+          {pagination.buttons.length > 1 && (
             <Button
               size="sm"
-              kind={
-                pagination.activePage === button
-                  ? "regular"
-                  : "ghost"
-              }
-              onClick={() => pagination.goToPage(button)}
-            >
-              {button}
-            </Button>
-          )
-        )}
-        {pagination.buttons.length > 1 && (
-          <Button
-            size="sm"
-            kind="ghost"
-            icon={<ArrowRight />}
-            onClick={() => pagination.nextPage()}
-          />
-        )}
-      </PaginationContainer>
-    </Container>
+              kind="ghost"
+              icon={<ArrowLeft />}
+              onClick={() => pagination.previousPage()}
+            />
+          )}
+          {pagination.buttons.map((button) =>
+            typeof button === "string" ? (
+              "..."
+            ) : (
+              <Button
+                size="sm"
+                kind={
+                  pagination.activePage === button
+                    ? "regular"
+                    : "ghost"
+                }
+                onClick={() => pagination.goToPage(button)}
+              >
+                {button}
+              </Button>
+            )
+          )}
+          {pagination.buttons.length > 1 && (
+            <Button
+              size="sm"
+              kind="ghost"
+              icon={<ArrowRight />}
+              onClick={() => pagination.nextPage()}
+            />
+          )}
+        </PaginationContainer>
+      </Container>
+    </ArticlePageContainer>
   );
 };
 
