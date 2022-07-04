@@ -48,13 +48,14 @@ const Home: NextPage = () => {
         opacity: 1,
       }}
       exit={{
+        transform: "translateX(-15%)",
+        scale: 0.8,
         opacity: 0,
       }}
       transition={{
         duration: 0.4,
         ease: "anticipate",
       }}
-      key={router.asPath}
     >
       <Head>
         <title>Håkon Underbakke | Front-end Developer</title>

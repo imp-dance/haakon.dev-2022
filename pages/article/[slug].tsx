@@ -31,12 +31,10 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
   return (
     <Container
       initial={{
-        clipPath: "circle(30px at 0 0)",
-        transform: "translateX(-10%)",
+        transform: "translateX(10%)",
         opacity: 0,
       }}
       animate={{
-        clipPath: "circle(150vmax at 0 0)",
         transform: "translateX(0%)",
         opacity: 1,
         transitionEnd: {
@@ -44,11 +42,11 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
         },
       }}
       exit={{
-        transform: "translateX(-15%)",
+        transform: "translateX(15%)",
         opacity: 0,
       }}
       transition={{
-        duration: 0.6,
+        duration: 0.4,
         ease: "anticipate",
       }}
     >

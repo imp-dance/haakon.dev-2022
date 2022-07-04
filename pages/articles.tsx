@@ -64,7 +64,7 @@ const ArticlesPage: NextPage<{
         opacity: 1,
       }}
       exit={{
-        transform: "translateY(20px)",
+        transform: "translateX(-15%)",
         opacity: 0,
       }}
       transition={{
