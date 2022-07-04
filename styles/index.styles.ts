@@ -8,8 +8,11 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--s-07);
-  min-height: calc(100vh - 10px);
+  min-height: calc(var(--app-height, 100vh) - 10px);
   justify-content: center;
+  @media screen and (max-width: 600px) {
+    justify-content: flex-start;
+  }
   h1,
   h3 {
     margin: 0;
