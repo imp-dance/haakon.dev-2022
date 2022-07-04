@@ -18,7 +18,7 @@ import {
 } from "@styled-icons/material";
 import Head from "next/head";
 import { formatDistance } from "date-fns";
-import { Container as ArticlePageContainer } from "./article/styles";
+import { Container as ArticlePageContainer } from "../styles/article.styles";
 
 type PostsResponse = Array<ArticleItem>;
 
