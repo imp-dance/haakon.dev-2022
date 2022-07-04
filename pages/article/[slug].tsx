@@ -4,10 +4,9 @@ import { ArticleItem } from "../../types/wordpress";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
-import { applyFontKind } from "../../styled-utils";
+import { applyFontKind, Button } from "@ryfylke-react/ui";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "../../components/Button";
 import { ArrowLeft } from "@styled-icons/material";
 
 type ArticlePageProps = {
@@ -78,16 +77,10 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
   );
 };
 
-const Container = styled(motion.div)`
-  width: 700px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--s-05);
-`;
+const Container = styled(motion.div)``;
 
 const BackButton = styled(Button)`
   width: 100%;
-  margin-bottom: 5rem;
   > span > svg {
     --size: 1rem;
   }
