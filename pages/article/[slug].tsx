@@ -14,7 +14,7 @@ import {
   Main,
   Header,
   Title,
-} from "./styles";
+} from "../../styles/article.styles";
 
 type ArticlePageProps = {
   post: ArticleItem;
