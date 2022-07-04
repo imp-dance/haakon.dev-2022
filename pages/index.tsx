@@ -7,7 +7,10 @@ import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { useEffect } from "react";
 import styles from "../styles/Home.module.css";
-import { Container, HeaderContainer } from "./index.styles";
+import {
+  Container,
+  HeaderContainer,
+} from "../styles/index.styles";
 
 const Home: NextPage = () => {
   const router = useRouter();
