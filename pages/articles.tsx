@@ -10,15 +10,22 @@ import {
 } from "@ryfylke-react/ui";
 import { ArticleItem } from "../types/wordpress";
 import usePagination from "../hooks/usePagination";
-import { useState } from "react";
-import { ArrowLeft, ArrowRight } from "@styled-icons/material";
+import { useEffect, useRef, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Search,
+} from "@styled-icons/material";
 
 type PostsResponse = Array<ArticleItem>;
 
 const ArticlesPage: NextPage<{
   posts: PostsResponse;
 }> = ({ posts }) => {
+  const [firstRender, setFirstRender] = useState(true);
   const [search, setSearch] = useState("");
+  const searchRef = useRef<HTMLDivElement>(null);
+  const [searchShown, setSearchShown] = useState(false);
   const [paginatedList, pagination] = usePagination(posts, {
     perPage: 6,
     maxButtons: 5,
@@ -34,6 +41,15 @@ const ArticlesPage: NextPage<{
     },
     searchDeps: [search],
   });
+
+  useEffect(() => setFirstRender(false));
+
+  useEffect(() => {
+    if (searchShown && searchRef.current) {
+      searchRef.current.querySelector("input")?.focus();
+    }
+  }, [searchShown]);
+
   return (
     <Container
       initial={{
@@ -54,7 +70,51 @@ const ArticlesPage: NextPage<{
       }}
       key="articles-page"
     >
-      <h1>/articles</h1>
+      <h1>
+        <Link href="/" passHref>
+          <a>haakon.dev</a>
+        </Link>
+        <span>/</span>
+        <span>articles</span>
+      </h1>
+      {searchShown && (
+        <SearchContainer
+          initial={{ transform: "scaleY(0)" }}
+          animate={{ transform: "scaleY(1)" }}
+          exit={{ transform: "translateY(-5px)", opacity: 0 }}
+          ref={searchRef}
+        >
+          <SearchInput
+            placeholder="Type something to filter articles..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onBlur={() => {
+              if (search.trim() === "") {
+                setSearchShown(false);
+              }
+            }}
+          />
+        </SearchContainer>
+      )}
+
+      {!searchShown && (
+        <motion.div
+          initial={{ transform: "scaleY(0)" }}
+          animate={{ transform: "scaleY(1)" }}
+          exit={{ transform: "translateY(-5px)", opacity: 0 }}
+          ref={searchRef}
+        >
+          <Button
+            kind="ghost"
+            size="field"
+            icon={<Search />}
+            onClick={() => setSearchShown(true)}
+            style={{ width: "100%" }}
+          >
+            Search
+          </Button>
+        </motion.div>
+      )}
       <ul>
         {paginatedList.length > 0 ? (
           paginatedList.map((post: ArticleItem) => (
@@ -72,7 +132,11 @@ const ArticlesPage: NextPage<{
                   />
                   <span
                     dangerouslySetInnerHTML={{
-                      __html: post.excerpt.rendered,
+                      __html: firstRender
+                        ? post.excerpt.rendered
+                        : post.excerpt.rendered
+                            .replaceAll("[...]", "")
+                            .substring(0, 250) + "...",
                     }}
                   />
                 </a>
@@ -85,13 +149,6 @@ const ArticlesPage: NextPage<{
           </Error>
         )}
       </ul>
-      <SearchInput
-        label="Search"
-        placeholder="Type something to filter articles..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        inverted
-      />
       <PaginationContainer>
         {pagination.buttons.length > 1 && (
           <Button
@@ -131,6 +188,12 @@ const ArticlesPage: NextPage<{
   );
 };
 
+const SearchContainer = styled(motion.div)`
+  input {
+    width: 100%;
+  }
+`;
+
 const Error = styled.li`
   ${applyFontKind("code")}
   color:var(--c-focus-01);
@@ -148,6 +211,7 @@ const PaginationContainer = styled.div`
 
 const SearchInput = styled(TextInput)`
   width: 100%;
+  margin: 0 var(--s-03);
   > div {
     width: 100%;
     input {
@@ -161,8 +225,21 @@ const Container = styled(motion.div)`
   flex-direction: column;
   gap: var(--s-05);
   h1 {
-    ${applyFontKind("h1")}
+    display: flex;
+    gap: var(--s-02);
+    ${applyFontKind("h2")}
     font-family: "Ubuntu Mono";
+    font-weight: normal;
+    margin: 0;
+    padding: var(--s-05) 0 var(--s-03);
+    color: var(--c-text-01);
+    a {
+      color: var(--c-text-03);
+      transition: color 0.1s var(--ease-01);
+      &:hover {
+        color: var(--c-focus-01);
+      }
+    }
   }
   ul {
     list-style: none;
@@ -170,11 +247,12 @@ const Container = styled(motion.div)`
     flex-direction: column;
     margin: 0;
     padding: 0;
+    gap: var(--s-03);
     a {
       display: block;
       ${applyFontKind("h3")}
       ${applyFocusStyles()}
-  font-family: "Ubuntu Mono";
+      font-family: "Ubuntu Mono";
       padding: var(--s-03);
       transition: color 0.1s var(--ease-01);
       &:hover,
@@ -203,11 +281,19 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts: PostsResponse = await res.json();
   return {
     props: {
-      posts: posts.filter(
-        (item) =>
-          item.categories.includes(2) ||
-          item.categories.includes(3)
-      ),
+      posts: posts
+        .filter(
+          (item) =>
+            item.categories.includes(2) ||
+            item.categories.includes(3)
+        )
+        .map((post) => ({
+          ...post,
+          excerpt: {
+            rendered: post.excerpt.rendered,
+            protected: post.excerpt.protected,
+          },
+        })),
     },
   };
 };

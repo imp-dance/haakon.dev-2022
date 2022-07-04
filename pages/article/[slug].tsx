@@ -8,6 +8,7 @@ import { applyFontKind, Button, useDM } from "@ryfylke-react/ui";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "@styled-icons/material";
+import { formatDistance } from "date-fns";
 
 type ArticlePageProps = {
   post: ArticleItem;
@@ -61,7 +62,10 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
         />
         <Link href="/" passHref>
           <BackLink>
-            <ArrowLeft /> Håkon Underbakke
+            <ArrowLeft /> Håkon Underbakke |{" "}
+            {formatDistance(new Date(post.date), new Date(), {
+              addSuffix: true,
+            })}
           </BackLink>
         </Link>
       </Header>
