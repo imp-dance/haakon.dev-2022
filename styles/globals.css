@@ -35,4 +35,5 @@ video {
 
 body {
   background: var(--c-ui-bg);
+  --roundness-01: 0px !important;
 }
