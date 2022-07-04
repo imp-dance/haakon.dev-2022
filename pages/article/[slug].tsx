@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { applyFontKind } from "../../styled-utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "../../components/Button";
+import { ArrowLeft } from "@styled-icons/material";
 
 type ArticlePageProps = {
   post: ArticleItem;
@@ -20,7 +22,29 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
   }, []);
 
   return (
-    <AnimatePresence>
+    <Container
+      initial={{
+        clipPath: "circle(0.01vw at 0 0)",
+        transform: "translateX(-10%)",
+        opacity: 0,
+      }}
+      animate={{
+        clipPath: "circle(100vw at 0 0)",
+        transform: "translateX(0%)",
+        opacity: 1,
+        transitionEnd: {
+          clipPath: "none",
+        },
+      }}
+      exit={{
+        transform: "translateX(-10%)",
+        opacity: 0,
+      }}
+      transition={{
+        duration: 0.8,
+        ease: "anticipate",
+      }}
+    >
       <Head>
         <title>{post.title.rendered} | haakon.dev</title>
         <link
@@ -29,52 +53,44 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
         />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" />
       </Head>
-      <Container
-        initial={{
-          clipPath: "circle(0.01vw at 0 0)",
-          transform: "translateX(-10%)",
-          opacity: 0,
+      <Title
+        dangerouslySetInnerHTML={{
+          __html: post.title.rendered,
         }}
-        animate={{
-          clipPath: "circle(100vw at 0 0)",
-          transform: "translateX(0%)",
-          opacity: 1,
-          transitionEnd: {
-            clipPath: "none",
-          },
+      />
+      <Main
+        className="language-js"
+        dangerouslySetInnerHTML={{
+          __html: post.content.rendered,
         }}
-        transition={{
-          duration: 0.8,
-          ease: "anticipate",
-        }}
-        exit={{
-          clipPath: "circle(0.01vw at 0 0)",
-          transform: "translateX(-10%)",
-          opacity: 0,
-        }}
-      >
-        <Title
-          dangerouslySetInnerHTML={{
-            __html: post.title.rendered,
-          }}
-        />
-        <Main
-          className="language-js"
-          dangerouslySetInnerHTML={{
-            __html: post.content.rendered,
-          }}
-        />
-        <Link href="/articles" passHref>
-          <button>Go home</button>
-        </Link>
-      </Container>
-    </AnimatePresence>
+      />
+      <Link href="/articles" passHref scroll={false}>
+        <BackButton
+          kind="ghost"
+          size="lg"
+          ripple
+          icon={<ArrowLeft style={{ flexShrink: 0 }} />}
+        >
+          Articles
+        </BackButton>
+      </Link>
+    </Container>
   );
 };
 
 const Container = styled(motion.div)`
-  max-width: 700px;
+  width: 700px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0 var(--s-05);
+`;
+
+const BackButton = styled(Button)`
+  width: 100%;
+  margin-bottom: 5rem;
+  > span > svg {
+    --size: 1rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -102,16 +118,35 @@ const Main = styled.main`
   }
   blockquote,
   code {
-    background: var(--c-ui-01);
+    background: var(--c-ui-01) !important;
   }
   pre,
   p,
-  h2,
-  h3,
-  h4,
   figure,
   blockquote {
     margin: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: var(--s-05) 0;
+    &:first-child {
+      margin: 0;
+    }
+    position: relative;
+    &::after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30%;
+      background: var(--c-ui-01);
+    }
   }
 
   figure {
@@ -126,6 +161,7 @@ const Main = styled.main`
   pre > code {
     padding: var(--s-05) !important;
     display: block;
+    overflow: auto;
   }
   pre {
     padding: 0;
