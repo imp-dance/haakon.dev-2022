@@ -42,7 +42,7 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
         opacity: 0,
       }}
       transition={{
-        duration: 0.8,
+        duration: 0.6,
         ease: "anticipate",
       }}
     >
