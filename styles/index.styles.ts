@@ -16,7 +16,7 @@ export const HeaderContainer = styled.div`
   @media screen and (max-width: 600px) {
   }
   @supports (-webkit-touch-callout: none) {
-    min-height: calc(var(--app-height, 100vh) - 60px);
+    min-height: calc(var(--app-height, 100vh) - 30px);
   }
   h1,
   h3 {
