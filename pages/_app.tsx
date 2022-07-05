@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Layout } from "../components/Layout";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 import { useRouter } from "next/router";
 import { useMountedEffect } from "../hooks/useMountedEffect";
 import { DarkmodeProvider } from "@ryfylke-react/ui";
@@ -36,14 +36,23 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <DarkmodeProvider>
-      <Layout>
-        <AnimatePresence
-          exitBeforeEnter
-          onExitComplete={() => window.scrollTo(0, 0)}
-        >
-          <Component {...pageProps} key={router.asPath} />
-        </AnimatePresence>
-      </Layout>
+      <MotionConfig
+        reducedMotion="user"
+        transition={{
+          duration: 0.001,
+          delay: 0,
+          ease: "linear",
+        }}
+      >
+        <Layout>
+          <AnimatePresence
+            exitBeforeEnter
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            <Component {...pageProps} key={router.asPath} />
+          </AnimatePresence>
+        </Layout>
+      </MotionConfig>
     </DarkmodeProvider>
   );
 }

@@ -50,7 +50,6 @@ export default class MyDocument extends Document {
             type="image/png"
             href="https://haakon.underbakke.net/assets/faviconet.png"
           />
-          <title>haakon.dev</title>
         </Head>
         <body className="dm">
           <Main />

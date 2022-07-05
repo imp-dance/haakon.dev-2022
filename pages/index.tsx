@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import MeSVG from "../components/MeSVG";
 import {
   Container,
   HeaderContainer,
@@ -95,6 +96,7 @@ const Home: NextPage = () => {
           </Link>
         </div>
       </HeaderContainer>
+      <MeSVG />
     </Container>
   );
 };

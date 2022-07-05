@@ -17,6 +17,7 @@ import {
   Title,
   HeaderLinks,
 } from "../../styles/article.styles";
+import { useReducedMotion } from "framer-motion";
 
 type ArticlePageProps = {
   post: ArticleItem;
@@ -25,6 +26,7 @@ type ArticlePageProps = {
 const ArticlePage: NextPage<ArticlePageProps> = function ({
   post,
 }) {
+  const shouldReduceMotion = useReducedMotion();
   const { isDM, setDM } = useDM();
   useEffect(() => {
     Prism.highlightAll();
@@ -32,21 +34,34 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
 
   return (
     <Container
-      initial={{
-        transform: "translateX(10%)",
-        opacity: 0,
-      }}
-      animate={{
-        transform: "translateX(0%)",
-        opacity: 1,
-        transitionEnd: {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
-        },
-      }}
-      exit={{
-        transform: "translateX(15%)",
-        opacity: 0,
-      }}
+      initial={
+        shouldReduceMotion
+          ? {}
+          : {
+              transform: "translateX(10%)",
+              opacity: 0,
+            }
+      }
+      animate={
+        shouldReduceMotion
+          ? {}
+          : {
+              transform: "translateX(0%)",
+              opacity: 1,
+              transitionEnd: {
+                clipPath:
+                  "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+              },
+            }
+      }
+      exit={
+        shouldReduceMotion
+          ? {}
+          : {
+              transform: "translateX(15%)",
+              opacity: 0,
+            }
+      }
       transition={{
         duration: 0.4,
         ease: "anticipate",
