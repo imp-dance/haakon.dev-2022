@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled(motion.div)`
-  max-width: 3000px;
+  max-width: 100%;
   margin: 0 auto;
 `;
 
@@ -13,8 +13,6 @@ export const HeaderContainer = styled.div`
   gap: var(--s-07);
   min-height: calc(var(--app-height, 100vh) - 10px);
   justify-content: center;
-  @media screen and (max-width: 600px) {
-  }
   @supports (-webkit-touch-callout: none) {
     min-height: calc(var(--app-height, 100vh) - 30px);
   }
