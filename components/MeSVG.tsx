@@ -150,6 +150,9 @@ const Container = styled.div`
   opacity: 0.9;
   pointer-events: none;
   user-select: none;
+  @media screen and (max-width: 600px) {
+    right: -1vw;
+  }
 `;
 
 const lowerArmAnim = keyframes`

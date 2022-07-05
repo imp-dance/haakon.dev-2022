@@ -14,7 +14,9 @@ export const HeaderContainer = styled.div`
   min-height: calc(var(--app-height, 100vh) - 10px);
   justify-content: center;
   @media screen and (max-width: 600px) {
-    justify-content: flex-start;
+  }
+  @supports (-webkit-touch-callout: none) {
+    min-height: calc(var(--app-height, 100vh) - 60px);
   }
   h1,
   h3 {
