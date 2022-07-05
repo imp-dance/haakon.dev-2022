@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (window.location.href.includes("/#/")) {
       router.replace(window.location.href.replace("/#/", "/"));
     }
+    document.body.style.overflow = "hidden";
   }, [router.asPath]);
 
   return (
@@ -47,7 +48,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout>
           <AnimatePresence
             exitBeforeEnter
-            onExitComplete={() => window.scrollTo(0, 0)}
+            onExitComplete={() => {
+              window.scrollTo(0, 0);
+              setTimeout(() => {
+                document.body.style.overflow = "unset";
+              }, 400);
+            }}
           >
             <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
