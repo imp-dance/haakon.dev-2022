@@ -83,12 +83,12 @@ const Home: NextPage = () => {
           mostly work with React and Typescript.
         </Header>
         <div style={{ display: "flex", gap: "var(--s-05)" }}>
-          <Link href="/articles" passHref>
+          <Link href="/articles" passHref scroll={false}>
             <Button kind="primary" size="lg">
               Check out my work
             </Button>
           </Link>
-          <Link href="/articles" passHref>
+          <Link href="/articles" passHref scroll={false}>
             <Button kind="ghost" size="lg">
               Read my blog
             </Button>

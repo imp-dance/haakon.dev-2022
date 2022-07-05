@@ -15,25 +15,35 @@ export const Header = styled.header`
   margin-bottom: var(--s-05);
 `;
 
+export const HeaderLinks = styled.div`
+  display: flex;
+  gap: var(--s-03);
+  ${applyFontKind("small")}
+  font-family: "Ubuntu Mono";
+  color: var(--c-text-03);
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 export const BackLink = styled.a`
   ${applyFontKind("small")}
   font-family: "Ubuntu Mono";
-  opacity: 0.5;
   display: flex;
   align-items: center;
   transition: all 0.2s var(--ease-01);
+  &:hover {
+    color: var(--c-focus-01);
+    svg {
+      transform: translateX(-20%);
+    }
+  }
   svg {
     transition: all 0.2s var(--ease-01);
     width: 1em;
     height: 1em;
     transform: translateX(0%);
-  }
-  &:hover {
-    opacity: 1;
-    color: var(--c-focus-01);
-    svg {
-      transform: translateX(-20%);
-    }
   }
 `;
 
