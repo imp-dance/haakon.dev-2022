@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useDM } from "@ryfylke-react/ui";
 import Link from "next/link";
+import parse from "html-react-parser";
 import { ArrowLeft } from "@styled-icons/material";
 import { formatDistance } from "date-fns";
 import {
@@ -14,6 +15,7 @@ import {
   Main,
   Header,
   Title,
+  HeaderLinks,
 } from "../../styles/article.styles";
 
 type ArticlePageProps = {
@@ -51,7 +53,7 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
       }}
     >
       <Head>
-        <title>{post.title.rendered} | haakon.dev</title>
+        <title>{parse(post.title.rendered)} | haakon.dev</title>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-tomorrow.min.css"
@@ -63,14 +65,21 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
             __html: post.title.rendered,
           }}
         />
-        <Link href="/" passHref>
-          <BackLink>
-            <ArrowLeft /> Håkon Underbakke |{" "}
-            {formatDistance(new Date(post.date), new Date(), {
-              addSuffix: true,
-            })}
-          </BackLink>
-        </Link>
+        <HeaderLinks>
+          <Link href="/articles" passHref scroll={false}>
+            <BackLink>
+              <ArrowLeft /> Articles
+            </BackLink>
+          </Link>
+          |
+          <Link href="/" passHref scroll={false}>
+            <BackLink>Håkon Underbakke</BackLink>
+          </Link>{" "}
+          |{" "}
+          {formatDistance(new Date(post.date), new Date(), {
+            addSuffix: true,
+          })}
+        </HeaderLinks>
       </Header>
       <Main
         dm={isDM}
@@ -86,7 +95,7 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
           ripple
           icon={<ArrowLeft style={{ flexShrink: 0 }} />}
         >
-          Articles
+          More Articles
         </BackButton>
       </Link>
     </Container>

@@ -69,7 +69,7 @@ const ArticlesPage: NextPage<{
       }}
       transition={{
         ease: "anticipate",
-        duration: 0.6,
+        duration: 0.4,
       }}
       key="articles-page"
     >
@@ -78,7 +78,7 @@ const ArticlesPage: NextPage<{
           <title>Articles | haakon.dev</title>
         </Head>
         <h1>
-          <Link href="/" passHref>
+          <Link href="/" passHref scroll={false}>
             <a>haakon.dev</a>
           </Link>
           <span>/</span>

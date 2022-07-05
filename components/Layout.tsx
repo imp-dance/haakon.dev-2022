@@ -1,4 +1,4 @@
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { GlobalStyles, Switch, useDM } from "@ryfylke-react/ui";
