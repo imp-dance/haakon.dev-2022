@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const Container = styled(motion.div)``;
+export const Container = styled(motion.div)`
+  max-width: 3000px;
+  margin: 0 auto;
+`;
 
 export const HeaderContainer = styled.div`
   padding: var(--s-09);

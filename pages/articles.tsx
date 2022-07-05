@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
@@ -19,12 +19,15 @@ import {
 import Head from "next/head";
 import { formatDistance } from "date-fns";
 import { Container as ArticlePageContainer } from "../styles/article.styles";
+import { useRouter } from "next/router";
 
 type PostsResponse = Array<ArticleItem>;
 
 const ArticlesPage: NextPage<{
   posts: PostsResponse;
 }> = ({ posts }) => {
+  const shouldReduceMotion = useReducedMotion();
+  const router = useRouter();
   const [firstRender, setFirstRender] = useState(true);
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLDivElement>(null);
@@ -52,21 +55,39 @@ const ArticlesPage: NextPage<{
       searchRef.current.querySelector("input")?.focus();
     }
   }, [searchShown]);
-
+  console.log(router.asPath);
   return (
     <ArticlePageContainer
-      initial={{
-        transform: "translateY(-20px)",
-        opacity: 0,
-      }}
-      animate={{
-        transform: "translateY(0%)",
-        opacity: 1,
-      }}
-      exit={{
-        transform: "translateX(-15%)",
-        opacity: 0,
-      }}
+      initial={
+        shouldReduceMotion
+          ? {}
+          : {
+              transform: "translateY(-20px)",
+              opacity: 0,
+            }
+      }
+      animate={
+        shouldReduceMotion
+          ? {}
+          : {
+              transform: "translateY(0%)",
+              opacity: 1,
+            }
+      }
+      exit={
+        shouldReduceMotion
+          ? {}
+          : router.asPath === "/"
+          ? {
+              scale: 1.25,
+              translateY: -100,
+              opacity: 0,
+            }
+          : {
+              transform: "translateX(-15%)",
+              opacity: 0,
+            }
+      }
       transition={{
         ease: "anticipate",
         duration: 0.4,
@@ -75,7 +96,7 @@ const ArticlesPage: NextPage<{
     >
       <Container>
         <Head>
-          <title>Articles | haakon.dev</title>
+          <title>{"Articles | haakon.dev"}</title>
         </Head>
         <h1>
           <Link href="/" passHref scroll={false}>
@@ -89,6 +110,10 @@ const ArticlesPage: NextPage<{
             initial={{ transform: "scaleY(0)" }}
             animate={{ transform: "scaleY(1)" }}
             exit={{ transform: "translateY(-5px)", opacity: 0 }}
+            transition={{
+              ease: "easeInOut",
+              duration: 0.2,
+            }}
             ref={searchRef}
           >
             <SearchInput
@@ -109,6 +134,10 @@ const ArticlesPage: NextPage<{
             initial={{ transform: "scaleY(0)" }}
             animate={{ transform: "scaleY(1)" }}
             exit={{ transform: "translateY(-5px)", opacity: 0 }}
+            transition={{
+              ease: "easeInOut",
+              duration: 0.2,
+            }}
             ref={searchRef}
           >
             <Button
@@ -127,22 +156,34 @@ const ArticlesPage: NextPage<{
             paginatedList.map((post: ArticleItem, i) => (
               <motion.li
                 key={post.id}
-                initial={{
-                  translateY: -10,
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                  translateY: 0,
-                }}
+                initial={
+                  shouldReduceMotion
+                    ? {}
+                    : {
+                        translateY: -10,
+                        opacity: 0,
+                      }
+                }
+                animate={
+                  shouldReduceMotion
+                    ? {}
+                    : {
+                        opacity: 1,
+                        translateY: 0,
+                      }
+                }
                 transition={{
                   duration: 0.1,
                   delay: 0.4 + i * 0.075,
                 }}
-                exit={{
-                  opacity: 0,
-                  translateY: 10,
-                }}
+                exit={
+                  shouldReduceMotion
+                    ? {}
+                    : {
+                        opacity: 0,
+                        translateY: 10,
+                      }
+                }
               >
                 <Link
                   href={`/article/${post.slug}`}

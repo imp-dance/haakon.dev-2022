@@ -96,7 +96,8 @@ export const Main = styled.main<{
   h2,
   h3,
   h4 {
-    margin: var(--s-05) 0;
+    margin: 0;
+    margin-bottom: var(--s-05);
     &:first-child {
       margin: 0;
     }
@@ -114,6 +115,7 @@ export const Main = styled.main<{
   }
 
   figure {
+    margin: 0;
     margin-bottom: var(--s-07) !important;
   }
   h3 {
@@ -127,13 +129,67 @@ export const Main = styled.main<{
     display: block;
     overflow: auto;
   }
+  code,
+  pre {
+    &::selection,
+    &::-webkit-selection,
+    > *::selection,
+    *::selection {
+      --selection-color: var(--c-primary-01);
+      background: var(--selection-color);
+    }
+  }
+  code::selection,
+  pre::selection,
+  code::-webkit-selection,
+  pre::-webkit-selection {
+  }
   pre {
     padding: 0;
-    margin: var(--s-07) 0;
+    margin: 0;
+    margin-bottom: var(--s-05);
     transition: outline 0.2s var(--ease-01);
     outline: 2px solid transparent;
     &:hover {
       outline: 2px solid var(--c-focus-01);
     }
+  }
+  p + h4,
+  p + h3 {
+    margin-top: var(--s-07);
+  }
+  iframe {
+    margin: var(--s-07) 0;
+  }
+  ul,
+  ol {
+    margin: 0;
+    margin-bottom: var(--s-05);
+    padding-left: var(--s-07);
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  a {
+    &::selection {
+      background: var(--c-primary-03);
+      color: var(--c-text-04);
+    }
+  }
+  a {
+    color: var(--c-focus-01);
+    &:hover {
+    }
+  }
+  a::selection {
+    color: ${(props) =>
+      props.dm ? "var(--c-focus-01)" : "var(--c-primary-01)"};
+    ${(props) =>
+      !props.dm &&
+      `
+      background: var(--c-ui-02);
+      `}
   }
 `;
