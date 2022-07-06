@@ -91,6 +91,16 @@ export function Timeline({ items }: TimelineProps) {
     };
   }, [selectedItem]);
 
+  useEffect(() => {
+    const el = document.querySelector(
+      ".selected-item-container"
+    );
+    if (el) {
+      const cont = el as HTMLDivElement;
+      cont.scrollTop = 0;
+    }
+  }, [_]);
+
   return (
     <RelativeContainer>
       <Header
@@ -115,20 +125,21 @@ export function Timeline({ items }: TimelineProps) {
         </h2>
       </Header>
       <SelectedItemContainer
+        className="selected-item-container"
         initial={
           selectedItem === ""
             ? {
                 opacity: 0,
                 translateX: selectedItemInfo.current?.shiftLeft
-                  ? 50
-                  : -50,
-                scale: 0.95,
+                  ? "46%"
+                  : "-46%",
+                scale: 0.5,
                 pointerEvents: "none",
               }
             : {
                 opacity: 0,
-                translateX: 50,
-                scale: 0.95,
+                translateX: "46%",
+                scale: 0.5,
                 pointerEvents: "all",
               }
         }
@@ -153,16 +164,12 @@ export function Timeline({ items }: TimelineProps) {
           selectedItem === ""
             ? {
                 opacity: 0,
-                translateX: selectedItemInfo.current?.shiftLeft
-                  ? 150
-                  : -150,
-                scale: 0.95,
+                scale: 0.5,
                 pointerEvents: "none",
               }
             : {
                 opacity: 0,
-                translateX: 50,
-                scale: 0.95,
+                scale: 0.5,
                 pointerEvents: "all",
               }
         }
@@ -338,6 +345,24 @@ const SelectedItemContainer = styled(motion.div)<{
   min-height: calc(100vh - 48px);
   max-height: calc(100vh - 48px);
   overflow-y: auto;
+
+  --scrollbar-bg: var(--c-ui-bg);
+  --scrollbar-border-color: var(--scrollbar-bg);
+  --scrollbar-color: var(--c-ui-04);
+  scrollbar-width: auto;
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg);
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 10px;
+    border: 3px solid var(--scrollbar-border-color);
+  }
+
   z-index: 3;
   ${(props) =>
     props.shiftLeft &&
@@ -350,8 +375,12 @@ const SelectedItemContainer = styled(motion.div)<{
     border-right:1px solid var(--c-ui-02);
   `}
   @media screen and (max-width: 850px) {
-    left: ${(props) => (props.shiftLeft ? "0rem" : "0rem")};
-    right: ${(props) => (!props.shiftLeft ? "0rem" : "0rem")};
+    left: 0;
+    right: 0;
+    bottom: 0;
+    > button {
+      width: 100%;
+    }
   }
   h2 {
     ${applyFontKind("h1")}
