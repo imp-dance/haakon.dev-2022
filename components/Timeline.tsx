@@ -339,7 +339,16 @@ const SelectedItemContainer = styled(motion.div)<{
   max-height: calc(100vh - 48px);
   overflow-y: auto;
   z-index: 3;
-  border: 1px solid var(--c-ui-02);
+  ${(props) =>
+    props.shiftLeft &&
+    `
+    border-left:1px solid var(--c-ui-02);
+  `}
+  ${(props) =>
+    !props.shiftLeft &&
+    `
+    border-right:1px solid var(--c-ui-02);
+  `}
   @media screen and (max-width: 850px) {
     left: ${(props) => (props.shiftLeft ? "0rem" : "0rem")};
     right: ${(props) => (!props.shiftLeft ? "0rem" : "0rem")};
