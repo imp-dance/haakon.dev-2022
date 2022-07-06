@@ -5,9 +5,9 @@ import styled from "styled-components";
 export const Container = styled(motion.div)`
   min-height: calc(var(--app-height, 100vh) - 10px);
   padding: var(--s-05);
-  width: 800px;
-  max-width: 100%;
-  margin: 0 auto;
+  padding-bottom: 0;
+  max-width: 100vw;
+  overflow: hidden;
   @media screen and (max-width: 700px) {
     padding: var(--s-05);
   }
@@ -23,7 +23,7 @@ export const Container = styled(motion.div)`
   }
   ${applyFontKind("body")}
   h3 {
-    ${applyFontKind("h2")}
+    ${applyFontKind("h3")}
     font-family: "Ubuntu Mono";
     display: flex;
     gap: var(--s-03);
@@ -40,14 +40,11 @@ export const Container = styled(motion.div)`
   }
 `;
 
-export const TitleDescription = styled.div`
-  ${applyFontKind("small")}
-  color:var(--c-text-02);
-`;
-
-export const Header = styled.div`
+export const Header = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: var(--s-05);
   margin: var(--s-05) 0 var(--s-07);
   h2 {
