@@ -71,7 +71,7 @@ export function Timeline({ items }: TimelineProps) {
       render(_ + ".");
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 600);
+      }, 200);
     }
     const listener = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -98,7 +98,9 @@ export function Timeline({ items }: TimelineProps) {
     if (el) {
       const cont = el as HTMLDivElement;
       cont.scrollTo({ top: 0, behavior: "smooth" });
-      cont.querySelector("button")?.focus?.();
+      setTimeout(() => {
+        cont.querySelector("button")?.focus?.();
+      }, 600);
     }
   }, [_]);
 
@@ -119,9 +121,9 @@ export function Timeline({ items }: TimelineProps) {
           ease: "anticipate",
         }}
         style={{
-          margin: "var(--s-05) auto",
-          maxWidth: 800,
-          alignItems: "flex-start",
+          margin: "var(--s-05) auto var(--s-09)",
+          maxWidth: 900,
+          alignItems: "center",
           position: "relative",
           zIndex: 2,
         }}
@@ -215,40 +217,63 @@ export function Timeline({ items }: TimelineProps) {
           Back to Portfolio
         </Button>
       </SelectedItemContainer>
-      <TimelineContainer
-        variants={containerVariants}
-        initial="idle"
-        animate={
-          selectedItem === ""
-            ? "idle"
-            : selectedItemInfo.current?.shiftLeft
-            ? "shiftedLeft"
-            : "shiftedRight"
-        }
+      <motion.div
+        initial={{
+          translateY: 150,
+          opacity: 0,
+          scaleY: 0.8,
+        }}
+        animate={{
+          translateY: 0,
+          opacity: 1,
+          scaleY: 1,
+        }}
         transition={{
-          duration: 1.2,
+          duration: 0.8,
           ease: "anticipate",
         }}
+        exit={{
+          translateY: 150,
+          opacity: 0,
+          scaleY: 0.8,
+        }}
       >
-        {items.map((item, i) => (
-          <TimelineItem
-            item={item}
-            isFirst={i === 0}
-            selectedItem={selectedItem}
-            dir={i % 2 === 0 ? "right" : "left"}
-            onSelect={() => setSelectedItem(item.id)}
-            key={item.id}
-          />
-        ))}
-        <Line
-          style={{
-            alignSelf: "center",
-            flexGrow: 1,
-            transform: "translateX(0.5px)",
+        <TimelineContainer
+          variants={containerVariants}
+          active={selectedItem !== ""}
+          initial="idle"
+          animate={
+            selectedItem === ""
+              ? "idle"
+              : selectedItemInfo.current?.shiftLeft
+              ? "shiftedLeft"
+              : "shiftedRight"
+          }
+          transition={{
+            duration: 1.2,
+            ease: "anticipate",
           }}
-          isFirst={false}
-        />
-      </TimelineContainer>
+        >
+          {items.map((item, i) => (
+            <TimelineItem
+              item={item}
+              isFirst={i === 0}
+              selectedItem={selectedItem}
+              dir={i % 2 === 0 ? "right" : "left"}
+              onSelect={() => setSelectedItem(item.id)}
+              key={item.id}
+            />
+          ))}
+          <Line
+            style={{
+              alignSelf: "center",
+              flexGrow: 1,
+              transform: "translateX(0.5px)",
+            }}
+            isFirst={false}
+          />
+        </TimelineContainer>
+      </motion.div>
     </RelativeContainer>
   );
 }
@@ -271,7 +296,7 @@ function TimelineItem({
       <h2>{item.title}</h2>
       <span>{item.subTitle}</span>
       <p>{item.body}</p>
-      <Button kind="ghost" size="sm" onClick={onSelect}>
+      <Button kind="ghost" size="field" onClick={onSelect}>
         Read more
       </Button>
     </ItemBox>
@@ -334,7 +359,10 @@ const IconCont = styled.div<{
   padding: var(--s-02);
   transform: translate(-50%, -50%);
   background: ${(props) =>
-    props.selected ? "var(--c-ui-02)" : "var(--c-ui-01)"};
+    props.selected ? "var(--c-focus-01)" : "var(--c-ui-01)"};
+  color: ${(props) =>
+    props.selected ? "var(--c-text-04)" : "var(--c-text-01)"};
+  transition: color 0.6s ease-in-out, background 0.6s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -376,7 +404,7 @@ const SelectedItemContainer = styled(motion.div)<{
   }
 
   z-index: 3;
-  @media screen and (max-width: 850px) {
+  @media screen and (max-width: 900px) {
     left: 0;
     right: 0;
     bottom: 0;
@@ -405,29 +433,28 @@ const SelectedItemContainer = styled(motion.div)<{
   }
 `;
 
-const introTimelineAnim = keyframes`
-  from {
-    transform:translateY(50px) !important;
-  }
-`;
-
-const TimelineContainer = styled(motion.div)`
+const TimelineContainer = styled(motion.div)<{
+  active: boolean;
+}>`
   display: flex;
-  width: 800px;
+  width: calc(60vw + 200px);
   max-width: 100%;
   margin: 0 auto;
+  margin-top: var(--s-09);
   flex-direction: column;
-  margin-top: -2rem;
-  @media screen and (max-width: 850px) {
+  --line-color: ${(props) =>
+    props.active ? "var(--c-focus-01)" : "var(--c-ui-03)"};
+  --line-thickness: 2px;
+  @media screen and (max-width: 900px) {
     margin-top: var(--s-05);
   }
   min-height: calc(var(--app-height, 100vh) - 8.5rem);
 `;
 
 const Filler = styled.div`
-  min-width: 300px;
-  max-width: 300px;
-  @media screen and (max-width: 850px) {
+  min-width: 30vw;
+  max-width: 30vw;
+  @media screen and (max-width: 900px) {
     display: none;
   }
   height: 1px;
@@ -438,17 +465,18 @@ const Line = styled.div<{
   isFirst: boolean;
   expanded?: boolean;
 }>`
-  width: 1px;
+  width: var(--line-thickness);
   height: 100%;
   min-height: 200px;
   transition: transform 0.6s var(--ease-01);
-  background: var(--c-ui-03);
+  transition: background 0.8s ease-in-out;
+  background: var(--line-color);
   ${(props) =>
     props.isFirst &&
     `
     transform:translateY(var(--s-09));
   `}
-  @media screen and (max-width: 850px) {
+  @media screen and (max-width: 900px) {
     display: none;
   }
 `;
@@ -458,19 +486,19 @@ const HoriLine = styled.div<{
   selected: boolean;
   isHidden: boolean;
 }>`
-  transition: transform 1.2s ease-in-out;
+  transition: transform 1.2s ease-in-out,
+    background 0.8s ease-in-out;
   transform-origin: ${(props) =>
     props.dir === "left" ? "center right" : "center left"};
-  height: 1px;
-  width: 100px;
+  height: var(--line-thickness);
   transform: ${(props) =>
     props.isHidden ? "scaleX(0)" : "scaleX(1)"};
-  background: var(--c-ui-03);
+  background: var(--line-color);
   position: absolute;
   top: var(--s-09);
-  left: ${(props) => (props.dir === "left" ? "auto" : "50%")};
-  right: ${(props) => (props.dir === "right" ? "auto" : "50%")};
-  @media screen and (max-width: 850px) {
+  left: ${(props) => (props.dir === "left" ? "0" : "50%")};
+  right: ${(props) => (props.dir === "right" ? "0" : "50%")};
+  @media screen and (max-width: 900px) {
     display: none;
   }
 `;
@@ -479,15 +507,26 @@ const LineContainer = styled.div`
   padding: 0 100px;
   text-align: center;
   position: relative;
-  @media screen and (max-width: 850px) {
+  .line-left,
+  .line-right {
+    position: absolute;
+    width: 50vw;
+  }
+  .line-left {
+    right: 0;
+  }
+  .line-right {
+    left: 0;
+  }
+  @media screen and (max-width: 900px) {
     display: none;
   }
 `;
 
 const ItemBox = styled.div`
-  min-width: 300px;
-  max-width: 300px;
-  @media screen and (max-width: 850px) {
+  min-width: 30vw;
+  max-width: 30vw;
+  @media screen and (max-width: 900px) {
     min-width: 100%;
     max-width: 100%;
   }
@@ -497,9 +536,6 @@ const ItemBox = styled.div`
   flex: 0;
   min-height: 1px;
   background: var(--c-ui-bg);
-  &:hover {
-    outline: 2px solid var(--c-focus-01);
-  }
   height: min-content;
   display: flex;
   flex-direction: column;
@@ -521,12 +557,15 @@ const ItemBox = styled.div`
   > p {
     ${applyFontKind("body")}
   }
+  > button {
+    margin-top: var(--s-05);
+  }
 `;
 
 const ItemContainer = styled.div`
   width: 100%;
   display: flex;
-  @media screen and (max-width: 850px) {
+  @media screen and (max-width: 900px) {
     flex-direction: column;
     align-items: center;
   }
