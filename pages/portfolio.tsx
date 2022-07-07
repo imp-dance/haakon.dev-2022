@@ -258,6 +258,10 @@ export const Portfolio: NextPage = () => {
                   </Link>
                   . .
                 </p>
+                <img
+                  src="https://ligl.no/dev8/_admin/uploads/63133-Screenshot%202019-12-16%20at%2000.02.44.png"
+                  alt="Screenshot of Ida by LIGL"
+                />
                 <p>
                   I have also developed and designed their
                   website,{" "}
