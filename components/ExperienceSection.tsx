@@ -136,7 +136,6 @@ const ButtonContainer = styled.div`
 `;
 
 const Container = styled(motion.div)`
-  border-top: 1px solid var(--c-ui-03);
   background: var(--c-ui-bg);
   margin: 0 calc(var(--s-05) * -1);
   padding: var(--s-09);
