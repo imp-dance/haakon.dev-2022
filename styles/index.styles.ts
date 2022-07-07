@@ -33,3 +33,10 @@ export const HeaderContainer = styled.div`
     width: fit-content;
   }
 `;
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: var(--s-05);
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+`;

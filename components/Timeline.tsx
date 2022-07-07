@@ -3,7 +3,7 @@ import { ArrowLeft, Close } from "@styled-icons/material";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { Header } from "styles/portfolio.styles";
 
 type TimelineItem = {
@@ -97,7 +97,8 @@ export function Timeline({ items }: TimelineProps) {
     );
     if (el) {
       const cont = el as HTMLDivElement;
-      cont.scrollTop = 0;
+      cont.scrollTo({ top: 0, behavior: "smooth" });
+      cont.querySelector("button")?.focus?.();
     }
   }, [_]);
 
@@ -281,6 +282,10 @@ function TimelineItem({
         <HoriLine
           dir={dir}
           selected={item.id === selectedItem}
+          key={`${item.id}-line`}
+          isHidden={
+            selectedItem !== item.id && selectedItem !== ""
+          }
         />
         <IconCont selected={item.id === selectedItem}>
           {item.icon}
@@ -364,16 +369,6 @@ const SelectedItemContainer = styled(motion.div)<{
   }
 
   z-index: 3;
-  ${(props) =>
-    props.shiftLeft &&
-    `
-    border-left:1px solid var(--c-ui-02);
-  `}
-  ${(props) =>
-    !props.shiftLeft &&
-    `
-    border-right:1px solid var(--c-ui-02);
-  `}
   @media screen and (max-width: 850px) {
     left: 0;
     right: 0;
@@ -400,6 +395,12 @@ const SelectedItemContainer = styled(motion.div)<{
     p {
       margin-bottom: var(--s-04);
     }
+  }
+`;
+
+const introTimelineAnim = keyframes`
+  from {
+    transform:translateY(50px) !important;
   }
 `;
 
@@ -431,7 +432,7 @@ const Line = styled.div<{
   height: 100%;
   min-height: 200px;
   transition: transform 0.6s var(--ease-01);
-  background: var(--c-ui-02);
+  background: var(--c-ui-03);
   ${(props) =>
     props.isFirst &&
     `
@@ -445,14 +446,16 @@ const Line = styled.div<{
 const HoriLine = styled.div<{
   dir: string;
   selected: boolean;
+  isHidden: boolean;
 }>`
-  transition: transform 1.6s var(--ease-01);
+  transition: transform 1.2s ease-in-out;
   transform-origin: ${(props) =>
     props.dir === "left" ? "center right" : "center left"};
-  width: 100px;
   height: 1px;
-  background: ${(props) =>
-    props.selected ? "var(--c-ui-02)" : "var(--c-ui-02)"};
+  width: 100px;
+  transform: ${(props) =>
+    props.isHidden ? "scaleX(0)" : "scaleX(1)"};
+  background: var(--c-ui-03);
   position: absolute;
   top: var(--s-09);
   left: ${(props) => (props.dir === "left" ? "auto" : "50%")};
@@ -474,12 +477,16 @@ const LineContainer = styled.div`
 const ItemBox = styled.div`
   min-width: 300px;
   max-width: 300px;
-  border: 1px solid var(--c-ui-02);
+  @media screen and (max-width: 850px) {
+    min-width: 100%;
+    max-width: 100%;
+  }
   transition: outline 0.2s var(--ease-01);
   outline: 2px solid transparent;
   margin: var(--s-03) 0;
   flex: 0;
   min-height: 1px;
+  background: var(--c-ui-bg);
   &:hover {
     outline: 2px solid var(--c-focus-01);
   }

@@ -3,6 +3,8 @@ import { NextPage } from "next";
 import {
   Container,
   Header,
+  InnerContainer,
+  LinksContainer,
   YearBox,
 } from "styles/portfolio.styles";
 import Head from "next/head";
@@ -15,14 +17,14 @@ import {
 import { Button } from "@ryfylke-react/ui";
 import Link from "next/link";
 import { Timeline } from "components/Timeline";
+import { ExperienceSection } from "components/ExperienceSection";
 
 export const Portfolio: NextPage = () => {
   return (
     <Container
       initial={{
-        translateY: -150,
+        translateY: 20,
         opacity: 0,
-        scale: 0.9,
       }}
       animate={{
         translateY: 0,
@@ -30,7 +32,7 @@ export const Portfolio: NextPage = () => {
         opacity: 1,
       }}
       exit={{
-        translateY: -30,
+        translateY: 50,
         opacity: 0,
       }}
       transition={{
@@ -43,6 +45,39 @@ export const Portfolio: NextPage = () => {
       </Head>
       <Timeline
         items={[
+          {
+            id: "ryfreact-ui",
+            title: "Ryfylke React UI",
+            subTitle: "2022-now",
+            body: "Internal design system",
+            icon: <TaskAlt />,
+            expandedBody: (
+              <>
+                <p>
+                  Ryfylke React UI is a design system that me and
+                  my brother, Eirik Underbakke, have been working
+                  on for a few months.
+                </p>
+                <p>
+                  The design system includes colors, spacing
+                  tokens, typography, and some UI-components. You
+                  can install a package for React from NPM (
+                  <code>@ryfylke-react/ui</code>) to use these
+                  components.
+                </p>
+                <p>
+                  My latest portfolio design is built using
+                  Ryfylke React UI.
+                </p>
+                <Link
+                  href="https://design.ryfylke.dev"
+                  target="_blank"
+                >
+                  Ryfylke React UI
+                </Link>
+              </>
+            ),
+          },
           {
             id: "telenor",
             title: "Telenor (project)",
@@ -244,6 +279,7 @@ export const Portfolio: NextPage = () => {
           },
         ]}
       />
+      <ExperienceSection />
     </Container>
   );
 };
