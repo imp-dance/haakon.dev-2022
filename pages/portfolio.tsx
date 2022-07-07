@@ -47,9 +47,9 @@ export const Portfolio: NextPage = () => {
         items={[
           {
             id: "ryfreact-ui",
-            title: "Ryfylke React UI",
+            title: "Ryfylke React UI (project)",
             subTitle: "2022-now",
-            body: "Internal design system",
+            body: "Internal design system, and UI component library for React.",
             icon: <TaskAlt />,
             expandedBody: (
               <>
@@ -82,7 +82,7 @@ export const Portfolio: NextPage = () => {
             id: "telenor",
             title: "Telenor (project)",
             subTitle: "2021-now",
-            body: "Working as a front-end consultant on a project.",
+            body: "Working as a front-end consultant on a project related to log analysis and correlation of data.",
             icon: <TaskAlt />,
             expandedBody: (
               <>
@@ -118,7 +118,7 @@ export const Portfolio: NextPage = () => {
             id: "ryfreact",
             title: "Ryfylke React AS",
             subTitle: "2021-now",
-            body: "CEO / Front-end Consultant",
+            body: "Founded company. Working as an independent front-end consultant.",
             icon: <Work />,
             expandedBody: (
               <>
@@ -177,7 +177,7 @@ export const Portfolio: NextPage = () => {
             id: "idean",
             title: "Idean / Frog (Capgemini)",
             subTitle: "2020-2021",
-            body: "Working as a front-end consultant on a project.",
+            body: "Worked as a front-end consultant. Took part in multiple projects.",
             icon: <Work />,
             expandedBody: (
               <>
@@ -229,7 +229,7 @@ export const Portfolio: NextPage = () => {
           {
             title: "LIGL AS",
             subTitle: "2016-2020",
-            body: "Legal Tech Developer",
+            body: "Worked as a Legal Tech & Web Developer. Work related to contract automation. Start-up company. ",
             expandedBody: (
               <>
                 <p>
