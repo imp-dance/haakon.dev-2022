@@ -211,7 +211,7 @@ export const Portfolio: NextPage = () => {
                   Strapi, and were published October 2020.
                 </p>
                 <img
-                  src="https://haakon.dev/city.png"
+                  src="/city.png"
                   alt="Screenshot of City for City website"
                 />
                 <p>
@@ -269,7 +269,7 @@ export const Portfolio: NextPage = () => {
                   it was made using PHP, HTML, CSS and jQuery.
                 </p>
                 <img
-                  src="https://haakon.dev/ligl.png"
+                  src="/ligl.png"
                   alt="Screenshot of ligl.no website"
                 />
               </>

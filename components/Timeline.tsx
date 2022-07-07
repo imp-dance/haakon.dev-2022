@@ -118,6 +118,13 @@ export function Timeline({ items }: TimelineProps) {
           duration: 1.2,
           ease: "anticipate",
         }}
+        style={{
+          margin: "var(--s-05) auto",
+          maxWidth: 800,
+          alignItems: "flex-start",
+          position: "relative",
+          zIndex: 2,
+        }}
       >
         <h2>
           <Link href="/">haakon.dev</Link>
@@ -237,7 +244,7 @@ export function Timeline({ items }: TimelineProps) {
           style={{
             alignSelf: "center",
             flexGrow: 1,
-            transform: "translateX(1px)",
+            transform: "translateX(0.5px)",
           }}
           isFirst={false}
         />
@@ -410,7 +417,10 @@ const TimelineContainer = styled(motion.div)`
   max-width: 100%;
   margin: 0 auto;
   flex-direction: column;
-  margin-top: var(--s-09);
+  margin-top: -2rem;
+  @media screen and (max-width: 850px) {
+    margin-top: var(--s-05);
+  }
   min-height: calc(var(--app-height, 100vh) - 8.5rem);
 `;
 
