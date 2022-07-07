@@ -4,10 +4,14 @@ import { Layout } from "../components/Layout";
 import { AnimatePresence, MotionConfig } from "framer-motion";
 import { useRouter } from "next/router";
 import { useMountedEffect } from "../hooks/useMountedEffect";
-import { DarkmodeProvider } from "@ryfylke-react/ui";
-import { useEffect } from "react";
+import {
+  DarkmodeProvider,
+  ToastProvider,
+} from "@ryfylke-react/ui";
+import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [firstRender, setFirstRender] = useState(true);
   const router = useRouter();
 
   const setAppHeight = () => {
@@ -32,11 +36,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (window.location.href.includes("/#/")) {
       router.replace(window.location.href.replace("/#/", "/"));
     }
-    document.body.style.overflow = "hidden";
+    if (!firstRender) {
+      document.body.style.overflow = "hidden";
+    } else {
+      setFirstRender(true);
+    }
   }, [router.asPath]);
 
   return (
     <DarkmodeProvider>
+      <ToastProvider />
       <MotionConfig
         reducedMotion="user"
         transition={{

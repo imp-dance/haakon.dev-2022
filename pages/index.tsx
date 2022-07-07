@@ -1,17 +1,21 @@
 import { Button, Header } from "@ryfylke-react/ui";
+import { ContactForm } from "components/ContactForm";
 import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import MeSVG from "../components/MeSVG";
 import {
+  ButtonContainer,
   Container,
   HeaderContainer,
 } from "../styles/index.styles";
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const [contactOpen, setContactOpen] = useState(false);
   const titleWords = [
     {
       word: "Hi,",
@@ -83,20 +87,30 @@ const Home: NextPage = () => {
           professionally for the last 5 years. These days, I
           mostly work with React and Typescript.
         </Header>
-        <div style={{ display: "flex", gap: "var(--s-05)" }}>
+        <ButtonContainer>
           <Link href="/portfolio" passHref scroll={false}>
             <Button kind="primary" size="lg">
-              More about me
+              My portfolio
             </Button>
           </Link>
+          <Button
+            kind="ghost"
+            size="lg"
+            onClick={() => setContactOpen(true)}
+          >
+            Get in touch
+          </Button>
           <Link href="/articles" passHref scroll={false}>
             <Button kind="ghost" size="lg">
-              Read my blog
+              Check out my blog
             </Button>
           </Link>
-        </div>
+        </ButtonContainer>
       </HeaderContainer>
       <MeSVG />
+      {contactOpen && (
+        <ContactForm onClose={() => setContactOpen(false)} />
+      )}
     </Container>
   );
 };

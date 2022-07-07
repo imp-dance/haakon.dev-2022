@@ -8,6 +8,7 @@ export const Container = styled(motion.div)`
   padding-bottom: 0;
   max-width: 100vw;
   overflow: hidden;
+  background: var(--c-ui-01);
   @media screen and (max-width: 700px) {
     padding: var(--s-05);
   }
@@ -62,6 +63,16 @@ export const Header = styled(motion.div)`
       }
     }
   }
+`;
+
+export const InnerContainer = styled.div`
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+`;
+
+export const LinksContainer = styled.div`
+  display: flex;
 `;
 
 export const YearBox = styled.div`
