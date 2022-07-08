@@ -8,20 +8,6 @@ export const MeSVG = () => {
   return (
     <Wrapper>
       <Container>
-        {/* <ScreenWrap>
-          <Screen
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 0.8,
-            }}
-            transition={{
-              delay: 0.6,
-              duration: 0.1,
-            }}
-          ></Screen>
-        </ScreenWrap> */}
         <StyledSVG
           dm={isDM}
           width={1149}
