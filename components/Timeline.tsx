@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Header } from "styles/portfolio.styles";
+import LeaningMan from "./LeaningMan";
 
 type TimelineItem = {
   id: string;
@@ -269,9 +270,11 @@ export function Timeline({ items }: TimelineProps) {
               alignSelf: "center",
               flexGrow: 1,
               transform: "translateX(0.5px)",
+              minHeight: 500,
             }}
             isFirst={false}
           />
+          <LeaningMan className="leaning-man" />
         </TimelineContainer>
       </motion.div>
     </RelativeContainer>
@@ -449,6 +452,40 @@ const TimelineContainer = styled(motion.div)<{
     margin-top: var(--s-05);
   }
   min-height: calc(var(--app-height, 100vh) - 8.5rem);
+  .leaning-man {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-96%);
+    --skin-color: #ffdbc2;
+    --pants-color: var(--c-ui-04);
+    --shoe-color: var(--c-ui-03);
+    pointer-events: none;
+    path#HEAD,
+    path#NECK,
+    path#LEFT_ARM,
+    path#RIGHT_ARM {
+      fill: var(--skin-color);
+    }
+    path#LEFT_PANTS,
+    path#RIGHT_PANTS {
+      fill: var(--pants-color);
+    }
+    path#LEFT_SHOE,
+    path#RIGHT_SHOE {
+      fill: var(--shoe-color);
+    }
+    @media screen and (max-width: 900px) {
+      z-index: -1;
+      right: 0;
+      transform: translateX(37%);
+      left: auto;
+      bottom: -5%;
+    }
+    @media screen and (max-width: 650px) {
+      opacity: 0;
+    }
+  }
 `;
 
 const Filler = styled.div`
@@ -527,8 +564,13 @@ const ItemBox = styled.div`
   min-width: 30vw;
   max-width: 30vw;
   @media screen and (max-width: 900px) {
-    min-width: 100%;
-    max-width: 100%;
+    min-width: calc(100% - 6rem);
+    max-width: calc(100% - 6rem);
+    background: var(--c-ui-01);
+  }
+  @media screen and (max-width: 650px) {
+    min-width: calc(100%);
+    max-width: calc(100%);
   }
   transition: outline 0.2s var(--ease-01);
   outline: 2px solid transparent;
@@ -541,6 +583,9 @@ const ItemBox = styled.div`
   flex-direction: column;
   gap: var(--s-03);
   padding: var(--s-05);
+  @media screen and (min-width: 1200px) {
+    padding: var(--s-07);
+  }
   h2,
   p,
   span,
@@ -556,6 +601,7 @@ const ItemBox = styled.div`
   }
   > p {
     ${applyFontKind("body")}
+    max-width:600px;
   }
   > button {
     margin-top: var(--s-05);
