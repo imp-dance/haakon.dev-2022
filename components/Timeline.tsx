@@ -6,6 +6,8 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Header } from "styles/portfolio.styles";
 import LeaningMan from "./LeaningMan";
+import Luci from "./Luci";
+import Molly from "./Molly";
 
 type TimelineItem = {
   id: string;
@@ -275,6 +277,8 @@ export function Timeline({ items }: TimelineProps) {
             isFirst={false}
           />
           <LeaningMan className="leaning-man" />
+          <Molly className="molly" />
+          <Luci className="luci" />
         </TimelineContainer>
       </motion.div>
     </RelativeContainer>
@@ -452,6 +456,21 @@ const TimelineContainer = styled(motion.div)<{
     margin-top: var(--s-05);
   }
   min-height: calc(var(--app-height, 100vh) - 8.5rem);
+  .molly,
+  .luci {
+    position: absolute;
+    bottom: calc(-1rem - 2px);
+    left: 50%;
+    pointer-events: none;
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  }
+  .luci {
+    height: 85px;
+    transform: translateX(-250%) scaleX(-1);
+    width: auto;
+  }
   .leaning-man {
     position: absolute;
     bottom: -5px;
