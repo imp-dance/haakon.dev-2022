@@ -277,8 +277,8 @@ export function Timeline({ items }: TimelineProps) {
             isFirst={false}
           />
           <LeaningMan className="leaning-man" />
-          <Molly className="molly" />
           <Luci className="luci" />
+          <Molly className="molly" />
         </TimelineContainer>
       </motion.div>
     </RelativeContainer>
@@ -468,8 +468,11 @@ const TimelineContainer = styled(motion.div)<{
   }
   .luci {
     height: 85px;
-    transform: translateX(-250%) scaleX(-1);
+    transform: translateX(-70%) scaleX(-1);
     width: auto;
+  }
+  .molly {
+    bottom: calc(-1rem - 7px);
   }
   .leaning-man {
     position: absolute;
