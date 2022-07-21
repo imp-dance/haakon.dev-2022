@@ -30,6 +30,7 @@ const DMSwitch = styled(Switch)``;
 const MainContainer = styled.div`
   color: var(--c-text-02);
   border-top: 10px solid var(--c-focus-01);
+  min-width: 100vw;
   .topSwitch {
     position: fixed !important;
     top: calc(var(--s-05) + 10px);
