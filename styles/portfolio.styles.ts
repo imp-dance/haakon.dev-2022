@@ -8,7 +8,11 @@ export const Container = styled(motion.div)`
   padding-bottom: 0;
   max-width: 100vw;
   overflow: hidden;
-  background: var(--c-ui-01);
+  background: linear-gradient(
+    to bottom,
+    var(--c-ui-bg),
+    var(--c-ui-01)
+  );
   @media screen and (max-width: 700px) {
     padding: var(--s-05);
   }

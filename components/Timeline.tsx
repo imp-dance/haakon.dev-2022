@@ -1,10 +1,12 @@
-import { applyFontKind, Button } from "@ryfylke-react/ui";
+import { applyFontKind, Button, useDM } from "@ryfylke-react/ui";
 import { ArrowLeft, Close } from "@styled-icons/material";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import styled, { css, keyframes } from "styled-components";
 import { Header } from "styles/portfolio.styles";
+import Grass from "./Grass";
 import LeaningMan from "./LeaningMan";
 import Luci from "./Luci";
 import Molly from "./Molly";
@@ -276,6 +278,7 @@ export function Timeline({ items }: TimelineProps) {
             }}
             isFirst={false}
           />
+          <Grass className="grass" />
           <LeaningMan className="leaning-man" />
           <Luci className="luci" />
           <Molly className="molly" />
@@ -298,8 +301,18 @@ function TimelineItem({
   selectedItem: string;
   onSelect: () => void;
 }) {
+  const { isDM } = useDM();
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
   const renderItem = () => (
-    <ItemBox>
+    <ItemBox dm={isDM}>
       <h2>{item.title}</h2>
       <span>{item.subTitle}</span>
       <p>{item.body}</p>
@@ -310,7 +323,20 @@ function TimelineItem({
   );
 
   return (
-    <ItemContainer>
+    <ItemContainer
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: {},
+        visible: {},
+      }}
+      transition={{
+        duration: 0.8,
+        ease: "easeInOut",
+      }}
+      className={inView ? "inView" : ""}
+    >
       {dir === "left" && renderItem()}
       {dir !== "left" && <Filler />}
       <LineContainer>
@@ -456,6 +482,19 @@ const TimelineContainer = styled(motion.div)<{
     margin-top: var(--s-05);
   }
   min-height: calc(var(--app-height, 100vh) - 8.5rem);
+  .grass {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    pointer-events: none;
+    height: 90px;
+    opacity: 0.7;
+    transform: translateX(-50%) scaleX(1.3) scaleY(0.2);
+    transform-origin: center bottom;
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  }
   .molly,
   .luci {
     position: absolute;
@@ -582,13 +621,14 @@ const LineContainer = styled.div`
   }
 `;
 
-const ItemBox = styled.div`
+const ItemBox = styled.div<{
+  dm: boolean;
+}>`
   min-width: 30vw;
   max-width: 30vw;
   @media screen and (max-width: 900px) {
     min-width: calc(100% - 6rem);
     max-width: calc(100% - 6rem);
-    background: var(--c-ui-01);
   }
   @media screen and (max-width: 650px) {
     min-width: calc(100%);
@@ -599,7 +639,8 @@ const ItemBox = styled.div`
   margin: var(--s-03) 0;
   flex: 0;
   min-height: 1px;
-  background: var(--c-ui-bg);
+  background: ${(props) =>
+    props.dm ? "var(--c-ui-02)" : "var(--c-ui-04)"};
   height: min-content;
   display: flex;
   flex-direction: column;
@@ -616,6 +657,7 @@ const ItemBox = styled.div`
   }
   > h2 {
     ${applyFontKind("subtitle")}
+    color:var(--c-text-04);
   }
   > span {
     ${applyFontKind("code")}
@@ -624,17 +666,48 @@ const ItemBox = styled.div`
   > p {
     ${applyFontKind("body")}
     max-width:600px;
+    color: var(--c-text-04);
   }
   > button {
     margin-top: var(--s-05);
+    color: var(--c-text-04);
+    &:hover {
+      background: var(--c-ui-03);
+    }
   }
 `;
 
-const ItemContainer = styled.div`
+const itemBoxInAnim = keyframes`
+  from {
+    opacity:0;
+    transform:translateY(10px);
+  }
+`;
+
+const lineInAnim = keyframes`
+  from {
+    transform:scaleX(0);
+  }
+`;
+
+const ItemContainer = styled(motion.div)`
   width: 100%;
   display: flex;
   @media screen and (max-width: 900px) {
     flex-direction: column;
     align-items: center;
+  }
+  &.inView {
+    ${HoriLine} {
+      animation: ${lineInAnim} 0.3s ease-in-out;
+    }
+    ${ItemBox} {
+      animation: ${itemBoxInAnim} 0.3s ease-in-out;
+      animation-fill-mode: both;
+      animation-delay: 0.3s;
+      @media screen and (max-width: 900px) {
+        animation-delay: 0s;
+      }
+    }
   }
 `;
