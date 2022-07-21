@@ -55,7 +55,7 @@ const ArticlesPage: NextPage<{
       searchRef.current.querySelector("input")?.focus();
     }
   }, [searchShown]);
-  console.log(router.asPath);
+
   return (
     <ArticlePageContainer
       initial={

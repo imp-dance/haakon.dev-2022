@@ -204,7 +204,10 @@ const Container = styled(motion.div)`
     width: auto;
     left: 0;
     right: 0;
+    top: 0;
+    padding-top: var(--s-09);
   }
+
   &::after {
     content: "";
     position: absolute;
