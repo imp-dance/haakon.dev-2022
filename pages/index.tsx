@@ -89,8 +89,13 @@ const Home: NextPage = () => {
         </Header>
         <ButtonContainer>
           <Link href="/portfolio" passHref scroll={false}>
-            <Button kind="primary" size="lg">
-              My portfolio
+            <Button kind="primary" size="lg" ripple>
+              My experience & career
+            </Button>
+          </Link>
+          <Link href="/articles" passHref scroll={false}>
+            <Button kind="ghost" size="lg">
+              Articles by me
             </Button>
           </Link>
           <Button
@@ -98,13 +103,8 @@ const Home: NextPage = () => {
             size="lg"
             onClick={() => setContactOpen(true)}
           >
-            Get in touch
+            Contact me
           </Button>
-          <Link href="/articles" passHref scroll={false}>
-            <Button kind="ghost" size="lg">
-              Check out my blog
-            </Button>
-          </Link>
         </ButtonContainer>
       </HeaderContainer>
       <MeSVG />
