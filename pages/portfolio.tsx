@@ -20,8 +20,10 @@ import { Timeline } from "components/Timeline";
 import { ExperienceSection } from "components/ExperienceSection";
 
 export const Portfolio: NextPage = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
   return (
     <Container
+      ref={containerRef}
       initial={{
         translateY: 20,
         opacity: 0,
@@ -38,6 +40,11 @@ export const Portfolio: NextPage = () => {
       transition={{
         duration: 0.6,
         ease: "anticipate",
+      }}
+      onAnimationComplete={() => {
+        if (containerRef.current) {
+          containerRef.current.style.transform = "";
+        }
       }}
     >
       <Head>
@@ -64,6 +71,25 @@ export const Portfolio: NextPage = () => {
                   can install a package for React from NPM (
                   <code>@ryfylke-react/ui</code>) to use these
                   components.
+                </p>
+                <img
+                  src="/ui-preview.png"
+                  alt="Preview of Ryfylke React UI"
+                  style={{
+                    width: 350,
+                    maxWidth: "100%",
+                  }}
+                />
+                <p>
+                  I've always enjoyed making detailed, accessible
+                  and reusable components. This project is a a
+                  nice challenge for me to create a collection of
+                  matching components that go well together.
+                </p>
+                <p>
+                  The design system takes some heavy inspiration
+                  from libraries such as Carbon Design System,
+                  and Material-UI.
                 </p>
                 <p>
                   My latest portfolio design is built using
@@ -170,6 +196,204 @@ export const Portfolio: NextPage = () => {
                   </Link>
                   .
                 </p>
+              </>
+            ),
+          },
+          {
+            id: "haystack",
+            title: "Haystack (POC)",
+            subTitle: "2020",
+            body: "A proof-of-concept data-visualisation and anti-fraud software",
+            icon: <TaskAlt />,
+            expandedBody: (
+              <>
+                <p>
+                  I was hired as a consultant from Idean to work
+                  on developing the frontend for the proof of
+                  concept for a data-visualisation and anti-fraud
+                  software.
+                </p>
+                <p>
+                  The website was developed using React.JS with
+                  TypeScript and styled-components. For the
+                  graphs, we used Linkurious' Ogma library. For
+                  the charts, we used Nivo.
+                </p>
+                <p>
+                  The proof of concept is running on JSON-data,
+                  but the project structure is set up for a
+                  future handover for further development. Some
+                  of the working features include:
+                </p>
+                <ul>
+                  <li>
+                    Geo/map-mode that plots all nodes with
+                    coordinates.
+                  </li>
+                  <li>Creating charts based on node-data.</li>
+                  <li>Expand nodes to show relations.</li>
+                  <li>Adding pulses to the nodes.</li>
+                  <li>
+                    Shortest-path algorhythm between nodes.
+                  </li>
+                  <li>
+                    Adding filters based on node-types, with
+                    conditions based on the type properties.
+                  </li>
+                  <li>Hiding individual nodes.</li>
+                  <li>
+                    Graph fullscreen-mode (for map and main
+                    graph).
+                  </li>
+                </ul>
+                <img
+                  src="/haystack.png"
+                  alt="Screenshot of the Haystack project."
+                />
+                <p>
+                  While I'm not a visual-designer, I also made
+                  the logo draft that's featured in the
+                  screenshot above using{" "}
+                  <a
+                    href="https://logomaker.thehoth.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    logomaker
+                  </a>
+                  .
+                </p>
+                <p>
+                  I worked on this project for a total of around
+                  4 weeks - building the entire front end in that
+                  time-span. I also helped demo the POC to
+                  multiple clients and partners.
+                </p>
+              </>
+            ),
+          },
+          {
+            id: "ndla",
+            title: "NDLA (game)",
+            subTitle: "2020",
+            body: "Developed a game for the NDLA platform",
+            icon: <TaskAlt />,
+            expandedBody: (
+              <>
+                <p>
+                  This was a short project to create a
+                  network-simulation game to be used in
+                  IT-education on the Norwegian Digital Learning
+                  Arena. The objective of the game is to connect
+                  various nodes through switches to the network,
+                  and to map the correct networks to the correct
+                  devices. The design of the game was made by a
+                  Senior Visual Designer at Idean, and I worked
+                  on implementing the design myself.
+                </p>
+                <p>
+                  The game is made in React.JS with Typescript
+                  and styled-components.
+                </p>
+                <img
+                  src="/ndla.png"
+                  alt="Screenshot of the NDLA project."
+                />
+              </>
+            ),
+          },
+          {
+            id: "equinor",
+            title: "Equinor projects",
+            subTitle: "2020",
+            body: "Worked on two projects for Equinor through Idean.",
+            icon: <TaskAlt />,
+            expandedBody: (
+              <>
+                <p>
+                  While working as a consultant for Idean, I
+                  worked on two separate Equinor projects. I'll
+                  keep the descriptions a bit vauge, and with no
+                  screenshots - since these are both internal
+                  projects.
+                </p>
+                <p>
+                  On the first project, related to internal
+                  technology development and documenting tool, I
+                  was hired as a replacement for a previous
+                  frontender from Idean. There I worked for three
+                  months, helping clean up various bugs and also
+                  developing a few new components - including an
+                  animated expandable search-field. We used the
+                  SCRUM methodology with a team of between 10-20
+                  developers, mostly from India. The project was
+                  setup using <strong>React.JS</strong>,{" "}
+                  <strong>TypeScript</strong>,{" "}
+                  <strong>styled-components</strong> and{" "}
+                  <strong>Formik</strong> + <strong>Yup</strong>{" "}
+                  for handling forms and validation.
+                </p>
+                <p>
+                  On the second project, related to internal
+                  documentation for the various plants Equinor
+                  owns, I worked "pro-bono" in-between other
+                  projects. I mostly developed new generic
+                  components like a Table-component and an
+                  Accordion-component. The stack on this project
+                  was quite similar, with <strong>React</strong>{" "}
+                  and <strong>TypeScript</strong> - but this
+                  project notably used <strong>LESS</strong> for
+                  styling and the code-structure was more
+                  class/object-oriented.
+                </p>
+              </>
+            ),
+          },
+          {
+            id: "byforby",
+            title: "City for City",
+            subTitle: "2020",
+            body: "An internal project at Idean.",
+            icon: <TaskAlt />,
+            expandedBody: (
+              <>
+                <p>
+                  CityforCity was started on a voluntary basis at
+                  Idean Bergen. The initiative was a website
+                  where small local businesses that had been
+                  affected by and/or made concrete changes to
+                  their operation because of the covid pandemic
+                  are promoted to their local community.
+                </p>
+                <p>
+                  The original websites for Bergen, Stavanger and
+                  Oslo were all built and hosted at Squarespace,
+                  but this soon showed itself to be very limiting
+                  when the ambitions of the project grew.
+                  Squarespace was generally bad at handling
+                  articles and categorisation and it was
+                  difficult to implement more complex features.
+                  Because of this, we decided to develop our own
+                  custom system.
+                </p>
+                <p>
+                  My role in this project was sketching out and
+                  developing the new system. I decided to go for
+                  GatsbyJS for static rendering, and Strapi as a
+                  CMS system. After setting up the core
+                  functionality, I developed the frontend design
+                  based on an Adobe XD sketch created by a UX
+                  designer at Idean.
+                </p>
+                <Link
+                  href="https://stavangerforstavanger.no"
+                  target="_blank"
+                >
+                  <img
+                    src="https://haakon.dev/city.png"
+                    alt="Screenshot of cityforcity website"
+                  />
+                </Link>
               </>
             ),
           },
