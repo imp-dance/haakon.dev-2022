@@ -25,6 +25,9 @@ export const HeaderLinks = styled.div`
   &:hover {
     opacity: 1;
   }
+  @media screen and (max-width: 600px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const BackLink = styled.a`
