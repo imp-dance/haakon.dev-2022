@@ -35,7 +35,6 @@ video {
 
 body {
   background: var(--c-ui-bg);
-  min-width: 100vw;
   --roundness-01: 0px !important;
   max-width: 3200px;
   margin: 0 auto;
