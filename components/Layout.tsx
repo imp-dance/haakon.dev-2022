@@ -30,11 +30,17 @@ const DMSwitch = styled(Switch)``;
 const MainContainer = styled.div`
   color: var(--c-text-02);
   border-top: 10px solid var(--c-focus-01);
-  min-width: 100vw;
+  @media screen and (max-width: 900px) {
+    padding-top: var(--s-05) !important;
+  }
   .topSwitch {
     position: fixed !important;
     top: calc(var(--s-05) + 10px);
-    right: Var(--s-05);
+    right: var(--s-05);
     z-index: 999;
+    @media screen and (max-width: 900px) {
+      position: absolute !important;
+      top: var(--s-06);
+    }
   }
 `;
