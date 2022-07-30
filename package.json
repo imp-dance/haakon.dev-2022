@@ -16,7 +16,9 @@
     "@types/styled-components": "^5.1.25",
     "date-fns": "^2.28.0",
     "framer-motion": "^6.3.16",
+    "front-matter-markdown": "^0.4.5",
     "html-react-parser": "^2.0.0",
+    "markdown-to-jsx": "^7.1.7",
     "next": "12.2.0",
     "prismjs": "^1.28.0",
     "react": "18.2.0",
@@ -25,6 +27,8 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
+    "@swc/core": "1.2.215",
+    "@swc/plugin-styled-components": "^1.1.0",
     "@types/node": "18.0.1",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",

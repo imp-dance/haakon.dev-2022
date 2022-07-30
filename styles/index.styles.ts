@@ -6,6 +6,27 @@ export const Container = styled(motion.div)`
   margin: 0 auto;
 `;
 
+export const containerVariants = {
+  initial: {
+    translateY: 20,
+    opacity: 0,
+  },
+  animate: {
+    translateY: 0,
+    opacity: 1,
+  },
+  exit: {
+    transform: "translateX(-15%)",
+    scale: 0.8,
+    opacity: 0,
+  },
+};
+
+export const containerTransition = {
+  duration: 0.4,
+  ease: "anticipate",
+};
+
 export const HeaderContainer = styled.div`
   padding: var(--s-09);
   display: flex;
