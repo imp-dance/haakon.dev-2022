@@ -1,6 +1,56 @@
-import { Button, applyFontKind } from "@ryfylke-react/ui";
+import { applyFontKind, Button } from "@ryfylke-react/ui";
 import { motion } from "framer-motion";
 import styled, { keyframes } from "styled-components";
+
+export const pageInVariants = {
+  initial: {
+    translateY: 150,
+    opacity: 0,
+    scaleY: 0.8,
+  },
+  animate: {
+    translateY: 0,
+    opacity: 1,
+    scaleY: 1,
+  },
+  exit: {
+    translateY: 150,
+    opacity: 0,
+    scaleY: 0.8,
+  },
+};
+
+export const Header = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-05);
+  margin: var(--s-05) auto var(--s-09);
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
+  h2 {
+    display: flex;
+    gap: var(--s-02);
+    ${applyFontKind("h2")}
+    font-family: "Ubuntu Mono";
+    font-weight: normal;
+    margin: 0;
+    a {
+      color: var(--c-text-03);
+      transition: color 0.1s var(--ease-01);
+      &:hover {
+        color: var(--c-focus-01);
+      }
+    }
+  }
+`;
+
+export const pageInTransition = {
+  duration: 0.8,
+  ease: "anticipate",
+};
 
 export const CloseButton = styled(Button)`
   position: fixed;
@@ -44,6 +94,63 @@ export const IconCont = styled.div<{
   }
 `;
 
+export const containerVariants = {
+  shiftedLeft: {
+    translateX: "calc(-50vw + 2rem)",
+  },
+  shiftedRight: {
+    translateX: "calc(50vw - 2rem)",
+  },
+  idle: {
+    translateX: "0vw",
+  },
+};
+
+export const headerVariants = {
+  shiftedLeft: {
+    translateX: "calc(-50vw + 2rem)",
+    translateY: "-150%",
+    opacity: 0,
+  },
+  shiftedRight: {
+    translateX: "calc(50vw - 2rem)",
+    translateY: "-150%",
+    opacity: 0,
+  },
+  idle: {
+    translateX: "0vw",
+    translateY: "0%",
+  },
+};
+
+export const selectedItemVariants = {
+  closed: {
+    opacity: 0,
+    translateX: 0,
+    translateY: 100,
+  },
+  open: {
+    opacity: 1,
+    translateX: 0,
+    translateY: 0,
+    scale: 1,
+    scaleX: 1,
+  },
+};
+
+export const selectedItemTransitions = {
+  open: {
+    delay: 0.5,
+    duration: 0.6,
+    ease: "anticipate",
+  },
+  closed: {
+    delay: 0.2,
+    duration: 0.6,
+    ease: "easeOut",
+  },
+};
+
 export const SelectedItemTopBorder = styled.div<{
   isOpen: Boolean;
 }>`
@@ -64,15 +171,15 @@ export const SelectedItemTopBorder = styled.div<{
 `;
 
 export const SelectedItemContainer = styled(motion.div)<{
-  shiftLeft?: boolean;
+  $shiftLeft?: boolean;
 }>`
   position: fixed;
   top: 10px;
   background: var(--c-ui-01);
   padding: var(--s-07);
   padding-top: var(--s-09);
-  left: ${(props) => (props.shiftLeft ? "108px" : "3rem")};
-  right: ${(props) => (!props.shiftLeft ? "108px" : "4rem")};
+  left: ${(props) => (props.$shiftLeft ? "108px" : "3rem")};
+  right: ${(props) => (!props.$shiftLeft ? "108px" : "4rem")};
   bottom: 0;
   overflow-y: auto;
   pointer-events: none;
@@ -85,7 +192,7 @@ export const SelectedItemContainer = styled(motion.div)<{
   --scrollbar-color: var(--c-ui-04);
   scrollbar-width: auto;
   transform-origin: ${(props) =>
-    props.shiftLeft ? "center left" : "center right"};
+    props.$shiftLeft ? "center left" : "center right"};
   scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg);
   &::-webkit-scrollbar {
     width: 12px;
@@ -130,7 +237,7 @@ export const SelectedItemContainer = styled(motion.div)<{
 `;
 
 export const TimelineContainer = styled(motion.div)<{
-  active: boolean;
+  $active: boolean;
 }>`
   display: flex;
   width: calc(60vw + 200px);
@@ -139,7 +246,7 @@ export const TimelineContainer = styled(motion.div)<{
   margin-top: var(--s-09);
   flex-direction: column;
   --line-color: ${(props) =>
-    props.active ? "var(--c-focus-01)" : "var(--c-ui-03)"};
+    props.$active ? "var(--c-focus-01)" : "var(--c-ui-03)"};
   --line-thickness: 2px;
   @media screen and (max-width: 900px) {
     margin-top: var(--s-05);

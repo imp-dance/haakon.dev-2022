@@ -1,31 +1,35 @@
-import { applyFontKind, Button, useDM } from "@ryfylke-react/ui";
-import { ArrowLeft, Close } from "@styled-icons/material";
+import { Button, useDM } from "@ryfylke-react/ui";
+import { Close } from "@styled-icons/material";
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import styled, { css, keyframes } from "styled-components";
-import { Header } from "styles/portfolio.styles";
+import {
+  CloseButton,
+  containerVariants,
+  Filler,
+  Header,
+  headerVariants,
+  HoriLine,
+  IconCont,
+  ItemBox,
+  ItemContainer,
+  Line,
+  LineContainer,
+  pageInTransition,
+  pageInVariants,
+  SelectedItemContainer,
+  SelectedItemTopBorder,
+  selectedItemTransitions,
+  selectedItemVariants,
+  TimelineContainer,
+} from "styles/Timeline.styles";
 import Grass from "./Grass";
 import LeaningMan from "./LeaningMan";
 import Luci from "./Luci";
 import Molly from "./Molly";
-import {
-  RelativeContainer,
-  SelectedItemContainer,
-  CloseButton,
-  TimelineContainer,
-  Line,
-  ItemBox,
-  ItemContainer,
-  Filler,
-  LineContainer,
-  HoriLine,
-  IconCont,
-  SelectedItemTopBorder,
-} from "styles/Timeline.styles";
 
-type TimelineItem = {
+export type TimelineItem = {
   id: string;
   title: string;
   subTitle: string;
@@ -46,50 +50,6 @@ export function Timeline({ items }: TimelineProps) {
     item: TimelineItem | undefined;
     shiftLeft: boolean;
   } | null>(null);
-
-  const containerVariants = {
-    shiftedLeft: {
-      translateX: "calc(-50vw + 2rem)",
-    },
-    shiftedRight: {
-      translateX: "calc(50vw - 2rem)",
-    },
-    idle: {
-      translateX: "0vw",
-    },
-  };
-
-  const headerVariants = {
-    shiftedLeft: {
-      translateX: "calc(-50vw + 2rem)",
-      translateY: "-150%",
-      opacity: 0,
-    },
-    shiftedRight: {
-      translateX: "calc(50vw - 2rem)",
-      translateY: "-150%",
-      opacity: 0,
-    },
-    idle: {
-      translateX: "0vw",
-      translateY: "0%",
-    },
-  };
-
-  const selectedItemVariants = {
-    closed: {
-      opacity: 0,
-      translateX: 0,
-      translateY: 100,
-    },
-    open: {
-      opacity: 1,
-      translateX: 0,
-      translateY: 0,
-      scale: 1,
-      scaleX: 1,
-    },
-  };
 
   useEffect(() => {
     if (selectedItem !== "") {
@@ -151,13 +111,6 @@ export function Timeline({ items }: TimelineProps) {
           duration: 1.2,
           ease: "anticipate",
         }}
-        style={{
-          margin: "var(--s-05) auto var(--s-09)",
-          maxWidth: 900,
-          alignItems: "center",
-          position: "relative",
-          zIndex: 2,
-        }}
       >
         <h2>
           <Link href="/">haakon.dev</Link>
@@ -174,19 +127,11 @@ export function Timeline({ items }: TimelineProps) {
         initial="closed"
         animate={selectedItemControls}
         transition={
-          selectedItem === ""
-            ? {
-                delay: 0.2,
-                duration: 0.6,
-                ease: "easeOut",
-              }
-            : {
-                delay: 0.5,
-                duration: 0.6,
-                ease: "anticipate",
-              }
+          selectedItemTransitions[
+            selectedItem === "" ? "closed" : "open"
+          ]
         }
-        shiftLeft={selectedItemInfo.current?.shiftLeft}
+        $shiftLeft={selectedItemInfo.current?.shiftLeft}
       >
         <h2>{selectedItemInfo.current?.item?.title}</h2>
         <span>
@@ -208,29 +153,15 @@ export function Timeline({ items }: TimelineProps) {
         </Button>
       </SelectedItemContainer>
       <motion.div
-        initial={{
-          translateY: 150,
-          opacity: 0,
-          scaleY: 0.8,
-        }}
-        animate={{
-          translateY: 0,
-          opacity: 1,
-          scaleY: 1,
-        }}
-        transition={{
-          duration: 0.8,
-          ease: "anticipate",
-        }}
-        exit={{
-          translateY: 150,
-          opacity: 0,
-          scaleY: 0.8,
-        }}
+        variants={pageInVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={pageInTransition}
       >
         <TimelineContainer
           variants={containerVariants}
-          active={selectedItem !== ""}
+          $active={selectedItem !== ""}
           initial="idle"
           animate={
             selectedItem === ""

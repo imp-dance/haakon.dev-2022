@@ -1,14 +1,15 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { Layout } from "../components/Layout";
-import { AnimatePresence, MotionConfig } from "framer-motion";
-import { useRouter } from "next/router";
-import { useMountedEffect } from "../hooks/useMountedEffect";
 import {
   DarkmodeProvider,
   ToastProvider,
 } from "@ryfylke-react/ui";
+import { Layout } from "components/Layout";
+import { AnimatePresence, MotionConfig } from "framer-motion";
+import { useMountedEffect } from "hooks/useMountedEffect";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import "styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [firstRender, setFirstRender] = useState(true);
@@ -32,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useMountedEffect(() => {
-    /** Helps with migration from old react hashrouter */
+    /** Helps with migration from old react hashrouter (old links/bookmarks) */
     if (window.location.href.includes("/#/")) {
       router.replace(window.location.href.replace("/#/", "/"));
     }
@@ -64,6 +65,12 @@ function MyApp({ Component, pageProps }: AppProps) {
               }, 400);
             }}
           >
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, maximum-scale=1"
+              ></meta>
+            </Head>
             <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
         </Layout>

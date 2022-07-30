@@ -1,4 +1,4 @@
-import { Button, applyFontKind } from "@ryfylke-react/ui";
+import { applyFontKind, Button } from "@ryfylke-react/ui";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
@@ -9,6 +9,24 @@ export const Container = styled(motion.div)`
   padding: var(--s-05);
   padding-bottom: 5rem;
 `;
+
+export const containerMotionProps = {
+  initial: {
+    transform: "translateX(10%)",
+    opacity: 0,
+  },
+  animate: {
+    transform: "translateX(0%)",
+    opacity: 1,
+    transitionEnd: {
+      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+    },
+  },
+  exit: {
+    transform: "translateX(15%)",
+    opacity: 0,
+  },
+};
 
 export const Header = styled.header`
   padding: var(--s-05) 0;

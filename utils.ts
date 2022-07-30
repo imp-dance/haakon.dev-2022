@@ -41,3 +41,7 @@ export const gid = () => {
 export const spread = (obj?: any) => {
   return obj ?? {};
 };
+
+export function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>?/gm, "");
+}
