@@ -6,11 +6,13 @@ import {
 } from "@styled-icons/material";
 import { formatDistance } from "date-fns";
 import { motion, useReducedMotion } from "framer-motion";
+import usePagination from "hooks/usePagination";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { Container as ArticlePageContainer } from "styles/article.styles";
 import {
   Container,
   createContainerMotionProps,
@@ -20,9 +22,7 @@ import {
   SearchContainer,
   SearchInput,
 } from "styles/articles.styles";
-import usePagination from "../hooks/usePagination";
-import { Container as ArticlePageContainer } from "../styles/article.styles";
-import { ArticleItem } from "../types/wordpress";
+import { ArticleItem } from "types/wordpress";
 
 type PostsResponse = Array<ArticleItem>;
 
