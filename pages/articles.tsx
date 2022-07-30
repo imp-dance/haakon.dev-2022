@@ -1,25 +1,25 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { GetStaticProps, NextPage } from "next";
-import Link from "next/link";
-import styled from "styled-components";
 import {
   applyFocusStyles,
   applyFontKind,
   Button,
   TextInput,
 } from "@ryfylke-react/ui";
-import { ArticleItem } from "../types/wordpress";
-import usePagination from "../hooks/usePagination";
-import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   Search,
 } from "@styled-icons/material";
-import Head from "next/head";
 import { formatDistance } from "date-fns";
-import { Container as ArticlePageContainer } from "../styles/article.styles";
+import { motion, useReducedMotion } from "framer-motion";
+import { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import usePagination from "../hooks/usePagination";
+import { Container as ArticlePageContainer } from "../styles/article.styles";
+import { ArticleItem } from "../types/wordpress";
 
 type PostsResponse = Array<ArticleItem>;
 
@@ -35,6 +35,9 @@ const ArticlesPage: NextPage<{
   const [paginatedList, pagination] = usePagination(posts, {
     perPage: 6,
     maxButtons: 5,
+    onPageChange: () => {
+      document.body.scrollTop = 0;
+    },
     isHidden(item: ArticleItem) {
       if (search.trim() == "") {
         return true;
@@ -239,6 +242,7 @@ const ArticlesPage: NextPage<{
             ) : (
               <Button
                 size="sm"
+                key={button}
                 kind={
                   pagination.activePage === button
                     ? "regular"

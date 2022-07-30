@@ -45,29 +45,26 @@ export const Container = styled(motion.div)`
   }
 `;
 
-export const Header = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--s-05);
-  margin: var(--s-05) 0 var(--s-07);
-  h2 {
-    display: flex;
-    gap: var(--s-02);
-    ${applyFontKind("h2")}
-    font-family: "Ubuntu Mono";
-    font-weight: normal;
-    margin: 0;
-    a {
-      color: var(--c-text-03);
-      transition: color 0.1s var(--ease-01);
-      &:hover {
-        color: var(--c-focus-01);
-      }
-    }
-  }
-`;
+export const containerVariants = {
+  initial: {
+    translateY: 20,
+    opacity: 0,
+  },
+  animate: {
+    translateY: 0,
+    scale: 1,
+    opacity: 1,
+  },
+  exit: {
+    translateY: 50,
+    opacity: 0,
+  },
+};
+
+export const containerTransition = {
+  duration: 0.6,
+  ease: "anticipate",
+};
 
 export const InnerContainer = styled.div`
   width: 800px;
