@@ -1,21 +1,19 @@
 import { Button, Header } from "@ryfylke-react/ui";
 import { ContactForm } from "components/ContactForm";
 import { IndexTitle } from "components/IndexTitle";
+import MeSVG from "components/MeSVG";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import {
-  containerTransition,
-  containerVariants,
-} from "styles/index.styles";
-import MeSVG from "../components/MeSVG";
-import {
   ButtonContainer,
   Container,
+  containerTransition,
+  containerVariants,
   HeaderContainer,
-} from "../styles/index.styles";
+} from "styles/index.styles";
 
 const Home: NextPage = () => {
   const router = useRouter();

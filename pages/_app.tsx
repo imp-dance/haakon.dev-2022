@@ -2,14 +2,14 @@ import {
   DarkmodeProvider,
   ToastProvider,
 } from "@ryfylke-react/ui";
+import { Layout } from "components/Layout";
 import { AnimatePresence, MotionConfig } from "framer-motion";
+import { useMountedEffect } from "hooks/useMountedEffect";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Layout } from "../components/Layout";
-import { useMountedEffect } from "../hooks/useMountedEffect";
-import "../styles/globals.css";
+import "styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [firstRender, setFirstRender] = useState(true);
