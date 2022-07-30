@@ -192,7 +192,7 @@ export const SelectedItemContainer = styled(motion.div)<{
   --scrollbar-color: var(--c-ui-04);
   scrollbar-width: auto;
   transform-origin: ${(props) =>
-    props.shiftLeft ? "center left" : "center right"};
+    props.$shiftLeft ? "center left" : "center right"};
   scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg);
   &::-webkit-scrollbar {
     width: 12px;
