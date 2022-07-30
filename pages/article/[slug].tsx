@@ -1,23 +1,24 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Prism from "prismjs";
-import { ArticleItem } from "../../types/wordpress";
-import { useEffect, useState } from "react";
-import Head from "next/head";
 import { useDM } from "@ryfylke-react/ui";
-import Link from "next/link";
-import parse from "html-react-parser";
 import { ArrowLeft } from "@styled-icons/material";
 import { formatDistance } from "date-fns";
-import {
-  Container,
-  BackLink,
-  BackButton,
-  Main,
-  Header,
-  Title,
-  HeaderLinks,
-} from "../../styles/article.styles";
 import { useReducedMotion } from "framer-motion";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import Prism from "prismjs";
+import { useEffect } from "react";
+import { stripHtml } from "utils";
+import {
+  BackButton,
+  BackLink,
+  Container,
+  containerMotionProps,
+  Header,
+  HeaderLinks,
+  Main,
+  Title,
+} from "../../styles/article.styles";
+import { ArticleItem } from "../../types/wordpress";
 
 type ArticlePageProps = {
   post: ArticleItem;
@@ -27,48 +28,24 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
   post,
 }) {
   const shouldReduceMotion = useReducedMotion();
-  const { isDM, setDM } = useDM();
+  const { isDM } = useDM();
+
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
   return (
     <Container
-      initial={
-        shouldReduceMotion
-          ? {}
-          : {
-              transform: "translateX(10%)",
-              opacity: 0,
-            }
-      }
-      animate={
-        shouldReduceMotion
-          ? {}
-          : {
-              transform: "translateX(0%)",
-              opacity: 1,
-              transitionEnd: {
-                clipPath:
-                  "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
-              },
-            }
-      }
-      exit={
-        shouldReduceMotion
-          ? {}
-          : {
-              transform: "translateX(15%)",
-              opacity: 0,
-            }
-      }
+      {...(shouldReduceMotion ? {} : containerMotionProps)}
       transition={{
         duration: 0.4,
         ease: "anticipate",
       }}
     >
       <Head>
-        <title>{parse(post.title.rendered)} | haakon.dev</title>
+        <title>
+          {`${stripHtml(post.title.rendered)} | haakon.dev`}
+        </title>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-tomorrow.min.css"
