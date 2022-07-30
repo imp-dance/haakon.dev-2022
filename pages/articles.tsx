@@ -1,9 +1,4 @@
-import {
-  applyFocusStyles,
-  applyFontKind,
-  Button,
-  TextInput,
-} from "@ryfylke-react/ui";
+import { Button } from "@ryfylke-react/ui";
 import {
   ArrowLeft,
   ArrowRight,
@@ -16,7 +11,15 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  createContainerMotionProps,
+  Error,
+  listItemMotionProps,
+  PaginationContainer,
+  SearchContainer,
+  SearchInput,
+} from "styles/articles.styles";
 import usePagination from "../hooks/usePagination";
 import { Container as ArticlePageContainer } from "../styles/article.styles";
 import { ArticleItem } from "../types/wordpress";
@@ -61,36 +64,9 @@ const ArticlesPage: NextPage<{
 
   return (
     <ArticlePageContainer
-      initial={
-        shouldReduceMotion
-          ? {}
-          : {
-              transform: "translateY(-20px)",
-              opacity: 0,
-            }
-      }
-      animate={
-        shouldReduceMotion
-          ? {}
-          : {
-              transform: "translateY(0%)",
-              opacity: 1,
-            }
-      }
-      exit={
-        shouldReduceMotion
-          ? {}
-          : router.asPath === "/"
-          ? {
-              scale: 1.25,
-              translateY: -100,
-              opacity: 0,
-            }
-          : {
-              transform: "translateX(-15%)",
-              opacity: 0,
-            }
-      }
+      {...(shouldReduceMotion
+        ? {}
+        : createContainerMotionProps(router.asPath))}
       transition={{
         ease: "anticipate",
         duration: 0.4,
@@ -159,34 +135,13 @@ const ArticlesPage: NextPage<{
             paginatedList.map((post: ArticleItem, i) => (
               <motion.li
                 key={post.id}
-                initial={
-                  shouldReduceMotion
-                    ? {}
-                    : {
-                        translateY: -10,
-                        opacity: 0,
-                      }
-                }
-                animate={
-                  shouldReduceMotion
-                    ? {}
-                    : {
-                        opacity: 1,
-                        translateY: 0,
-                      }
-                }
+                {...(shouldReduceMotion
+                  ? {}
+                  : listItemMotionProps)}
                 transition={{
                   duration: 0.1,
                   delay: 0.4 + i * 0.075,
                 }}
-                exit={
-                  shouldReduceMotion
-                    ? {}
-                    : {
-                        opacity: 0,
-                        translateY: 10,
-                      }
-                }
               >
                 <Link
                   href={`/article/${post.slug}`}
@@ -267,96 +222,6 @@ const ArticlesPage: NextPage<{
     </ArticlePageContainer>
   );
 };
-
-const SearchContainer = styled(motion.div)`
-  input {
-    width: 100%;
-  }
-`;
-
-const Error = styled.li`
-  ${applyFontKind("code")}
-  color:var(--c-focus-01);
-  padding-bottom: var(--s-05);
-  span {
-    color: var(--c-text-01);
-  }
-`;
-
-const PaginationContainer = styled.div`
-  display: flex;
-  gap: var(--s-02);
-  justify-content: center;
-`;
-
-const SearchInput = styled(TextInput)`
-  width: 100%;
-  margin: 0 var(--s-03);
-  > div {
-    width: 100%;
-    input {
-      width: 100%;
-    }
-  }
-`;
-
-const Container = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-05);
-  h1 {
-    display: flex;
-    gap: var(--s-02);
-    ${applyFontKind("h2")}
-    font-family: "Ubuntu Mono";
-    font-weight: normal;
-    margin: 0;
-    padding: var(--s-05) 0 var(--s-03);
-    color: var(--c-text-01);
-    a {
-      color: var(--c-text-03);
-      transition: color 0.1s var(--ease-01);
-      &:hover {
-        color: var(--c-focus-01);
-      }
-    }
-  }
-  ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    gap: var(--s-05);
-    a {
-      display: block;
-      ${applyFontKind("h3")}
-      ${applyFocusStyles()}
-      font-family: "Ubuntu Mono";
-      padding: var(--s-03);
-      transition: color 0.1s var(--ease-01);
-      &:hover,
-      &:focus {
-        color: var(--c-focus-01);
-        background: var(--c-ui-01);
-        span {
-          opacity: 0.75;
-        }
-      }
-      span {
-        transition: opacity 0.2s var(--ease-01);
-        color: var(--c-text-02);
-        ${applyFontKind("small")}
-        font-family: "Ubuntu";
-        opacity: 0.45;
-      }
-      footer {
-        ${applyFontKind("label")}
-        color:var(--c-text-03);
-      }
-    }
-  }
-`;
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
