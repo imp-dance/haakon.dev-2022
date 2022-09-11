@@ -136,12 +136,12 @@ export function ExperienceSection() {
           </Link>
           . I had a contract set up with Telenor from day 1,
           working on another data-correlation and log analysis
-          project. Since then I've been working full-time on this
-          project.
+          project. Since then I&apos;ve been working full-time on
+          this project.
         </p>
         <p>
           Besides the Telenor project, I have also been working
-          on my company's digital presence,{" "}
+          on my company&apos;s digital presence,{" "}
           <Link
             href="https://design.ryfylke.dev"
             target="_blank"

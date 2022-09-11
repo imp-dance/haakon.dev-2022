@@ -93,6 +93,7 @@ export function Timeline({ items }: TimelineProps) {
       document.body.style.overflow = "unset";
       document.body.removeEventListener("keydown", listener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem]);
 
   return (
