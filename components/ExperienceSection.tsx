@@ -4,10 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  InnerContainer,
-  LinksContainer,
-} from "styles/portfolio.styles";
+import { InnerContainer } from "styles/portfolio.styles";
 import { ContactForm } from "./ContactForm";
 
 export function ExperienceSection() {
@@ -20,7 +17,7 @@ export function ExperienceSection() {
         <p>
           Working from home, in teams, along designers, using
           collaborative tools and task management services such
-          as Jira and Azure Devops. Fine-tuning accessible and
+          as Jira or Azure Devops. Fine-tuning accessible and
           creative user experiences using React and Typescript.
         </p>
         <h3>I am an expert in...</h3>
@@ -46,15 +43,17 @@ export function ExperienceSection() {
         <p>Javascript frameworks and tools, such as...</p>
         <ul className="tags">
           <li>React</li>
-          <li>Typescript</li>
-          <li>Redux</li>
+          <li>TypeScript</li>
+          <li>Redux (Toolkit)</li>
           <li>NextJS</li>
           <li>gatsby</li>
-          <li>Yup</li>
+          <li>yup</li>
           <li>
             <code>react-hook-form</code>
           </li>
+          <li>react-query</li>
           <li>Jest</li>
+          <li>Vitest</li>
           <li>Testcafe</li>
           <li>jQuery</li>
         </ul>
@@ -63,22 +62,28 @@ export function ExperienceSection() {
           <li>SCSS</li>
           <li>Animations</li>
           <li>Responsive design</li>
-          <li>
-            <code>styled-components</code>
-          </li>
+          <li>CSS-in-JS</li>
+          <li>Modern layout (flex/grid)</li>
+          <li>styled-components</li>
         </ul>
         <p>Other web development concepts, such as...</p>
         <ul className="tags">
-          <li>Responsive design</li>
           <li>Accessibility</li>
           <li>Security</li>
           <li>Search Engine Optimization</li>
-          <li>HTML semantics</li>
+          <li>Semantic HTML</li>
           <li>Server-side vs Client-side rendering</li>
           <li>Docker</li>
           <li>NPM</li>
           <li>Webpack</li>
+          <li>Vite</li>
+          <li>Unit & Functional Testing</li>
           <li>Version control (git)</li>
+          <li>Jira</li>
+          <li>VSTS</li>
+          <li>Agile / SCRUM methodology</li>
+          <li>Caching</li>
+          <li>Mocking</li>
         </ul>
         <p />
         <h3>My journey</h3>
@@ -254,6 +259,7 @@ const Container = styled(motion.div)`
     &.tags li {
       background: var(--c-primary-02);
       color: var(--c-text-04);
+      font-family: "Ubuntu Mono";
     }
   }
 `;
