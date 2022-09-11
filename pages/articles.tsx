@@ -54,7 +54,7 @@ const ArticlesPage: NextPage<{
     searchDeps: [search],
   });
 
-  useEffect(() => setFirstRender(false));
+  useEffect(() => setFirstRender(false), []);
 
   useEffect(() => {
     if (searchShown && searchRef.current) {
@@ -178,7 +178,8 @@ const ArticlesPage: NextPage<{
             ))
           ) : (
             <Error>
-              No articles found for "<span>{search}</span>"
+              No articles found for &quot;<span>{search}</span>
+              &quot;
             </Error>
           )}
         </ul>

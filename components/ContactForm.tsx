@@ -75,6 +75,7 @@ export function ContactForm({ onClose }: ContactFormProps) {
     if (hasSubmitted) {
       validateForm();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fs.name, fs.email, fs.message]);
 
   const register = (key: keyof FormInputs) => ({
@@ -135,6 +136,7 @@ export function ContactForm({ onClose }: ContactFormProps) {
     return () => {
       document.body.removeEventListener("keydown", listener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Container

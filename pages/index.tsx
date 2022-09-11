@@ -39,7 +39,7 @@ const Home: NextPage = () => {
           <IndexTitle />
         </Header>
         <Header order={3}>
-          I'm a Norwegian frontend developer currently doing
+          I&apos;m a Norwegian frontend developer currently doing
           contract work for my own company,{" "}
           <strong>Ryfylke React AS</strong>.
         </Header>
