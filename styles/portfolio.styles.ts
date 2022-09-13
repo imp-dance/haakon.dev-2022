@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled(motion.div)`
-  min-height: calc(var(--app-height, 100vh) - 10px);
+  min-height: var(--app-height, 100vh);
   padding: var(--s-05);
   padding-bottom: 0;
   max-width: 100vw;

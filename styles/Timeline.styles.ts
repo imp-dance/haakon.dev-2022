@@ -251,7 +251,7 @@ export const TimelineContainer = styled(motion.div)<{
   @media screen and (max-width: 900px) {
     margin-top: var(--s-05);
   }
-  min-height: calc(var(--app-height, 100vh) - 8.5rem);
+  min-height: var(--app-height, 100vh);
   .grass {
     position: absolute;
     bottom: 0;

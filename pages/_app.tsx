@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       const doc = document.documentElement;
       doc.style.setProperty(
         "--app-height",
-        `${window.innerHeight}px`
+        `${window.document.documentElement.clientHeight}px`
       );
     }
   };
