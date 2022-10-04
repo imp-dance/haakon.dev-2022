@@ -1,10 +1,12 @@
 import { applyFontKind, Button } from "@ryfylke-react/ui";
-import { ArrowLeft, EmojiPeople } from "@styled-icons/material";
+import {
+  ArrowUpward,
+  EmojiPeople,
+} from "@styled-icons/material";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
-import { InnerContainer } from "styles/portfolio.styles";
 import { ContactForm } from "./ContactForm";
 
 export function ExperienceSection() {
@@ -152,33 +154,23 @@ export function ExperienceSection() {
           launch. My company currently consists of me, as well as
           Eirik Underbakke - who works part-time as a designer.
         </p>
+        <div style={{ height: "var(--s-09)" }} />
+        <div style={{ height: "var(--s-09)" }} />
         <h3>You can find me on...</h3>
-        <ul className="links">
-          <li>
-            <Link
-              href="https://github.com/imp-dance"
-              target="_blank"
-            >
-              Github
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="https://linkedin.com/in/hakonunderbakke"
-              target="_blank"
-            >
-              Linkedin
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="https://codepen.io/schart"
-              target="_blank"
-            >
-              Codepen
-            </Link>
-          </li>
-        </ul>
+        <ContactLinkList>
+          <ContactLink
+            link="https://github.com/imp-dance"
+            text="Github"
+          />
+          <ContactLink
+            link="https://linkedin.com/in/hakonunderbakke"
+            text="Linkediin"
+          />
+          <ContactLink
+            link="https://codepen.io/schart"
+            text="Codepen"
+          />
+        </ContactLinkList>
         <p />
         <ButtonContainer>
           <Button
@@ -186,13 +178,17 @@ export function ExperienceSection() {
             onClick={() => setContactOpen(true)}
             icon={<EmojiPeople />}
           >
-            Get in touch
+            Send me an email
           </Button>
-          <Link href="/" passHref scroll={false}>
-            <Button kind="ghost" icon={<ArrowLeft />}>
-              Back to homepage
-            </Button>
-          </Link>
+          <Button
+            kind="ghost"
+            icon={<ArrowUpward />}
+            onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+          >
+            Back to top
+          </Button>
         </ButtonContainer>
         {contactOpen && (
           <ContactForm onClose={() => setContactOpen(false)} />
@@ -201,6 +197,82 @@ export function ExperienceSection() {
     </Container>
   );
 }
+
+const ContactLink = (props: { link: string; text: string }) => {
+  return (
+    <li>
+      <Link href={props.link} target="_blank" passHref>
+        <a target="_blank">
+          <span />
+          {props.text}
+          <span />
+        </a>
+      </Link>
+    </li>
+  );
+};
+
+const InnerContainer = styled.div`
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+`;
+
+const ContactLinkList = styled.ul`
+  margin: var(--s-05) 0;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-03);
+  li {
+    ${applyFontKind("code")}
+    transition: all 0.15s ease-in;
+    padding: 0;
+    background: transparent;
+    a {
+      display: block;
+      padding: var(--s-05);
+      font-size: 1.25rem;
+      font-weight: bold;
+      transition: background 0.2s ease-in;
+      background: linear-gradient(
+        to right,
+        var(--c-danger-01),
+        var(--c-primary-02)
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      span {
+        transition: transform 0.1s ease-in;
+        width: var(--s-03);
+        transform: scaleY(0);
+        display: inline-block;
+      }
+    }
+    &:hover {
+      background: var(--c-text-05);
+      transform: translateY(-1px);
+      a {
+        background: linear-gradient(
+          to right,
+          var(--c-danger-02),
+          var(--c-text-04)
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        span {
+          transform: scaleY(1);
+        }
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+`;
 
 const ButtonContainer = styled.div`
   margin-top: var(--s-09);
@@ -211,8 +283,7 @@ const ButtonContainer = styled.div`
 
 const Container = styled(motion.div)`
   background: var(--c-ui-bg);
-  margin: 0 calc(var(--s-05) * -1);
-  padding: 6rem var(--s-09);
+  padding: 6rem var(--s-09) var(--s-05);
   @media screen and (max-width: 870px) {
     margin-top: var(--s-09);
   }
@@ -239,7 +310,7 @@ const Container = styled(motion.div)`
   a:hover {
     text-decoration: underline;
   }
-  ul {
+  ul:not(${ContactLinkList}) {
     margin: var(--s-05) 0;
     list-style: none;
     padding: 0;
@@ -252,9 +323,6 @@ const Container = styled(motion.div)`
       padding: var(--s-03);
       background: var(--c-ui-01);
       color: var(--c-text-01);
-    }
-    &.links li {
-      ${applyFontKind("code")}
     }
     &.tags li {
       background: var(--c-primary-02);

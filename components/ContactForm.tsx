@@ -192,6 +192,7 @@ export function ContactForm({ onClose }: ContactFormProps) {
 
 const Container = styled(motion.div)`
   position: fixed;
+  z-index: 1;
   bottom: var(--s-09);
   right: var(--s-07);
   left: calc(50% - 200px);

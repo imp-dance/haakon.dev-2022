@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Container = styled(motion.div)`
   max-width: 100%;
   margin: 0 auto;
+  border-bottom: 1px solid var(--c-ui-02);
 `;
 
 export const containerVariants = {

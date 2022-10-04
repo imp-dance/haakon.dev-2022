@@ -1,15 +1,12 @@
 import { Button, useDM } from "@ryfylke-react/ui";
 import { Close } from "@styled-icons/material";
 import { motion, useAnimation } from "framer-motion";
-import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import {
   CloseButton,
   containerVariants,
   Filler,
-  Header,
-  headerVariants,
   HoriLine,
   IconCont,
   ItemBox,
@@ -97,28 +94,7 @@ export function Timeline({ items }: TimelineProps) {
   }, [selectedItem]);
 
   return (
-    <div>
-      <Header
-        variants={headerVariants}
-        initial="idle"
-        animate={
-          selectedItem === ""
-            ? "idle"
-            : selectedItemInfo.current?.shiftLeft
-            ? "shiftedLeft"
-            : "shiftedRight"
-        }
-        transition={{
-          duration: 1.2,
-          ease: "anticipate",
-        }}
-      >
-        <h2>
-          <Link href="/">haakon.dev</Link>
-          <span>/</span>
-          <span>portfolio</span>
-        </h2>
-      </Header>
+    <div style={{ borderBottom: "2px solid var(--c-ui-03)" }}>
       <SelectedItemTopBorder isOpen={selectedItem !== ""} />
       <SelectedItemContainer
         className={`selected-item-container ${
@@ -228,15 +204,16 @@ function TimelineItem({
     }
   }, [controls, inView]);
 
+  const isSelected =
+    selectedItem !== "" && selectedItem === item.id;
+
+  const className = `${isSelected ? "isSelected" : ""} ${dir}`;
+
   const renderItem = () => (
     <ItemBox
       key={`item-box-${item.id}`}
       dm={isDM}
-      className={
-        selectedItem !== "" && selectedItem === item.id
-          ? "isSelected"
-          : ""
-      }
+      className={className}
     >
       <h2>{item.title}</h2>
       <span>{item.subTitle}</span>
@@ -248,20 +225,7 @@ function TimelineItem({
   );
 
   return (
-    <ItemContainer
-      ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={{
-        hidden: {},
-        visible: {},
-      }}
-      transition={{
-        duration: 0.8,
-        ease: "easeInOut",
-      }}
-      className={inView ? "inView" : ""}
-    >
+    <ItemContainer ref={ref} className={inView ? "inView" : ""}>
       {dir === "left" && renderItem()}
       {dir !== "left" && <Filler />}
       <LineContainer>

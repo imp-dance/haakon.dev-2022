@@ -24,6 +24,18 @@ import {
 } from "styles/articles.styles";
 import { ArticleItem } from "types/wordpress";
 
+type Route = { [key: string]: Route; _url: string };
+
+const routes: Route = {
+  _url: "/",
+  blog: {
+    _url: "blog",
+    post: {
+      _url: ":postId",
+    },
+  },
+};
+
 type PostsResponse = Array<ArticleItem>;
 
 const ArticlesPage: NextPage<{

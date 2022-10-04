@@ -158,7 +158,7 @@ export const SelectedItemTopBorder = styled.div<{
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 100px;
   z-index: 2;
   border-top: 10px solid var(--c-focus-01);
   background: var(--c-ui-bg);
@@ -430,7 +430,7 @@ export const ItemBox = styled.div<{
   }
   > h2 {
     ${applyFontKind("subtitle")}
-    color:var(--c-text-04);
+    color:var(--c-text-04) !important;
   }
   > span {
     ${applyFontKind("code")}
@@ -472,14 +472,33 @@ export const ItemContainer = styled(motion.div)`
   }
   &.inView {
     ${HoriLine} {
-      animation: ${lineInAnim} 0.3s ease-in-out;
+      animation: ${lineInAnim} 0.2s ease-in-out;
     }
     ${ItemBox} {
-      animation: ${itemBoxInAnim} 0.3s ease-in-out;
+      animation: ${itemBoxInAnim} 0.2s ease-in-out;
       animation-fill-mode: both;
       animation-delay: 0.3s;
       @media screen and (max-width: 900px) {
         animation-delay: 0s;
+      }
+      position: relative;
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 2rem;
+        height: 1rem;
+        width: 1rem;
+        background: var(--c-ui-03);
+        border-radius: 50%;
+      }
+      &.left::after {
+        left: 100%;
+        transform: translateX(-50%);
+      }
+      &.right::after {
+        right: 100%;
+        transform: translateX(50%);
       }
     }
   }
