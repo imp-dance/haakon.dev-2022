@@ -12,6 +12,7 @@ import { Timeline, TimelineItem } from "components/Timeline";
 import WavesSVG from "components/WavesSVG";
 import parseFrontMatter from "front-matter-markdown";
 import fs from "fs";
+import useMediaQuery from "hooks/useMediaQuery";
 import Markdown from "markdown-to-jsx";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
@@ -40,6 +41,7 @@ const HomePage: NextPage<{
 }> = ({ timelineData }) => {
   const router = useRouter();
   const [contactOpen, setContactOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 650px)");
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [buttonContainerPos, setButtonContainerPos] =
     useState<number>();
@@ -95,7 +97,7 @@ const HomePage: NextPage<{
 
   const renderButtons = (scroller?: boolean) => (
     <>
-      {scroller && isScrolledPastButtons && (
+      {scroller && isScrolledPastButtons && !isMobile && (
         <div
           style={{
             height: 72,
@@ -120,6 +122,7 @@ const HomePage: NextPage<{
                   top: 0,
                   left: 0,
                   right: 0,
+                  display: isMobile ? "none" : "flex",
                 }
               : {
                   transition: "all 0.2s var(--ease-01)",
@@ -127,6 +130,7 @@ const HomePage: NextPage<{
                   padding: "var(--s-03) var(--s-09)",
                   opacity: 0,
                   position: "static",
+                  display: isMobile ? "none" : "flex",
                 }
             : {}
         }
