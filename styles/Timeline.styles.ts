@@ -472,10 +472,10 @@ export const ItemContainer = styled(motion.div)`
   }
   &.inView {
     ${HoriLine} {
-      animation: ${lineInAnim} 0.2s ease-in-out;
+      animation: ${lineInAnim} 0.4s ease-in-out;
     }
     ${ItemBox} {
-      animation: ${itemBoxInAnim} 0.2s ease-in-out;
+      animation: ${itemBoxInAnim} 0.3s ease-in-out !important;
       animation-fill-mode: both;
       animation-delay: 0.3s;
       @media screen and (max-width: 900px) {
