@@ -1,8 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
-import React, { ReactElement } from "react";
-import styled from "styled-components";
 import { GlobalStyles, Switch, useDM } from "@ryfylke-react/ui";
 import { NightsStay, WbSunny } from "@styled-icons/material";
+import React, { ReactElement } from "react";
+import styled from "styled-components";
 
 export const Layout: React.FC<{
   children: ReactElement;
@@ -18,6 +17,7 @@ export const Layout: React.FC<{
         uncheckedIcon={<WbSunny />}
         containerProps={{
           className: "topSwitch",
+          "aria-hidden": "true",
         }}
       />
       {children}

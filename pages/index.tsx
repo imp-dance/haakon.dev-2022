@@ -75,7 +75,6 @@ const HomePage: NextPage<{
         setButtonContainerPos(buttonContainerPos);
       }
       const listener = () => {
-        console.log(window.scrollY, buttonScrollTop);
         if (
           window.scrollY >= buttonScrollTop &&
           !isScrolledPastButtons
@@ -158,12 +157,13 @@ const HomePage: NextPage<{
         <Button
           kind="ghost"
           size="lg"
-          onClick={() =>
+          onClick={() => {
             window.scrollTo({
               top: document.body.scrollHeight,
               behavior: "smooth",
-            })
-          }
+            });
+            window.location.href = "#contact-me";
+          }}
         >
           Contact me
         </Button>

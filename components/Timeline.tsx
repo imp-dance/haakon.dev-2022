@@ -1,6 +1,7 @@
 import { Button, useDM } from "@ryfylke-react/ui";
 import { Close } from "@styled-icons/material";
 import { motion, useAnimation } from "framer-motion";
+import { useRouter } from "next/router";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import {
@@ -41,12 +42,25 @@ type TimelineProps = {
 
 export function Timeline({ items }: TimelineProps) {
   const [selectedItem, setSelectedItem] = useState("");
+  const router = useRouter();
   const [_, render] = useState(".");
   const selectedItemControls = useAnimation();
   const selectedItemInfo = useRef<{
     item: TimelineItem | undefined;
     shiftLeft: boolean;
   } | null>(null);
+
+  const selectItem = (item: string) => {
+    setSelectedItem(item);
+    if (typeof window !== "undefined") {
+      const newUrl = item ? `/?item=${item}` : "/";
+      window.history.replaceState(
+        { ...window.history.state, as: newUrl, url: newUrl },
+        "",
+        newUrl
+      );
+    }
+  };
 
   useEffect(() => {
     if (selectedItem !== "") {
@@ -67,7 +81,7 @@ export function Timeline({ items }: TimelineProps) {
     }
     const listener = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setSelectedItem("");
+        selectItem("");
       }
     };
     if (selectedItem !== "") {
@@ -93,6 +107,29 @@ export function Timeline({ items }: TimelineProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem]);
 
+  useEffect(() => {
+    if (
+      router.query.item &&
+      typeof router.query.item === "string" &&
+      !selectedItem
+    ) {
+      const element = document.querySelector<HTMLDivElement>(
+        `[data-itemname="${router.query.item}"]`
+      );
+      if (element) {
+        const position =
+          element.getBoundingClientRect().top +
+          window.scrollY -
+          300;
+        window.scrollTo({
+          top: position,
+        });
+
+        setSelectedItem(router.query.item);
+      }
+    }
+  }, [router.query.item]);
+
   return (
     <div style={{ borderBottom: "2px solid var(--c-ui-03)" }}>
       <SelectedItemTopBorder isOpen={selectedItem !== ""} />
@@ -116,7 +153,7 @@ export function Timeline({ items }: TimelineProps) {
             size="sm"
             kind="ghost"
             icon={<Close />}
-            onClick={() => setSelectedItem("")}
+            onClick={() => selectItem("")}
           />
           {selectedItemInfo.current?.item?.subTitle}
         </span>
@@ -124,7 +161,7 @@ export function Timeline({ items }: TimelineProps) {
         <Button
           size="lg"
           kind="ghost"
-          onClick={() => setSelectedItem("")}
+          onClick={() => selectItem("")}
         >
           Back to Portfolio
         </Button>
@@ -158,7 +195,7 @@ export function Timeline({ items }: TimelineProps) {
               isFirst={i === 0}
               selectedItem={selectedItem}
               dir={i % 2 === 0 ? "right" : "left"}
-              onSelect={() => setSelectedItem(item.id)}
+              onSelect={() => selectItem(item.id)}
               key={item.id}
             />
           ))}
@@ -214,6 +251,7 @@ function TimelineItem({
       key={`item-box-${item.id}`}
       dm={isDM}
       className={className}
+      data-itemname={item.id}
     >
       <h2>{item.title}</h2>
       <span>{item.subTitle}</span>
@@ -225,7 +263,19 @@ function TimelineItem({
   );
 
   return (
-    <ItemContainer ref={ref} className={inView ? "inView" : ""}>
+    <ItemContainer
+      ref={ref}
+      className={inView ? "inView" : ""}
+      animate={controls}
+      variants={{
+        hidden: {},
+        visible: {},
+      }}
+      transition={{
+        duration: 0.8,
+        ease: "easeInOut",
+      }}
+    >
       {dir === "left" && renderItem()}
       {dir !== "left" && <Filler />}
       <LineContainer>

@@ -156,7 +156,7 @@ export function ExperienceSection() {
         </p>
         <div style={{ height: "var(--s-09)" }} />
         <div style={{ height: "var(--s-09)" }} />
-        <h3>You can find me on...</h3>
+        <h3 id="contact-me">You can find me on...</h3>
         <ContactLinkList>
           <ContactLink
             link="https://github.com/imp-dance"
@@ -164,7 +164,7 @@ export function ExperienceSection() {
           />
           <ContactLink
             link="https://linkedin.com/in/hakonunderbakke"
-            text="Linkediin"
+            text="Linkedin"
           />
           <ContactLink
             link="https://codepen.io/schart"
@@ -183,9 +183,7 @@ export function ExperienceSection() {
           <Button
             kind="ghost"
             icon={<ArrowUpward />}
-            onClick={() =>
-              window.scrollTo({ top: 0, behavior: "smooth" })
-            }
+            onClick={() => window.scrollTo({ top: 0 })}
           >
             Back to top
           </Button>
@@ -230,6 +228,14 @@ const ContactLinkList = styled.ul`
     transition: all 0.15s ease-in;
     padding: 0;
     background: transparent;
+    border: 2px solid transparent;
+    border-image: linear-gradient(
+      40deg,
+      transparent 20%,
+      transparent 39%,
+      transparent 39%
+    );
+    border-image-slice: 1;
     a {
       display: block;
       padding: var(--s-05);
@@ -238,8 +244,8 @@ const ContactLinkList = styled.ul`
       transition: background 0.2s ease-in;
       background: linear-gradient(
         to right,
-        var(--c-danger-01),
-        var(--c-primary-02)
+        var(--c-text-01),
+        var(--c-text-02)
       );
       background-clip: text;
       -webkit-background-clip: text;
@@ -252,13 +258,20 @@ const ContactLinkList = styled.ul`
       }
     }
     &:hover {
-      background: var(--c-text-05);
+      /* background: var(--c-text-05); */
+      border-image: linear-gradient(
+        25deg,
+        var(--c-danger-02) 30%,
+        var(--c-primary-02) 50%,
+        transparent 60%
+      );
       transform: translateY(-1px);
+      border-image-slice: 1;
       a {
         background: linear-gradient(
-          to right,
-          var(--c-danger-02),
-          var(--c-text-04)
+          30deg,
+          var(--c-danger-02) 10%,
+          var(--c-text-01) 60%
         );
         background-clip: text;
         -webkit-background-clip: text;

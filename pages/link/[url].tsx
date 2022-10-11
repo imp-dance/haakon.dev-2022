@@ -9,11 +9,9 @@ export const getStaticProps: GetStaticProps = async ({
   params,
 }) => {
   const prisma = new PrismaClient();
-  console.log("Hi there", params);
   if (params?.url) {
     const existingLink =
       await prisma.$queryRaw`SELECT * FROM link WHERE to = ${params.link}`;
-    console.log("Existing", existingLink);
   }
 
   return {
