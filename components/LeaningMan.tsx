@@ -1,5 +1,5 @@
-import * as React from "react";
 import { SVGProps } from "react";
+import styled, { keyframes } from "styled-components";
 
 const LeaningMan = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -10,12 +10,12 @@ const LeaningMan = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path
+    <LeftShoe
       d="M61.163 481.43c10 6.5 30 5.5 31 5.5l2 3.5c0 10.5 1.1 29.3 1.5 30.5 1.47 4.409-2.5 2.833-4 3.5-10.5.166-26.9 0-30.5 0-3.6 0-18.334 1.333-21 2-8 2-4.8 1.2-20 2-21-4-18-7.5-19.5-7.5-1.2 0-.5-4 0-6 .5-2.167 5.3-7 20.5-9s26.333-6.834 31.5-13.5c-.334-.334 3.3-10.2 8.5-11Z"
       fill="var(--shoe-color, #3D4A54)"
       id="LEFT_SHOE"
     />
-    <path
+    <RightShoe
       d="M141.662 311.93c-9.6-.4-14.666 4-17 6.5 10.8 5.6 3.334 21.666 0 28-3.333 2.5-1.7 11.1 3.5 13.5 6.5 3 8.001 7 6 21.5-2.023 14.668 3 19 10.5 18.5s12.5-24.5 9.5-24.5c-2.4 0-2-36.334-1.5-54.5.334-2.834-1.4-8.6-11-9Z"
       fill="var(--shoe-color, #3D4A54)"
       id="RIGHT_SHOE"
@@ -25,7 +25,7 @@ const LeaningMan = (props: SVGProps<SVGSVGElement>) => (
       fill="#000"
       id="LEFT_PANTS"
     />
-    <path
+    <RightPants
       d="M123.163 280.43c11.2-4.4 21-25.5 24.5-35.5-17.5-7.5-54.4-21.6-62-18-9.5 4.5-57.5 74.5-63.5 92s24.5 31.5 27.5 30 44.5 3 48.5 1.5c3.2-1.2 17 2.833 23.5 5 1.166-.667 9-4.384 9-14 0-12.5-.5-22 5-28.5 3.478-4.111-24.5 8-26.5 6-1.6-1.6-14.334-5.667-20.5-7.5 6.833-8.5 23.3-26.6 34.5-31Z"
       fill="#1A1A1A"
       id="RIGHT_PANTS"
@@ -40,7 +40,7 @@ const LeaningMan = (props: SVGProps<SVGSVGElement>) => (
       fill="#462725"
       id="HOODIE_TORSO"
     />
-    <path
+    <RightArm
       d="m55.663 249.93 31-33.5 20 9.5c-2.667 3-8.6 9.4-11 11-3 2-11.5 9-26 20.5s-8 11-10 11c-1.6 0-4.667 5-6 7.5-1.5 1.833-5.1 5.6-7.5 6-3 .5-5-1.5-7.5-4.5s-2-6.5 1-13c-3.2-4.4 9.333-11.5 16-14.5Z"
       fill="#FFF4CB"
       id="RIGHT_ARM"
@@ -67,5 +67,61 @@ const LeaningMan = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
+
+const rightShoeAnim = keyframes`
+  0%, 100% {
+    transform:rotate(0.5deg);
+  }
+  50% {
+    transform:rotate(-1deg);
+  }
+`;
+
+const rightPantsAnim = keyframes`
+  0%, 100% {
+    transform:translateX(0px) translateY(-1px);
+  }
+  50% {
+    transform:translateX(1px) translateY(-1px);
+  }
+`;
+
+const leftShoeAnim = keyframes`
+  0%, 100% {
+    transform:rotate(-2deg);
+  }
+  50% {
+    transform:rotate(0deg);
+  }
+`;
+
+const rightArmAnim = keyframes`
+  0%, 100% {
+    transform:rotate(-1deg) translateY(1px);
+  }
+  50% {
+    transform:rotate(0deg);
+  }
+`;
+
+const RightShoe = styled.path`
+  transform-origin: 50% 50%;
+  animation: ${rightShoeAnim} 1.8s infinite;
+`;
+
+const RightPants = styled.path`
+  transform-origin: 50% 50%;
+  animation: ${rightPantsAnim} 1.8s infinite;
+`;
+
+const LeftShoe = styled.path`
+  transform-origin: 50% 100%;
+  animation: ${leftShoeAnim} 1.8s infinite;
+`;
+
+const RightArm = styled.path`
+  transform-origin: 50% 50%;
+  animation: ${rightArmAnim} 1.8s infinite;
+`;
 
 export default LeaningMan;

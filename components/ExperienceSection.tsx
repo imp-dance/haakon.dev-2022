@@ -320,6 +320,9 @@ const Container = styled(motion.div)`
   li {
     color: var(--c-text-02);
   }
+  a {
+    color: var(--c-danger-01);
+  }
   a:hover {
     text-decoration: underline;
   }

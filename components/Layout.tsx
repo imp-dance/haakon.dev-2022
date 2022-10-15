@@ -29,6 +29,7 @@ const DMSwitch = styled(Switch)``;
 
 const MainContainer = styled.div`
   color: var(--c-text-02);
+  overflow: hidden;
   border-top: 10px solid var(--c-focus-01);
   @media screen and (max-width: 900px) {
     padding-top: var(--s-05) !important;

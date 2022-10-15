@@ -1,4 +1,3 @@
-import * as React from "react";
 import { applyFontKind, useDM } from "@ryfylke-react/ui";
 import { motion } from "framer-motion";
 import styled, { keyframes } from "styled-components";
@@ -22,7 +21,7 @@ export const MeSVG = () => {
             opacity: 0,
           }}
           animate={{
-            translateX: "13%",
+            translateX: "14%",
             translateY: "13%",
             opacity: 1,
           }}

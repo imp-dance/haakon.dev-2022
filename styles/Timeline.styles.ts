@@ -307,15 +307,19 @@ export const TimelineContainer = styled(motion.div)<{
       fill: var(--shoe-color);
     }
     @media screen and (max-width: 900px) {
-      z-index: -1;
+      /*       z-index: -1;
       right: 0;
       transform: translateX(37%);
       left: auto;
-      bottom: -5%;
+      bottom: -5%; */
+      display: none;
     }
-    @media screen and (max-width: 650px) {
+    /*     @media screen and (max-width: 650px) {
       opacity: 0;
-    }
+    } */
+  }
+  @media screen and (max-width: 900px) {
+    padding-bottom: var(--s-06);
   }
 `;
 
@@ -378,7 +382,7 @@ export const LineContainer = styled.div`
   .line-left,
   .line-right {
     position: absolute;
-    width: 50vw;
+    width: 50%;
   }
   .line-left {
     right: 0;
@@ -491,6 +495,9 @@ export const ItemContainer = styled(motion.div)`
         width: 1rem;
         background: var(--c-ui-03);
         border-radius: 50%;
+        @media screen and (max-width: 650px) {
+          display: none;
+        }
       }
       &.left::after {
         left: 100%;
