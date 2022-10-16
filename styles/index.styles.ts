@@ -33,11 +33,8 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--s-07);
-  min-height: var(--app-height, 100vh);
+  min-height: calc(var(--app-height, 100vh) - 10px);
   justify-content: center;
-  @supports (-webkit-touch-callout: none) {
-    min-height: var(--app-height, 100vh);
-  }
   h1,
   h3 {
     margin: 0;

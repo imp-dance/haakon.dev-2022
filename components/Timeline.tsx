@@ -3,7 +3,6 @@ import { Close } from "@styled-icons/material";
 import { motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
 import {
   CloseButton,
   containerVariants,
@@ -128,6 +127,7 @@ export function Timeline({ items }: TimelineProps) {
         setSelectedItem(router.query.item);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.item]);
 
   return (
@@ -232,15 +232,6 @@ function TimelineItem({
   onSelect: () => void;
 }) {
   const { isDM } = useDM();
-  const controls = useAnimation();
-  const [ref, inView] = useInView();
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
   const isSelected =
     selectedItem !== "" && selectedItem === item.id;
 
@@ -263,19 +254,7 @@ function TimelineItem({
   );
 
   return (
-    <ItemContainer
-      ref={ref}
-      className={inView ? "inView" : ""}
-      animate={controls}
-      variants={{
-        hidden: {},
-        visible: {},
-      }}
-      transition={{
-        duration: 0.8,
-        ease: "easeInOut",
-      }}
-    >
+    <ItemContainer>
       {dir === "left" && renderItem()}
       {dir !== "left" && <Filler />}
       <LineContainer>

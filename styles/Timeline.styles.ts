@@ -382,7 +382,7 @@ export const LineContainer = styled.div`
   .line-left,
   .line-right {
     position: absolute;
-    width: 50%;
+    width: 50vw;
   }
   .line-left {
     right: 0;
@@ -474,39 +474,38 @@ export const ItemContainer = styled(motion.div)`
     flex-direction: column;
     align-items: center;
   }
-  &.inView {
-    ${HoriLine} {
-      animation: ${lineInAnim} 0.4s ease-in-out;
+  ${HoriLine} {
+    animation: ${lineInAnim} 0.4s ease-in-out;
+  }
+  ${ItemBox} {
+    animation: ${itemBoxInAnim} 0.3s ease-in-out !important;
+    animation-fill-mode: both;
+    animation-delay: 0.3s;
+    @media screen and (max-width: 900px) {
+      animation-delay: 0s;
     }
-    ${ItemBox} {
-      animation: ${itemBoxInAnim} 0.3s ease-in-out !important;
-      animation-fill-mode: both;
-      animation-delay: 0.3s;
-      @media screen and (max-width: 900px) {
-        animation-delay: 0s;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 2rem;
+      height: 1rem;
+      width: 1rem;
+      background: var(--c-ui-04);
+      border-radius: 50%;
+      z-index: 2;
+      @media screen and (max-width: 950px) {
+        display: none;
       }
-      position: relative;
-      &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 2rem;
-        height: 1rem;
-        width: 1rem;
-        background: var(--c-ui-03);
-        border-radius: 50%;
-        @media screen and (max-width: 650px) {
-          display: none;
-        }
-      }
-      &.left::after {
-        left: 100%;
-        transform: translateX(-50%);
-      }
-      &.right::after {
-        right: 100%;
-        transform: translateX(50%);
-      }
+    }
+    &.left::after {
+      left: 100%;
+      transform: translateX(-50%);
+    }
+    &.right::after {
+      right: 100%;
+      transform: translateX(50%);
     }
   }
 `;

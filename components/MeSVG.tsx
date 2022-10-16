@@ -5,7 +5,7 @@ import styled, { keyframes } from "styled-components";
 export const MeSVG = () => {
   const { isDM } = useDM();
   return (
-    <Wrapper>
+    <div>
       <Container>
         <StyledSVG
           dm={isDM}
@@ -90,20 +90,9 @@ export const MeSVG = () => {
           />
         </StyledSVG>
       </Container>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-`;
 
 const Screen = styled(motion.div)`
   transform: scaleX(1) scaleY(1) scaleZ(1) rotateX(9deg)
@@ -188,20 +177,22 @@ const StyledSVG = styled(motion.svg)<{
   transform-origin: bottom right;
   transform: translateY(12%) translateX(11%);
   path#LEFT_LOWER_ARM {
+    will-change: transform;
     animation: ${lowerArmAnim} 1.5s ease-in-out;
     animation-iteration-count: infinite;
   }
   path#RIGHT_LOWER_ARM {
+    will-change: transform;
     animation: ${lowerRightArmAnim} 1.5s ease-in-out;
     animation-iteration-count: infinite;
     animation-delay: 0.5s;
   }
   path#SHIRT {
     transform: translate(-0.2%, 0px);
-    transition: fill 0.1s var(--ease-01);
   }
-  path#SCREEN {
-    transition: fill 0.1s var(--ease-01);
+  path#SCREEN,
+  path#SHIRT {
+    transition: fill 0.1s ease-out;
   }
 `;
 

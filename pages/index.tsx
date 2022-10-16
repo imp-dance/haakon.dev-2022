@@ -1,6 +1,6 @@
 import { Button, Header, useDM } from "@ryfylke-react/ui";
 import {
-  ArrowDownward,
+  AutoAwesome,
   TaskAlt,
   Work,
 } from "@styled-icons/material";
@@ -10,6 +10,7 @@ import { IndexTitle } from "components/IndexTitle";
 import MeSVG from "components/MeSVG";
 import { Timeline, TimelineItem } from "components/Timeline";
 import WavesSVG from "components/WavesSVG";
+import { useReducedMotion } from "framer-motion";
 import parseFrontMatter from "front-matter-markdown";
 import fs from "fs";
 import useMediaQuery from "hooks/useMediaQuery";
@@ -47,6 +48,7 @@ const HomePage: NextPage<{
     useState<number>();
   const [isScrolledPastButtons, setScrolledPastButtons] =
     useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const { isDM } = useDM();
 
   const serverDataToTimelineItems = (
@@ -141,10 +143,10 @@ const HomePage: NextPage<{
             ripple
             onClick={() =>
               buttonContainerRef?.current?.scrollIntoView?.({
-                behavior: "smooth",
+                behavior: shouldReduceMotion ? "auto" : "smooth",
               })
             }
-            icon={<ArrowDownward />}
+            icon={<AutoAwesome />}
           >
             My experience & career
           </Button>
@@ -160,7 +162,7 @@ const HomePage: NextPage<{
           onClick={() => {
             window.scrollTo({
               top: document.body.scrollHeight,
-              behavior: "smooth",
+              behavior: shouldReduceMotion ? "auto" : "smooth",
             });
             window.location.href = "#contact-me";
           }}

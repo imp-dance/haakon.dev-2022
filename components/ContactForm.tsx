@@ -179,10 +179,18 @@ export function ContactForm({ onClose }: ContactFormProps) {
         {...register("message")}
       />
       <ButtonGroup>
-        <Button kind="primary" onClick={onSubmit}>
-          Contact me
+        <Button
+          kind="primary"
+          onClick={onSubmit}
+          disabled={loading}
+        >
+          {loading ? "Sending..." : "Contact me"}
         </Button>
-        <Button kind="ghost" onClick={() => onClose()}>
+        <Button
+          kind="ghost"
+          onClick={() => onClose()}
+          disabled={loading}
+        >
           Cancel
         </Button>
       </ButtonGroup>
@@ -242,4 +250,7 @@ const Container = styled(motion.div)`
 const ButtonGroup = styled.div`
   display: flex;
   gap: var(--s-05);
+  button:disabled {
+    opacity: 0.5;
+  }
 `;

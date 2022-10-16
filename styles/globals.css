@@ -38,4 +38,5 @@ body {
   --roundness-01: 0px !important;
   max-width: 3200px;
   margin: 0 auto;
+  transition: background 0.1s ease-out;
 }
