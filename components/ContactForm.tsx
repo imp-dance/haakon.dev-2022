@@ -99,14 +99,15 @@ export function ContactForm({ onClose }: ContactFormProps) {
     }
     if (validateForm()) {
       setLoading(true);
-      fetch(
-        "https://ewxpkphj05.execute-api.us-east-1.amazonaws.com/dev/static-site-mailer",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(fs),
-        }
-      )
+      fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: fs.name,
+          email: fs.email,
+          message: fs.message,
+        }),
+      })
         .then(() => {
           setLoading(false);
           onClose();
@@ -119,8 +120,8 @@ export function ContactForm({ onClose }: ContactFormProps) {
           setLoading(false);
           onClose();
           toast({
-            text: "Message recieved!",
-            kind: "success",
+            text: "Message failed!",
+            kind: "error",
           });
         });
     }
