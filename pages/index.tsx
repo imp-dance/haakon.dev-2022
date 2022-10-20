@@ -42,7 +42,7 @@ const HomePage: NextPage<{
 }> = ({ timelineData }) => {
   const router = useRouter();
   const [contactOpen, setContactOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 650px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [buttonContainerPos, setButtonContainerPos] =
     useState<number>();
@@ -105,6 +105,7 @@ const HomePage: NextPage<{
           }}
         />
       )}
+      {isMobile ? <div /> : null}
       <ButtonContainer
         ref={scroller ? buttonContainerRef : null}
         style={
