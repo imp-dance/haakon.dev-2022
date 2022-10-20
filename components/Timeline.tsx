@@ -1,5 +1,5 @@
 import { Button, useDM } from "@ryfylke-react/ui";
-import { Close } from "@styled-icons/material";
+import { Close, ReadMore } from "@styled-icons/material";
 import { motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect, useRef, useState } from "react";
@@ -247,7 +247,12 @@ function TimelineItem({
       <h2>{item.title}</h2>
       <span>{item.subTitle}</span>
       <p>{item.body}</p>
-      <Button kind="ghost" size="field" onClick={onSelect}>
+      <Button
+        kind="ghost"
+        size="field"
+        onClick={onSelect}
+        icon={<ReadMore />}
+      >
         Read more
       </Button>
     </ItemBox>

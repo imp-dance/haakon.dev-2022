@@ -400,14 +400,6 @@ export const ItemBox = styled.div<{
 }>`
   min-width: 30vw;
   max-width: 30vw;
-  @media screen and (max-width: 900px) {
-    min-width: calc(100% - 6rem);
-    max-width: calc(100% - 6rem);
-  }
-  @media screen and (max-width: 650px) {
-    min-width: calc(100%);
-    max-width: calc(100%);
-  }
   transition: background 0.6s var(--ease-01);
   outline: 2px solid transparent;
   margin: var(--s-03) 0;
@@ -422,9 +414,6 @@ export const ItemBox = styled.div<{
   padding: var(--s-05);
   &.isSelected {
     background: var(--c-ui-bg);
-  }
-  @media screen and (min-width: 1200px) {
-    padding: var(--s-07);
   }
   h2,
   p,
@@ -451,6 +440,26 @@ export const ItemBox = styled.div<{
     &:hover {
       background: var(--c-ui-03);
     }
+  }
+  @media screen and (min-width: 1200px) {
+    padding: var(--s-07);
+  }
+  @media screen and (max-width: 900px) {
+    min-width: calc(100% - 6rem);
+    max-width: calc(100% - 6rem);
+    background: var(--c-ui-bg) !important;
+    > h2,
+    > p,
+    > button {
+      color: var(--c-text-01) !important;
+    }
+    > button:hover {
+      background: var(--c-ui-02);
+    }
+  }
+  @media screen and (max-width: 650px) {
+    min-width: calc(100%);
+    max-width: calc(100%);
   }
 `;
 
