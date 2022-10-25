@@ -146,6 +146,7 @@ export function Timeline({ items }: TimelineProps) {
           ]
         }
         $shiftLeft={selectedItemInfo.current?.shiftLeft}
+        aria-hidden={selectedItem === ""}
       >
         <h2>{selectedItemInfo.current?.item?.title}</h2>
         <span>
@@ -154,6 +155,7 @@ export function Timeline({ items }: TimelineProps) {
             kind="ghost"
             icon={<Close />}
             onClick={() => selectItem("")}
+            aria-label="Back to Portfolio"
           />
           {selectedItemInfo.current?.item?.subTitle}
         </span>
