@@ -395,6 +395,16 @@ export const LineContainer = styled.div`
   }
 `;
 
+export const TimelineSectionContainer = styled.section`
+  padding-top: var(--s-05);
+  border-bottom: 2px solid var(--c-ui-03);
+
+  background: var(--c-ui-bg);
+  @media screen and (max-width: 900px) {
+    border-bottom-width: 1px;
+  }
+`;
+
 export const ItemBox = styled.div<{
   dm: boolean;
 }>`
@@ -411,7 +421,9 @@ export const ItemBox = styled.div<{
   display: flex;
   flex-direction: column;
   gap: var(--s-03);
+  border-radius: 2px;
   padding: var(--s-05);
+  position: relative;
   &.isSelected {
     background: var(--c-ui-bg);
   }
@@ -440,6 +452,10 @@ export const ItemBox = styled.div<{
     &:hover {
       background: var(--c-ui-03);
     }
+  }
+  &::after {
+    background: ${(props) =>
+      props.dm ? "var(--c-ui-01)" : "var(--c-ui-02)"};
   }
   @media screen and (min-width: 1200px) {
     padding: var(--s-07);
@@ -498,23 +514,23 @@ export const ItemContainer = styled(motion.div)`
       content: "";
       display: block;
       position: absolute;
-      top: 2rem;
-      height: 1rem;
-      width: 1rem;
-      background: var(--c-ui-04);
-      border-radius: 50%;
-      z-index: 2;
+      --offset: var(--s-02);
+      width: 100%;
+      height: 100%;
+      transition: background 0.4s ease-out;
+      border-radius: 2px;
+      z-index: -1;
       @media screen and (max-width: 950px) {
         display: none;
       }
     }
     &.left::after {
-      left: 100%;
-      transform: translateX(-50%);
+      right: var(--offset);
+      top: var(--offset);
     }
     &.right::after {
-      right: 100%;
-      transform: translateX(50%);
+      bottom: var(--offset);
+      left: var(--offset);
     }
   }
 `;

@@ -8,18 +8,19 @@ import { ContactForm } from "components/ContactForm";
 import { ExperienceSection } from "components/ExperienceSection";
 import { IndexTitle } from "components/IndexTitle";
 import MeSVG from "components/MeSVG";
-import { Timeline, TimelineItem } from "components/Timeline";
+import { Timeline } from "components/Timeline";
 import WavesSVG from "components/WavesSVG";
 import { useReducedMotion } from "framer-motion";
-import parseFrontMatter from "front-matter-markdown";
-import fs from "fs";
+import {
+  getTimelineData,
+  ServerTimeline,
+} from "helpers/getTimelineData";
 import useMediaQuery from "hooks/useMediaQuery";
 import Markdown from "markdown-to-jsx";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import path from "path";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ButtonContainer,
@@ -28,14 +29,7 @@ import {
   containerVariants,
   HeaderContainer,
 } from "styles/index.styles";
-
-type ServerTimeline = (Omit<
-  TimelineItem,
-  "expandedBody" | "icon"
-> & {
-  markdown: string;
-  type: string;
-})[];
+import { TimelineSectionContainer } from "styles/Timeline.styles";
 
 const HomePage: NextPage<{
   timelineData: ServerTimeline;
@@ -212,10 +206,12 @@ const HomePage: NextPage<{
           <ContactForm onClose={() => setContactOpen(false)} />
         )}
       </Container>
-      {renderButtons(true)}
-      <Timeline
-        items={timelineData.map(serverDataToTimelineItems)}
-      />
+      <TimelineSectionContainer>
+        {renderButtons(true)}
+        <Timeline
+          items={timelineData.map(serverDataToTimelineItems)}
+        />
+      </TimelineSectionContainer>
       <ExperienceSection />
       <WavesSVG
         style={{
@@ -231,36 +227,7 @@ const HomePage: NextPage<{
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    // Fetch markdown files from `public/timelineData`
-    const timelinePath = path.resolve(
-      "./public",
-      "timelineData"
-    );
-    const fileNames = fs.readdirSync(timelinePath);
-    const timelineData: ServerTimeline = [];
-    for (const fileName of fileNames) {
-      const fileContent = fs.readFileSync(
-        path.resolve("./public", "timelineData", fileName),
-        "utf-8"
-      );
-      // Extract front matter
-      const { skipSize, ...attributes } = parseFrontMatter<{
-        id: string;
-        title: string;
-        type: string;
-        subTitle: string;
-        body: string;
-        skipSize: number;
-      }>(fileContent);
-      // Extract markdown
-      const markdown = fileContent.substring(skipSize);
-      timelineData.push({
-        ...attributes,
-        markdown,
-      });
-    }
-    // Reverse so filename that starts with highest number goes on top of the timeline
-    timelineData.reverse();
+    const timelineData = await getTimelineData();
     return {
       props: {
         timelineData,

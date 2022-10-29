@@ -183,7 +183,14 @@ export function ExperienceSection() {
           <Button
             kind="ghost"
             icon={<ArrowUpward />}
-            onClick={() => window.scrollTo({ top: 0 })}
+            onClick={() => {
+              history.pushState(
+                "",
+                document.title,
+                window.location.pathname
+              );
+              window.scrollTo({ top: 0 });
+            }}
           >
             Back to top
           </Button>

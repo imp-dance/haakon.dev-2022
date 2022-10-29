@@ -131,7 +131,7 @@ export function Timeline({ items }: TimelineProps) {
   }, [router.query.item]);
 
   return (
-    <div style={{ borderBottom: "2px solid var(--c-ui-03)" }}>
+    <>
       <SelectedItemTopBorder isOpen={selectedItem !== ""} />
       <SelectedItemContainer
         className={`selected-item-container ${
@@ -216,7 +216,7 @@ export function Timeline({ items }: TimelineProps) {
           <Molly className="molly" />
         </TimelineContainer>
       </motion.div>
-    </div>
+    </>
   );
 }
 
