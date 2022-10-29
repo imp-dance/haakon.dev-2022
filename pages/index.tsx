@@ -191,7 +191,7 @@ const HomePage: NextPage<{
           I have been doing front-end focused web development professionally for the last 5 years. These days, I mostly work with React and Typescript."
           />
         </Head>
-        <HeaderContainer>
+        <HeaderContainer dm={isDM}>
           <Header order={1} key={router.asPath}>
             <IndexTitle />
           </Header>
