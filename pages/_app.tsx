@@ -2,6 +2,7 @@ import {
   DarkmodeProvider,
   ToastProvider,
 } from "@ryfylke-react/ui";
+import { Analytics } from "@vercel/analytics/react";
 import { Layout } from "components/Layout";
 import { AnimatePresence, MotionConfig } from "framer-motion";
 import { useMountedEffect } from "hooks/useMountedEffect";
@@ -45,37 +46,40 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.asPath]);
 
   return (
-    <DarkmodeProvider>
-      <ToastProvider />
-      <MotionConfig
-        reducedMotion="user"
-        transition={{
-          duration: 0.001,
-          delay: 0,
-          ease: "linear",
-        }}
-      >
-        <Layout>
-          <AnimatePresence
-            exitBeforeEnter
-            onExitComplete={() => {
-              window.scrollTo(0, 0);
-              setTimeout(() => {
-                document.body.style.overflow = "unset";
-              }, 400);
-            }}
-          >
-            <Head>
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, maximum-scale=1"
-              ></meta>
-            </Head>
-            <Component {...pageProps} key={router.asPath} />
-          </AnimatePresence>
-        </Layout>
-      </MotionConfig>
-    </DarkmodeProvider>
+    <>
+      <DarkmodeProvider>
+        <ToastProvider />
+        <MotionConfig
+          reducedMotion="user"
+          transition={{
+            duration: 0.001,
+            delay: 0,
+            ease: "linear",
+          }}
+        >
+          <Layout>
+            <AnimatePresence
+              exitBeforeEnter
+              onExitComplete={() => {
+                window.scrollTo(0, 0);
+                setTimeout(() => {
+                  document.body.style.overflow = "unset";
+                }, 400);
+              }}
+            >
+              <Head>
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1, maximum-scale=1"
+                ></meta>
+              </Head>
+              <Component {...pageProps} key={router.asPath} />
+            </AnimatePresence>
+          </Layout>
+        </MotionConfig>
+      </DarkmodeProvider>
+      <Analytics />
+    </>
   );
 }
 
