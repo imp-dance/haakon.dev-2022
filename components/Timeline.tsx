@@ -10,6 +10,7 @@ import {
   HoriLine,
   IconCont,
   ItemBox,
+  ItemBoxInner,
   ItemContainer,
   Line,
   LineContainer,
@@ -234,6 +235,7 @@ function TimelineItem({
   onSelect: () => void;
 }) {
   const { isDM } = useDM();
+  const [, rerender] = useState();
   const isSelected =
     selectedItem !== "" && selectedItem === item.id;
 
@@ -245,20 +247,27 @@ function TimelineItem({
       dm={isDM}
       className={className}
       data-itemname={item.id}
+      dir={dir}
     >
-      <h2>{item.title}</h2>
-      <span>{item.subTitle}</span>
-      <p>{item.body}</p>
-      <Button
-        kind="ghost"
-        size="field"
-        onClick={onSelect}
-        icon={<ReadMore />}
-      >
-        Read more
-      </Button>
+      <ItemBoxInner dm={isDM}>
+        <h2>{item.title}</h2>
+        <span>{item.subTitle}</span>
+        <p>{item.body}</p>
+        <Button
+          kind="ghost"
+          size="field"
+          onClick={onSelect}
+          icon={<ReadMore />}
+        >
+          Read more
+        </Button>
+      </ItemBoxInner>
     </ItemBox>
   );
+
+  useEffect(() => {
+    rerender(undefined);
+  }, []);
 
   return (
     <ItemContainer>

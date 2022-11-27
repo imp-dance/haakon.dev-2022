@@ -200,6 +200,11 @@ const HomePage: NextPage<{
             mostly work with React and Typescript.
           </Header>
           {renderButtons()}
+          {/*           <img
+            src={isDM ? `/logo-ryfre-dm.png` : `/logo-ryfre.png`}
+            alt="Logo Ryfylke React AS"
+            className="ryfrea-logo"
+          /> */}
         </HeaderContainer>
         <MeSVG />
         {contactOpen && (

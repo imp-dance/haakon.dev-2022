@@ -1,6 +1,6 @@
 import { applyFontKind, Button } from "@ryfylke-react/ui";
 import { motion } from "framer-motion";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const pageInVariants = {
   initial: {
@@ -363,8 +363,14 @@ export const HoriLine = styled.div<{
   transform-origin: ${(props) =>
     props.dir === "left" ? "center right" : "center left"};
   height: var(--line-thickness);
-  transform: ${(props) =>
-    props.isHidden ? "scaleX(0)" : "scaleX(1)"};
+  transform: ${(props) => {
+    const transform = [];
+    transform.push(props.isHidden ? "scaleX(0)" : "scaleX(1)");
+    transform.push(
+      props.dir === "left" ? "rotate(5deg)" : "rotate(-5deg)"
+    );
+    return transform.join(" ");
+  }};
   background: var(--line-color);
   position: absolute;
   top: var(--s-09);
@@ -405,12 +411,70 @@ export const TimelineSectionContainer = styled.section`
   }
 `;
 
+export const ItemBoxInner = styled.div<{
+  dm: boolean;
+}>`
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-03);
+  @media screen and (min-width: 900px) {
+    position: relative;
+    background: ${(props) =>
+      props.dm ? "var(--c-ui-02)" : "var(--c-ui-04)"};
+    z-index: 2;
+    margin: calc(var(--s-07) * -1);
+    padding: var(--s-07);
+  }
+`;
+
+const setupBubbleAnim = css`
+  padding: 40px;
+  --_p: 100px;
+  --_g1: radial-gradient(
+    50% 50%,
+    var(--c-ui-04) 90%,
+    #0000
+  ); /* color 1 */
+  --_g2: radial-gradient(
+    50% 50%,
+    var(--c-ui-03) 90%,
+    #0000
+  ); /* color 2 */
+  --_g3: radial-gradient(
+    50% 50%,
+    var(--c-ui-02) 90%,
+    #0000
+  ); /* color 3 */
+  --_g4: radial-gradient(
+    50% 50%,
+    var(--c-ui-01) 90%,
+    #0000
+  ); /* color 4 */
+  background: var(--_g1) calc(20% - var(--_p))
+      calc(20% - var(--_p)),
+    var(--_g2) calc(80% + var(--_p)) calc(8% - var(--_p)),
+    var(--_g3) calc(88% + var(--_p)) calc(82% + var(--_p)),
+    var(--_g3) 55% calc(8% - var(--_p)),
+    var(--_g1) calc(18% - var(--_p)) calc(91% + var(--_p)),
+    var(--_g2) calc(10% - var(--_p)) calc(70% + var(--_p)),
+    var(--_g2) calc(95% + var(--_p)) 40%,
+    var(--_g1) calc(82% + var(--_p)) calc(28% - var(--_p)),
+    var(--_g4) calc(12% - var(--_p)) 30%,
+    var(--_g4) 65% calc(94% + var(--_p)),
+    var(--_g3) calc(20% - var(--_p)) calc(10% - var(--_p)),
+    var(--_g4) calc(42% - var(--_p)) calc(91% + var(--_p));
+  background-size: 15px 15px, 20px 20px, 30px 30px;
+  background-repeat: no-repeat;
+`;
+
 export const ItemBox = styled.div<{
   dm: boolean;
+  dir: "left" | "right";
 }>`
   min-width: 30vw;
   max-width: 30vw;
-  transition: background 0.6s var(--ease-01);
+  transition: background 0.6s var(--ease-01),
+    transform 2s var(--ease-01), opacity 2s var(--ease-01);
   outline: 2px solid transparent;
   margin: var(--s-03) 0;
   flex: 0;
@@ -424,6 +488,13 @@ export const ItemBox = styled.div<{
   border-radius: 2px;
   padding: var(--s-05);
   position: relative;
+  z-index: 5;
+  @media screen and (min-width: 900px) {
+    transform: ${(props) =>
+      props.dir === "right"
+        ? "rotate3d(1, 1, 1, 0deg) scale(0.85) translateX(-9%)"
+        : "rotate3d(1, 1, 1, -0deg) scale(0.85) translateX(9%)"};
+  }
   &.isSelected {
     background: var(--c-ui-bg);
   }
@@ -433,29 +504,42 @@ export const ItemBox = styled.div<{
   button {
     margin: 0;
   }
-  > h2 {
-    ${applyFontKind("subtitle")}
-    color:var(--c-text-04) !important;
-  }
-  > span {
-    ${applyFontKind("code")}
-    color:var(--c-text-03);
-  }
-  > p {
-    ${applyFontKind("body")}
-    max-width:600px;
-    color: var(--c-text-04);
-  }
-  > button {
-    margin-top: var(--s-05);
-    color: var(--c-text-04);
-    &:hover {
-      background: var(--c-ui-03);
+  ${ItemBoxInner} {
+    > h2 {
+      ${applyFontKind("subtitle")}
+      color:var(--c-text-04) !important;
+    }
+    > span {
+      ${applyFontKind("code")}
+      color:var(--c-text-03);
+    }
+    > p {
+      ${applyFontKind("body")}
+      max-width:600px;
+      color: var(--c-text-04);
+    }
+    > button {
+      margin-top: var(--s-05);
+      color: var(--c-text-04);
+      &:hover {
+        background: var(--c-ui-03);
+      }
     }
   }
-  &::after {
-    background: ${(props) =>
-      props.dm ? "var(--c-ui-01)" : "var(--c-ui-02)"};
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2rem;
+    bottom: -2rem;
+    left: -2rem;
+    right: -2rem;
+    z-index: -1;
+    transition: all 2s var(--ease-01);
+    ${setupBubbleAnim}
+
+    clip-path: circle(0px);
+    opacity: 0;
+    --_p: 100px;
   }
   @media screen and (min-width: 1200px) {
     padding: var(--s-07);
@@ -464,13 +548,15 @@ export const ItemBox = styled.div<{
     min-width: calc(100% - 6rem);
     max-width: calc(100% - 6rem);
     background: var(--c-ui-bg) !important;
-    > h2,
-    > p,
-    > button {
-      color: var(--c-text-01) !important;
-    }
-    > button:hover {
-      background: var(--c-ui-02);
+    ${ItemBoxInner} {
+      > h2,
+      > p,
+      > button {
+        color: var(--c-text-01) !important;
+      }
+      > button:hover {
+        background: var(--c-ui-02);
+      }
     }
   }
   @media screen and (max-width: 650px) {
@@ -501,36 +587,47 @@ export const ItemContainer = styled(motion.div)`
   }
   ${HoriLine} {
     animation: ${lineInAnim} 0.4s ease-in-out;
+    opacity: 0.8;
   }
   ${ItemBox} {
     animation: ${itemBoxInAnim} 0.3s ease-in-out !important;
     animation-fill-mode: both;
     animation-delay: 0.3s;
+    opacity: 0.8;
     @media screen and (max-width: 900px) {
       animation-delay: 0s;
     }
-    position: relative;
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      --offset: var(--s-02);
-      width: 100%;
-      height: 100%;
-      transition: background 0.4s ease-out;
-      border-radius: 2px;
-      z-index: -1;
-      @media screen and (max-width: 950px) {
-        display: none;
+  }
+
+  @media screen and (max-width: 900px) {
+    &:nth-child(even) ${ItemBox}:before {
+      ${setupBubbleAnim}
+
+      clip-path: circle(80%);
+      opacity: 0.1;
+      --_p: 0px;
+    }
+  }
+
+  &:hover {
+    ${ItemBox} {
+      opacity: 1;
+      transition-duration: 0.4s;
+      transform: rotate3d(0, 0, 0, 0deg);
+      &::before {
+        transition-duration: 0.4s;
+        clip-path: circle(80%);
+        opacity: 0.3;
+        --_p: 0px;
+        @media screen and (max-width: 900px) {
+          opacity: 0.1;
+        }
       }
     }
-    &.left::after {
-      right: var(--offset);
-      top: var(--offset);
-    }
-    &.right::after {
-      bottom: var(--offset);
-      left: var(--offset);
+    ${HoriLine} {
+      transition-duration: 0.4s;
+      transform: rotate(0deg);
+      opacity: 1;
     }
   }
 `;

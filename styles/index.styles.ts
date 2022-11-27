@@ -68,6 +68,16 @@ export const HeaderContainer = styled.div<{
   background-size: 400% 400%;
   background-position: 96%;
   animation: ${gradientAnim} 22s infinite ease-in-out;
+  .ryfrea-logo {
+    position: absolute;
+    bottom: 0vw;
+    right: -2vw;
+    width: 8vw;
+    transform: rotate(-30deg);
+    opacity: 0.4;
+    filter: blur(1px);
+    display: none;
+  }
   @media screen and (max-width: 600px) {
     background: var(--c-ui-bg);
   }
