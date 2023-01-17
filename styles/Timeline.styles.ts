@@ -223,7 +223,7 @@ export const SelectedItemContainer = styled(motion.div)<{
     align-items: center;
     gap: var(--s-03);
     ${applyFontKind("code")}
-    color: var(--c-text-03);
+    color: var(--c-text-03) !important;
   }
   > div {
     ${applyFontKind("body")}
@@ -233,6 +233,10 @@ export const SelectedItemContainer = styled(motion.div)<{
     p {
       margin-bottom: var(--s-04);
     }
+  }
+
+  p a {
+    color: var(--c-focus-01);
   }
 `;
 

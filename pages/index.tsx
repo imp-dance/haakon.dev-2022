@@ -8,6 +8,7 @@ import { ContactForm } from "components/ContactForm";
 import { ExperienceSection } from "components/ExperienceSection";
 import { IndexTitle } from "components/IndexTitle";
 import MeSVG from "components/MeSVG";
+import { IndexMeta } from "components/meta/indexMeta";
 import { Timeline } from "components/Timeline";
 import WavesSVG from "components/WavesSVG";
 import { useReducedMotion } from "framer-motion";
@@ -18,7 +19,6 @@ import {
 import useMediaQuery from "hooks/useMediaQuery";
 import Markdown from "markdown-to-jsx";
 import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
@@ -170,6 +170,7 @@ const HomePage: NextPage<{
 
   return (
     <>
+      <IndexMeta />
       <Container
         variants={containerVariants}
         initial="initial"
@@ -177,14 +178,6 @@ const HomePage: NextPage<{
         exit="exit"
         transition={containerTransition}
       >
-        <Head>
-          <title>Håkon Underbakke | Front-end Developer</title>
-          <meta
-            name="description"
-            content="I'm a Norwegian frontend developer currently doing contract work for my own company, Ryfylke React AS.
-          I have been doing front-end focused web development professionally for the last 5 years. These days, I mostly work with React and Typescript."
-          />
-        </Head>
         <HeaderContainer dm={isDM}>
           <Header order={1} key={router.asPath}>
             <IndexTitle />
@@ -200,17 +193,15 @@ const HomePage: NextPage<{
             mostly work with React and Typescript.
           </Header>
           {renderButtons()}
-          {/*           <img
-            src={isDM ? `/logo-ryfre-dm.png` : `/logo-ryfre.png`}
-            alt="Logo Ryfylke React AS"
-            className="ryfrea-logo"
-          /> */}
         </HeaderContainer>
         <MeSVG />
         {contactOpen && (
           <ContactForm onClose={() => setContactOpen(false)} />
         )}
       </Container>
+      {/*       <HorizontalPortfolio
+        items={timelineData.map(serverDataToTimelineItems)}
+      /> */}
       <TimelineSectionContainer>
         {renderButtons(true)}
         <Timeline

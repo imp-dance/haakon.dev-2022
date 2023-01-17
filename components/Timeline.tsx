@@ -14,8 +14,6 @@ import {
   ItemContainer,
   Line,
   LineContainer,
-  pageInTransition,
-  pageInVariants,
   SelectedItemContainer,
   SelectedItemTopBorder,
   selectedItemTransitions,
@@ -169,13 +167,7 @@ export function Timeline({ items }: TimelineProps) {
           Back to Portfolio
         </Button>
       </SelectedItemContainer>
-      <motion.div
-        variants={pageInVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={pageInTransition}
-      >
+      <motion.div>
         <TimelineContainer
           variants={containerVariants}
           $active={selectedItem !== ""}
