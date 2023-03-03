@@ -231,11 +231,10 @@ function TimelineItem({
   const isSelected =
     selectedItem !== "" && selectedItem === item.id;
 
-  const className = `${isSelected ? "isSelected" : ""} ${dir}`;
+  const className = `${dir}`;
 
   const renderItem = () => (
     <ItemBox
-      key={`item-box-${item.id}`}
       dm={isDM}
       className={className}
       data-itemname={item.id}

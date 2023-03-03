@@ -238,6 +238,10 @@ export const SelectedItemContainer = styled(motion.div)<{
   p a {
     color: var(--c-focus-01);
   }
+
+  li a {
+    color: var(--c-focus-01);
+  }
 `;
 
 export const TimelineContainer = styled(motion.div)<{
