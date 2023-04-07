@@ -9,6 +9,7 @@ export type ServerTimeline = (Omit<
 > & {
   markdown: string;
   type: string;
+  image?: string;
 })[];
 
 export const getTimelineData = async () => {
@@ -29,6 +30,7 @@ export const getTimelineData = async () => {
       subTitle: string;
       body: string;
       skipSize: number;
+      image?: string;
     }>(fileContent);
     // Extract markdown
     const markdown = fileContent.substring(skipSize);

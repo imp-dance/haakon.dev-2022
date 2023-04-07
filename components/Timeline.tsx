@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   CloseButton,
-  containerVariants,
   Filler,
   HoriLine,
   IconCont,
@@ -16,9 +15,10 @@ import {
   LineContainer,
   SelectedItemContainer,
   SelectedItemTopBorder,
+  TimelineContainer,
+  containerVariants,
   selectedItemTransitions,
   selectedItemVariants,
-  TimelineContainer,
 } from "styles/Timeline.styles";
 import Grass from "./Grass";
 import LeaningMan from "./LeaningMan";
@@ -32,6 +32,7 @@ export type TimelineItem = {
   body: string;
   expandedBody: ReactNode;
   icon: ReactNode;
+  image?: string;
 };
 
 type TimelineProps = {
@@ -147,25 +148,29 @@ export function Timeline({ items }: TimelineProps) {
         $shiftLeft={selectedItemInfo.current?.shiftLeft}
         aria-hidden={selectedItem === ""}
       >
-        <h2>{selectedItemInfo.current?.item?.title}</h2>
-        <span>
-          <CloseButton
-            size="sm"
+        <div>
+          <h2>{selectedItemInfo.current?.item?.title}</h2>
+          <span>
+            <CloseButton
+              size="sm"
+              kind="ghost"
+              icon={<Close />}
+              onClick={() => selectItem("")}
+              aria-label="Back to Portfolio"
+            />
+            {selectedItemInfo.current?.item?.subTitle}
+          </span>
+          <div>
+            {selectedItemInfo.current?.item?.expandedBody}
+          </div>
+          <Button
+            size="lg"
             kind="ghost"
-            icon={<Close />}
             onClick={() => selectItem("")}
-            aria-label="Back to Portfolio"
-          />
-          {selectedItemInfo.current?.item?.subTitle}
-        </span>
-        <div>{selectedItemInfo.current?.item?.expandedBody}</div>
-        <Button
-          size="lg"
-          kind="ghost"
-          onClick={() => selectItem("")}
-        >
-          Back to Portfolio
-        </Button>
+          >
+            Back to Portfolio
+          </Button>
+        </div>
       </SelectedItemContainer>
       <motion.div>
         <TimelineContainer
@@ -241,6 +246,7 @@ function TimelineItem({
       dir={dir}
     >
       <ItemBoxInner dm={isDM}>
+        {item.image && <img src={item.image} />}
         <h2>{item.title}</h2>
         <span>{item.subTitle}</span>
         <p>{item.body}</p>

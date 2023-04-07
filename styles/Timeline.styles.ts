@@ -215,32 +215,36 @@ export const SelectedItemContainer = styled(motion.div)<{
       width: 100%;
     }
   }
-  h2 {
-    ${applyFontKind("h1")}
-  }
-  > span {
-    display: flex;
-    align-items: center;
-    gap: var(--s-03);
-    ${applyFontKind("code")}
-    color: var(--c-text-03) !important;
-  }
   > div {
-    ${applyFontKind("body")}
-    margin: var(--s-05) 0;
-    color: var(--c-text-02);
     max-width: 700px;
-    p {
-      margin-bottom: var(--s-04);
+    margin: 0 auto;
+    h2 {
+      ${applyFontKind("h1")}
     }
-  }
+    > span {
+      display: flex;
+      align-items: center;
+      gap: var(--s-03);
+      ${applyFontKind("code")}
+      color: var(--c-text-03) !important;
+    }
+    > div {
+      ${applyFontKind("body")}
+      margin: var(--s-05) 0;
+      color: var(--c-text-02);
+      max-width: 700px;
+      p {
+        margin-bottom: var(--s-04);
+      }
+    }
 
-  p a {
-    color: var(--c-focus-01);
-  }
+    p a {
+      color: var(--c-focus-01);
+    }
 
-  li a {
-    color: var(--c-focus-01);
+    li a {
+      color: var(--c-focus-01);
+    }
   }
 `;
 
@@ -495,6 +499,7 @@ export const ItemBox = styled.div<{
   gap: var(--s-03);
   border-radius: 2px;
   padding: var(--s-05);
+  overflow: hidden;
   position: relative;
   z-index: 5;
   @media screen and (min-width: 900px) {
@@ -513,6 +518,20 @@ export const ItemBox = styled.div<{
     margin: 0;
   }
   ${ItemBoxInner} {
+    > img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0.25;
+      z-index: -1;
+      filter: brightness(80%) blur(3px);
+      object-fit: cover;
+      height: 100%;
+      @media screen and (max-width: 900px) {
+        filter: brightness(70%) blur(4px);
+      }
+    }
     > h2 {
       ${applyFontKind("subtitle")}
       color:var(--c-text-04) !important;
@@ -622,7 +641,7 @@ export const ItemContainer = styled(motion.div)`
       opacity: 1;
       transition-duration: 0.4s;
       transform: rotate3d(0, 0, 0, 0deg);
-      &::before {
+      /*  &::before {
         transition-duration: 0.4s;
         clip-path: circle(80%);
         opacity: 0.3;
@@ -630,7 +649,7 @@ export const ItemContainer = styled(motion.div)`
         @media screen and (max-width: 900px) {
           opacity: 0.1;
         }
-      }
+      } */
     }
     ${HoriLine} {
       transition-duration: 0.4s;
