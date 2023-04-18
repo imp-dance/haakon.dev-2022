@@ -497,7 +497,7 @@ export const ItemBox = styled.div<{
   display: flex;
   flex-direction: column;
   gap: var(--s-03);
-  border-radius: 2px;
+  border-radius: 15px;
   padding: var(--s-05);
   overflow: hidden;
   position: relative;
@@ -538,7 +538,10 @@ export const ItemBox = styled.div<{
     }
     > span {
       ${applyFontKind("code")}
-      color:var(--c-text-03);
+      color:#eddfdf !important;
+      @media screen and (max-width: 900px) {
+        color: #6e6969 !important;
+      }
     }
     > p {
       ${applyFontKind("body")}
