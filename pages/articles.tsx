@@ -15,12 +15,12 @@ import { useEffect, useRef, useState } from "react";
 import { Container as ArticlePageContainer } from "styles/article.styles";
 import {
   Container,
-  createContainerMotionProps,
   Error,
-  listItemMotionProps,
   PaginationContainer,
   SearchContainer,
   SearchInput,
+  createContainerMotionProps,
+  listItemMotionProps,
 } from "styles/articles.styles";
 import { ArticleItem } from "types/wordpress";
 
@@ -79,7 +79,7 @@ const ArticlesPage: NextPage<{
         </Head>
         <h1>
           <Link href="/" passHref scroll={false}>
-            <a>haakon.dev</a>
+            haakon.dev
           </Link>
           <span>/</span>
           <span>articles</span>
@@ -148,7 +148,7 @@ const ArticlesPage: NextPage<{
                   passHref
                   scroll={false}
                 >
-                  <a>
+                  <>
                     <strong
                       dangerouslySetInnerHTML={{
                         __html: post.title.rendered,
@@ -172,7 +172,7 @@ const ArticlesPage: NextPage<{
                         }
                       )}
                     </footer>
-                  </a>
+                  </>
                 </Link>
               </motion.li>
             ))

@@ -525,11 +525,11 @@ export const ItemBox = styled.div<{
       width: 100%;
       opacity: 0.25;
       z-index: -1;
-      filter: brightness(80%) blur(3px);
+      filter: contrast(2) brightness(47%) blur(10px);
       object-fit: cover;
       height: 100%;
       @media screen and (max-width: 900px) {
-        filter: brightness(70%) blur(4px);
+        filter: contrast(2) brightness(70%) blur(15px);
       }
     }
     > h2 {

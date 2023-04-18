@@ -207,11 +207,9 @@ const ContactLink = (props: { link: string; text: string }) => {
   return (
     <li>
       <Link href={props.link} target="_blank" passHref>
-        <a target="_blank">
-          <span />
-          {props.text}
-          <span />
-        </a>
+        <span />
+        {props.text}
+        <span />
       </Link>
     </li>
   );

@@ -22,7 +22,7 @@
     "front-matter-markdown": "^0.4.5",
     "html-react-parser": "^2.0.0",
     "markdown-to-jsx": "^7.1.7",
-    "next": "12.2.0",
+    "next": "^13.3.0",
     "node-mailjet": "^5.1.1",
     "prismjs": "^1.28.0",
     "react": "18.2.0",

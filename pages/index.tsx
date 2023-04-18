@@ -182,7 +182,15 @@ const HomePage: NextPage<{
           <Header order={1} key={router.asPath}>
             <IndexTitle />
           </Header>
-          <Header order={3}>
+          <Header
+            order={2}
+            style={{
+              fontSize: 23,
+              fontWeight: "normal",
+              letterSpacing: 0,
+              maxWidth: 600,
+            }}
+          >
             I&apos;m a Norwegian frontend developer currently
             doing contract work for my own company,{" "}
             <strong>Ryfylke React AS</strong>.
