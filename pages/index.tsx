@@ -3,6 +3,7 @@ import {
   AutoAwesome,
   TaskAlt,
   Work,
+  ArrowDownward,
 } from "@styled-icons/material";
 import { ContactForm } from "components/ContactForm";
 import { ExperienceSection } from "components/ExperienceSection";
@@ -141,7 +142,7 @@ const HomePage: NextPage<{
                 behavior: shouldReduceMotion ? "auto" : "smooth",
               })
             }
-            icon={<AutoAwesome />}
+            icon={<ArrowDownward />}
           >
             My experience & career
           </Button>

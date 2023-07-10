@@ -24,6 +24,7 @@ import Grass from "./Grass";
 import LeaningMan from "./LeaningMan";
 import Luci from "./Luci";
 import Molly from "./Molly";
+import useMediaQuery from "hooks/useMediaQuery";
 
 export type TimelineItem = {
   id: string;
@@ -44,6 +45,9 @@ export function Timeline({ items }: TimelineProps) {
   const router = useRouter();
   const [_, render] = useState(".");
   const selectedItemControls = useAnimation();
+  const prefersReducedMotion = useMediaQuery(
+    "(prefers-reduced-motion: reduce)"
+  );
   const selectedItemInfo = useRef<{
     item: TimelineItem | undefined;
     shiftLeft: boolean;
@@ -141,9 +145,15 @@ export function Timeline({ items }: TimelineProps) {
         initial="closed"
         animate={selectedItemControls}
         transition={
-          selectedItemTransitions[
-            selectedItem === "" ? "closed" : "open"
-          ]
+          prefersReducedMotion
+            ? {
+                delay: 0,
+                duration: 0.001,
+                ease: "easeOut",
+              }
+            : selectedItemTransitions[
+                selectedItem === "" ? "closed" : "open"
+              ]
         }
         $shiftLeft={selectedItemInfo.current?.shiftLeft}
         aria-hidden={selectedItem === ""}

@@ -84,6 +84,10 @@ export const IconCont = styled.div<{
   color: ${(props) =>
     props.selected ? "var(--c-text-04)" : "var(--c-text-01)"};
   transition: color 0.6s ease-in-out, background 0.6s ease-in-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.001ms;
+  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,6 +172,11 @@ export const SelectedItemTopBorder = styled.div<{
   transition: transform 0.4s ease-in-out,
     opacity 0.4s ease-in-out;
   transition-delay: 0.3s;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.001ms;
+    transition-delay: 0s;
+  }
 `;
 
 export const SelectedItemContainer = styled(motion.div)<{
@@ -354,6 +363,10 @@ export const Line = styled.div<{
   min-height: 200px;
   transition: transform 0.6s var(--ease-01);
   transition: background 0.8s ease-in-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.001ms;
+  }
   background: var(--line-color);
   ${(props) =>
     props.isFirst &&
@@ -383,6 +396,10 @@ export const HoriLine = styled.div<{
     );
     return transform.join(" ");
   }};
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.001ms;
+  }
   background: var(--line-color);
   position: absolute;
   top: var(--s-09);
@@ -517,6 +534,11 @@ export const ItemBox = styled.div<{
   button {
     margin: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.001ms;
+    transition-delay: 0s;
+  }
   ${ItemBoxInner} {
     > img {
       position: absolute;
@@ -534,7 +556,10 @@ export const ItemBox = styled.div<{
     }
     > h2 {
       ${applyFontKind("subtitle")}
-      color:var(--c-text-04) !important;
+      @media screen and (min-width: 1200px) {
+        font-size: 23px;
+      }
+      color: var(--c-text-04) !important;
     }
     > span {
       ${applyFontKind("code")}
@@ -565,6 +590,9 @@ export const ItemBox = styled.div<{
     right: -2rem;
     z-index: -1;
     transition: all 2s var(--ease-01);
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0.001ms;
+    }
     ${setupBubbleAnim}
 
     clip-path: circle(0px);
@@ -617,6 +645,11 @@ export const ItemContainer = styled(motion.div)`
   }
   ${HoriLine} {
     animation: ${lineInAnim} 0.4s ease-in-out;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-duration: 0.001ms;
+      animation-delay: 0s;
+    }
     opacity: 0.8;
   }
   ${ItemBox} {
@@ -625,6 +658,10 @@ export const ItemContainer = styled(motion.div)`
     animation-delay: 0.3s;
     opacity: 0.8;
     @media screen and (max-width: 900px) {
+      animation-delay: 0s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      animation-duration: 0.001ms;
       animation-delay: 0s;
     }
   }
@@ -643,7 +680,20 @@ export const ItemContainer = styled(motion.div)`
     ${ItemBox} {
       opacity: 1;
       transition-duration: 0.4s;
+      // only apply transform when not in reduced motion
       transform: rotate3d(0, 0, 0, 0deg);
+
+      @media (prefers-reduced-motion: reduce) {
+        transition-duration: 0.001ms;
+        &[dir="right"] {
+          transform: rotate3d(1, 1, 1, 0deg) scale(0.85)
+            translateX(-9%);
+        }
+        &[dir="left"] {
+          transform: rotate3d(1, 1, 1, -0deg) scale(0.85)
+            translateX(9%);
+        }
+      }
       /*  &::before {
         transition-duration: 0.4s;
         clip-path: circle(80%);
@@ -656,6 +706,10 @@ export const ItemContainer = styled(motion.div)`
     }
     ${HoriLine} {
       transition-duration: 0.4s;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition-duration: 0.001ms;
+      }
       transform: rotate(0deg);
       opacity: 1;
     }
