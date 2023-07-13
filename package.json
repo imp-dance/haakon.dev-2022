@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@giscus/react": "^2.3.0",
     "@prisma/client": "^4.1.1",
     "@ryfylke-react/ui": "^0.1.54",
     "@styled-icons/material": "^10.34.0",

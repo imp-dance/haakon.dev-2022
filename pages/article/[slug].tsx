@@ -19,6 +19,7 @@ import {
   Title,
 } from "../../styles/article.styles";
 import { ArticleItem } from "../../types/wordpress";
+import Giscus from "@giscus/react";
 
 type ArticlePageProps = {
   post: ArticleItem;
@@ -80,6 +81,25 @@ const ArticlePage: NextPage<ArticlePageProps> = function ({
           __html: post.content.rendered,
         }}
       />
+      <div
+        style={{ height: "1px", background: "var(--c-ui-02)" }}
+      />
+      <div style={{ height: "2rem" }} />
+      <Giscus
+        repo="imp-dance/haakon.dev-2022"
+        repoId="R_kgDOHmeYng"
+        category="General"
+        categoryId="DIC_kwDOHmeYns4CX3IT"
+        mapping="pathname"
+        emitMetadata="0"
+        reactionsEnabled="1"
+        theme="dark"
+        lang="en"
+        loading="lazy"
+        strict="0"
+        inputPosition="top"
+      />
+      <div style={{ height: "2rem" }} />
       <Link href="/articles" passHref scroll={false}>
         <BackButton
           kind="ghost"
