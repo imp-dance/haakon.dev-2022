@@ -198,7 +198,7 @@ const HomePage: NextPage<{
           </Header>
           <Header order={3}>
             I have been doing front-end focused web development
-            professionally for the last 5 years. These days, I
+            professionally for the last 7 years. These days, I
             mostly work with React and Typescript.
           </Header>
           {renderButtons()}
