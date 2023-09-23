@@ -142,17 +142,31 @@ export function ExperienceSection() {
           this project.
         </p>
         <p>
+          At Telenor, I have mostly been working on developing
+          new features, fixing bugs, refactoring and maintaining
+          the codebase. In addition to my work on the front-end,
+          I have also been very engaged in increasing the user
+          experience and accessibility of the application -
+          pushing for reevaluating core design decisions, and
+          making changes where necessary - both on the UI and
+          code level.
+        </p>
+        <p>
           Besides the Telenor project, I have also been working
-          on my company&apos;s digital presence,{" "}
-          <Link
-            href="https://design.ryfylke.dev"
-            target="_blank"
-          >
-            Ryfylke React UI
+          on my company&apos;s digital presence, the open source
+          initiative;{" "}
+          <Link href="https://koding.no" target="_blank">
+            Koding.no
           </Link>
-          , and some other internal projects not yet ready for
-          launch. My company currently consists of me, as well as
-          Eirik Underbakke - who works part-time as a designer.
+          , other open source projects like{" "}
+          <Link href="https://rtk-query-loader.ryfylke.dev/">
+            RTK Query Loader
+          </Link>
+          , as well as the IRL gaming company{" "}
+          <Link href="https://www.newbringer.com/">
+            Newbringer
+          </Link>
+          .
         </p>
         <div style={{ height: "var(--s-09)" }} />
         <div style={{ height: "var(--s-09)" }} />
